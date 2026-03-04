@@ -107,6 +107,11 @@ function GlitchWord({ word }: { word: string }) {
 export default function ColorBreakSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const words =
     "No VIP. No velvet ropes. Just raw energy and relentless beats in the spaces where music sounds the way it was meant to.".split(
@@ -119,18 +124,22 @@ export default function ColorBreakSection() {
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{ contain: "paint" }}
     >
-      {/* Video background */}
+      {/* Video background — skip autoplay on mobile to save memory */}
       <div className="absolute inset-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-          style={{ filter: "brightness(0.5) saturate(1.2)" }}
-        >
-          <source src={asset("/videos/red-strobes.mp4")} type="video/mp4" />
-        </video>
+        {isMobile ? (
+          <div className="h-full w-full bg-[#1a0505]" />
+        ) : (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover"
+            style={{ filter: "brightness(0.5) saturate(1.2)" }}
+          >
+            <source src={asset("/videos/red-strobes.mp4")} type="video/mp4" />
+          </video>
+        )}
         {/* Subtle dark overlay */}
         <div
           className="absolute inset-0"
@@ -141,24 +150,26 @@ export default function ColorBreakSection() {
         />
       </div>
 
-      {/* Grain overlay */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ opacity: 0.12 }}
-      >
-        <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-          <filter id="colorBreakNoise">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.65"
-              numOctaves="3"
-              stitchTiles="stitch"
-            />
-            <feColorMatrix type="saturate" values="0" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#colorBreakNoise)" />
-        </svg>
-      </div>
+      {/* Grain overlay — SVG feTurbulence crashes mobile Safari, desktop only */}
+      {!isMobile && (
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ opacity: 0.12 }}
+        >
+          <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+            <filter id="colorBreakNoise">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.65"
+                numOctaves="3"
+                stitchTiles="stitch"
+              />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#colorBreakNoise)" />
+          </svg>
+        </div>
+      )}
 
       {/* Content — mix-blend-mode difference inverts against video */}
       <div
