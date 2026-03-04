@@ -9,6 +9,10 @@ import CornerBrackets from "@/components/effects/CornerBrackets";
 import ScrollReveal, { StaggerContainer } from "@/components/effects/ScrollReveal";
 import FlickerButton from "@/components/effects/FlickerButton";
 import EventCard from "@/components/cards/EventCard";
+import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
+import PhotoBreakSection from "@/components/sections/PhotoBreakSection";
+import ColorBreakSection from "@/components/sections/ColorBreakSection";
+import ParallaxField from "@/components/effects/ParallaxField";
 
 /* ──────────────────────────────────────────────
    PLACEHOLDER DATA
@@ -18,19 +22,19 @@ const EVENTS = [
     title: "Subliminal Frequencies",
     date: "Mar 22, 2026",
     venue: "Basement NYC",
-    image: "/images/AGAPE_D39.JPEG",
+    image: "/images/DSC05585.jpeg",
   },
   {
     title: "Nocturnal Transmission",
     date: "Apr 05, 2026",
     venue: "Knockdown Center",
-    image: "/images/1D3A7592.jpeg",
+    image: "/images/DSC05632.jpeg",
   },
   {
     title: "Raw Signal",
     date: "Apr 19, 2026",
     venue: "Elsewhere Zone 1",
-    image: "/images/AGAPE_F5-2.JPEG",
+    image: "/images/AGAPE_F5.jpeg",
   },
   {
     title: "Under the Surface",
@@ -64,14 +68,14 @@ function HeroSection() {
         style={{ opacity: heroOpacity, scale: heroScale }}
       >
         <PixelDisplacement
-          src="/images/hero.webp"
+          src="/images/1D3A9267.jpg"
           alt="Agape event — underground crowd"
           className="h-full w-full"
           intensity={1.2}
         />
-        {/* Deep dark overlay for text legibility */}
+        {/* Deep dark overlay for text legibility (pointer-events-none so mouse reaches WebGL) */}
         <div
-          className="absolute inset-0"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
               "linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.6) 50%, rgba(5,5,5,0.92) 100%)",
@@ -79,8 +83,8 @@ function HeroSection() {
         />
       </motion.div>
 
-      {/* Hero content — corner brackets frame */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6">
+      {/* Hero content — corner brackets frame (pointer-events-none so mouse reaches WebGL canvas) */}
+      <div className="pointer-events-none relative z-10 flex h-full flex-col items-center justify-center px-6">
         <CornerBrackets
           className="flex flex-col items-center gap-6 p-10 md:p-16"
           size={32}
@@ -99,10 +103,14 @@ function HeroSection() {
               {/* Main headline — MASSIVE */}
               <ScrollReveal delay={0.2} distance={30}>
                 <h1
-                  className="font-display font-bold uppercase text-[#fafafa] text-center leading-[0.9]"
-                  style={{ fontSize: "clamp(3rem, 8vw, 8rem)", letterSpacing: "0.04em" }}
+                  className="pointer-events-auto font-display font-bold uppercase text-[#fafafa] text-center leading-[0.9]"
+                  style={{
+                    fontSize: "clamp(3rem, 8vw, 8rem)",
+                    letterSpacing: "0.04em",
+                    mixBlendMode: "exclusion",
+                  }}
                 >
-                  <GlitchText text="AGAPE" playOnMount duration={600} />
+                  <GlitchText text="ÄGAPĒ" playOnMount duration={600} />
                 </h1>
               </ScrollReveal>
 
@@ -130,7 +138,7 @@ function HeroSection() {
 
               {/* CTA */}
               <ScrollReveal delay={0.65} distance={15}>
-                <FlickerButton href="/events" variant="outline" className="mt-2">
+                <FlickerButton href="/events" variant="outline" className="pointer-events-auto mt-2">
                   Explore Events
                 </FlickerButton>
               </ScrollReveal>
@@ -189,7 +197,7 @@ function NarrativeSection() {
       ref={sectionRef}
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "#0a0a0a",
+        backgroundColor: "rgba(10, 10, 10, 0.55)",
         paddingTop: "8rem",
         paddingBottom: "8rem",
       }}
@@ -459,8 +467,8 @@ function EventsSection() {
             ))}
           </div>
         ) : (
-          /* Desktop: horizontal row with hover expansion */
-          <div className="flex w-full" style={{ height: 500 }}>
+          /* Desktop: vertical stack with hover expansion */
+          <div className="mx-auto flex w-full max-w-[1200px] flex-col px-6 md:px-10 lg:px-16" style={{ height: 600 }}>
             {EVENTS.map((event, i) => (
               <EventCard
                 key={event.title}
@@ -490,7 +498,7 @@ function CTASection() {
     <section
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "#111111",
+        backgroundColor: "rgba(17, 17, 17, 0.55)",
         paddingTop: "8rem",
         paddingBottom: "8rem",
       }}
@@ -555,27 +563,48 @@ function CTASection() {
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationSchema()),
-        }}
-      />
+      {/* Fixed Three.js terrain — visible behind semi-transparent sections */}
+      <ParallaxField />
 
-      <HeroSection />
+      <div className="relative" style={{ zIndex: 1 }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema()),
+          }}
+        />
 
-      {/* Dashed divider between sections */}
-      <div className="h-[1px] w-full border-t border-dashed border-[#363636]" />
+        <HeroSection />
 
-      <NarrativeSection />
+        {/* Ghost marquee — background texture behind narrative */}
+        <div style={{ backgroundColor: "rgba(10, 10, 10, 0.55)" }}>
+          <InfiniteMarquee text="ÄGAPĒ" variant="ghost" speed={25} className="py-4" />
+        </div>
 
-      <div className="h-[1px] w-full border-t border-dashed border-[#363636]" />
+        <NarrativeSection />
 
-      <EventsSection />
+        {/* Full-width immersive photo strip */}
+        <PhotoBreakSection />
 
-      <div className="h-[1px] w-full border-t border-dashed border-[#363636]" />
+        {/* Filled marquee ticker — transitional element */}
+        <div className="overflow-hidden border-t border-b border-dashed border-[#363636] bg-[#0a0a0a] py-5">
+          <InfiniteMarquee
+            text="UPCOMING"
+            variant="filled"
+            speed={20}
+            separator={<span className="mx-[0.6em] text-[#363636]">///</span>}
+          />
+        </div>
 
-      <CTASection />
+        <EventsSection />
+
+        {/* Color explosion — manifesto section */}
+        <ColorBreakSection />
+
+        <div className="h-[1px] w-full border-t border-dashed border-[#363636]" />
+
+        <CTASection />
+      </div>
     </>
   );
 }

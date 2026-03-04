@@ -28,22 +28,20 @@ export default function EventCard({
   onLeave,
   anyHovered,
 }: EventCardProps) {
-  // Desktop: hovered card expands dramatically, neighbors compress
-  const getWidth = () => {
+  // Vertical: hovered card expands height, neighbors compress
+  const getHeight = () => {
     if (!anyHovered) return "25%";
-    if (isHovered) return "46%";
-    return "18%";
+    if (isHovered) return "52%";
+    return "16%";
   };
 
   return (
     <motion.div
-      className="event-card relative h-[500px] cursor-pointer overflow-hidden"
+      className="event-card relative w-full cursor-pointer overflow-hidden"
       style={{
-        borderRight: index < 3 ? "1px dashed var(--color-tertiary-dark)" : "none",
+        borderBottom: index < 3 ? "1px dashed var(--color-tertiary-dark)" : "none",
       }}
-      animate={{
-        width: getWidth(),
-      }}
+      animate={{ height: getHeight() }}
       transition={{
         duration: 0.8,
         ease: [0.455, 0.03, 0.515, 0.955],
@@ -64,11 +62,10 @@ export default function EventCard({
             alt={title}
             className="h-full w-full object-cover"
             style={{
-              filter: isHovered ? "brightness(0.6)" : "brightness(0.35)",
+              filter: isHovered ? "brightness(0.6)" : "brightness(0.3)",
               transition: "filter 0.5s ease",
             }}
           />
-          {/* Dark gradient overlay */}
           <div
             className="absolute inset-0"
             style={{
@@ -78,11 +75,11 @@ export default function EventCard({
           />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 flex h-full flex-col justify-end p-6 md:p-8">
-          {/* Index number */}
+        {/* Content — horizontal layout: info left, CTA right */}
+        <div className="relative z-10 flex h-full items-end p-6 md:p-8">
+          {/* Index number — top left */}
           <motion.span
-            className="mb-auto font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]"
+            className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888] md:left-8 md:top-8"
             animate={{ opacity: isHovered ? 1 : 0.6 }}
             transition={{ duration: 0.3 }}
           >
@@ -90,39 +87,40 @@ export default function EventCard({
           </motion.span>
 
           {/* Event info */}
-          <div className="mt-auto">
-            <motion.div
-              animate={{ y: isHovered ? -8 : 0 }}
-              transition={{ duration: 0.5, ease: [0.455, 0.03, 0.515, 0.955] }}
-            >
-              <h3 className="font-display text-xl font-bold uppercase tracking-[0.05em] text-[#fafafa] md:text-2xl">
-                <GlitchText text={title} />
-              </h3>
-            </motion.div>
+          <div className="flex w-full items-end justify-between gap-6">
+            <div>
+              <motion.div
+                animate={{ y: isHovered ? -8 : 0 }}
+                transition={{ duration: 0.5, ease: [0.455, 0.03, 0.515, 0.955] }}
+              >
+                <h3 className="font-display text-xl font-bold uppercase tracking-[0.05em] text-[#fafafa] md:text-3xl">
+                  <GlitchText text={title} />
+                </h3>
+              </motion.div>
 
-            <motion.div
-              className="mt-3 flex flex-col gap-1"
-              animate={{
-                opacity: isHovered ? 1 : 0.7,
-                y: isHovered ? -4 : 0,
-              }}
-              transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
-            >
-              <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
-                {date}
-              </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#888888]">
-                {venue}
-              </span>
-            </motion.div>
+              <motion.div
+                className="mt-2 flex gap-6"
+                animate={{
+                  opacity: isHovered ? 1 : 0.7,
+                  y: isHovered ? -4 : 0,
+                }}
+                transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
+              >
+                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
+                  {date}
+                </span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#888888]">
+                  {venue}
+                </span>
+              </motion.div>
+            </div>
 
-            {/* CTA — only visible on hover */}
+            {/* CTA — slides in on hover */}
             <motion.div
-              className="mt-5"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={{
                 opacity: isHovered ? 1 : 0,
-                y: isHovered ? 0 : 10,
+                x: isHovered ? 0 : 20,
               }}
               transition={{
                 duration: 0.35,
@@ -130,7 +128,7 @@ export default function EventCard({
                 ease: [0.455, 0.03, 0.515, 0.955],
               }}
             >
-              <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
+              <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap">
                 Notify Me
               </FlickerButton>
             </motion.div>

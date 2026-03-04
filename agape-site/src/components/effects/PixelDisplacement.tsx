@@ -13,7 +13,8 @@ const VERTEX_SHADER = `
   attribute vec2 a_position;
   varying vec2 v_uv;
   void main() {
-    v_uv = a_position * 0.5 + 0.5;
+    // Flip Y: WebGL textures have bottom-left origin, images have top-left
+    v_uv = vec2(a_position.x * 0.5 + 0.5, 1.0 - (a_position.y * 0.5 + 0.5));
     gl_Position = vec4(a_position, 0.0, 1.0);
   }
 `;
@@ -24,9 +25,25 @@ const FRAGMENT_SHADER = `
   varying vec2 v_uv;
   uniform vec2 u_mouse;        // normalized mouse position (0..1)
   uniform vec2 u_resolution;   // canvas size in pixels
+  uniform vec2 u_imageSize;    // original image dimensions
   uniform float u_time;
   uniform float u_intensity;   // mouse proximity intensity (0..1)
   uniform sampler2D u_texture;
+
+  // Remap UVs to simulate CSS object-cover (no stretching)
+  vec2 coverUV(vec2 uv, vec2 resolution, vec2 imageSize) {
+    float canvasAspect = resolution.x / resolution.y;
+    float imageAspect = imageSize.x / imageSize.y;
+    vec2 scale = vec2(1.0);
+    if (canvasAspect > imageAspect) {
+      // Canvas is wider than image — scale to fill width, crop top/bottom
+      scale.y = imageAspect / canvasAspect;
+    } else {
+      // Canvas is taller than image — scale to fill height, crop sides
+      scale.x = canvasAspect / imageAspect;
+    }
+    return (uv - 0.5) * scale + 0.5;
+  }
 
   void main() {
     vec2 uv = v_uv;
@@ -36,7 +53,7 @@ const FRAGMENT_SHADER = `
     float dist = distance(uv, mouseUV);
 
     // Soft falloff — organic smeared shape, not a hard circle
-    float radius = 0.18;
+    float radius = 0.30;
     float falloff = smoothstep(radius, 0.0, dist);
 
     // Displacement direction: radial push from mouse + subtle swirl
@@ -44,19 +61,29 @@ const FRAGMENT_SHADER = `
     float angle = atan(dir.y, dir.x) + u_time * 0.3;
     vec2 swirl = vec2(cos(angle), sin(angle));
 
-    // Combine radial + swirl for organic feel
-    vec2 displacement = mix(dir, swirl, 0.3) * falloff * 0.04 * u_intensity;
+    // Combine radial + swirl for organic feel — dramatic displacement
+    vec2 displacement = mix(dir, swirl, 0.3) * falloff * 0.12 * u_intensity;
+
+    // Pixelation: snap UVs to grid near mouse
+    float pixelSize = mix(1.0, 40.0, falloff * u_intensity); // 1px (no effect) to 40px blocks
+    vec2 pixelatedUV = uv + displacement;
+    pixelatedUV = floor(pixelatedUV * u_resolution / pixelSize) * pixelSize / u_resolution;
 
     // Chromatic aberration — shift R, G, B channels differently
-    float aberration = falloff * 0.008 * u_intensity;
+    float aberration = falloff * 0.025 * u_intensity;
 
-    float r = texture2D(u_texture, uv + displacement + vec2(aberration, 0.0)).r;
-    float g = texture2D(u_texture, uv + displacement).g;
-    float b = texture2D(u_texture, uv + displacement - vec2(aberration, 0.0)).b;
-    float a = texture2D(u_texture, uv + displacement).a;
+    // Apply object-cover UV remapping to texture lookups
+    vec2 covUV = coverUV(pixelatedUV, u_resolution, u_imageSize);
+    vec2 covUV_r = coverUV(pixelatedUV + vec2(aberration, 0.0), u_resolution, u_imageSize);
+    vec2 covUV_b = coverUV(pixelatedUV - vec2(aberration, 0.0), u_resolution, u_imageSize);
 
-    // Subtle scan lines for CRT feel
-    float scanline = sin(uv.y * u_resolution.y * 1.5) * 0.03 * falloff * u_intensity;
+    float r = texture2D(u_texture, covUV_r).r;
+    float g = texture2D(u_texture, covUV).g;
+    float b = texture2D(u_texture, covUV_b).b;
+    float a = texture2D(u_texture, covUV).a;
+
+    // Scan lines for CRT feel
+    float scanline = sin(uv.y * u_resolution.y * 1.5) * 0.06 * falloff * u_intensity;
 
     gl_FragColor = vec4(r + scanline, g, b - scanline, a);
   }
@@ -85,7 +112,14 @@ export default function PixelDisplacement({
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const targetMouseRef = useRef({ x: 0.5, y: 0.5 });
   const intensityRef = useRef(0);
+  const targetIntensityRef = useRef(0);
+  const lastMoveTimeRef = useRef(0);
+  const isMovingRef = useRef(false);
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const imageSizeRef = useRef({ w: 1, h: 1 });
   const startTimeRef = useRef(Date.now());
+  // Ripple: when mouse stops, briefly spike then decay
+  const rippleRef = useRef(0);
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile
@@ -150,6 +184,9 @@ export default function PixelDisplacement({
         image
       );
 
+      // Store natural image dimensions for aspect-ratio correction
+      imageSizeRef.current = { w: image.naturalWidth, h: image.naturalHeight };
+
       startTimeRef.current = Date.now();
     },
     []
@@ -181,17 +218,17 @@ export default function PixelDisplacement({
 
         // Smooth mouse interpolation (lerp)
         mouseRef.current.x +=
-          (targetMouseRef.current.x - mouseRef.current.x) * 0.08;
+          (targetMouseRef.current.x - mouseRef.current.x) * 0.25;
         mouseRef.current.y +=
-          (targetMouseRef.current.y - mouseRef.current.y) * 0.08;
+          (targetMouseRef.current.y - mouseRef.current.y) * 0.25;
 
-        // Intensity lerps toward target
-        const isNear =
-          Math.abs(targetMouseRef.current.x - 0.5) < 0.5 &&
-          Math.abs(targetMouseRef.current.y - 0.5) < 0.5;
-        const targetIntensity = isNear ? 1.0 : 0.0;
+        // Intensity: ramp up fast when moving, decay when idle
+        const rampSpeed = isMovingRef.current ? 0.15 : 0.04;
         intensityRef.current +=
-          (targetIntensity - intensityRef.current) * 0.05;
+          (targetIntensityRef.current - intensityRef.current) * rampSpeed;
+
+        // Ripple: decays over time, adds a brief pulse when mouse stops
+        rippleRef.current *= 0.93;
 
         const time = (Date.now() - startTimeRef.current) / 1000;
 
@@ -199,13 +236,15 @@ export default function PixelDisplacement({
 
         const uMouse = gl.getUniformLocation(program, "u_mouse");
         const uRes = gl.getUniformLocation(program, "u_resolution");
+        const uImageSize = gl.getUniformLocation(program, "u_imageSize");
         const uTime = gl.getUniformLocation(program, "u_time");
         const uIntensity = gl.getUniformLocation(program, "u_intensity");
 
         gl.uniform2f(uMouse, mouseRef.current.x, mouseRef.current.y);
         gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform2f(uImageSize, imageSizeRef.current.w, imageSizeRef.current.h);
         gl.uniform1f(uTime, time);
-        gl.uniform1f(uIntensity, intensityRef.current * intensity);
+        gl.uniform1f(uIntensity, (intensityRef.current + rippleRef.current) * intensity);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
@@ -215,17 +254,34 @@ export default function PixelDisplacement({
       animRef.current = requestAnimationFrame(render);
     };
 
-    // Mouse tracking
+    // Mouse tracking — only active when moving
     const handleMouse = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       targetMouseRef.current.x = (e.clientX - rect.left) / rect.width;
-      targetMouseRef.current.y =
-        1.0 - (e.clientY - rect.top) / rect.height; // flip Y for GL
+      targetMouseRef.current.y = (e.clientY - rect.top) / rect.height;
+
+      // Mark as moving, ramp up intensity
+      isMovingRef.current = true;
+      targetIntensityRef.current = 1.0;
+      lastMoveTimeRef.current = Date.now();
+
+      // Reset idle timer — when mouse stops, fade out + ripple
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      idleTimerRef.current = setTimeout(() => {
+        isMovingRef.current = false;
+        targetIntensityRef.current = 0;
+        // Trigger a short ripple pulse on stop
+        rippleRef.current = 0.6;
+      }, 150);
     };
 
     const handleLeave = () => {
-      targetMouseRef.current.x = 0.5;
-      targetMouseRef.current.y = 0.5;
+      // Fade out — don't snap to center
+      isMovingRef.current = false;
+      targetIntensityRef.current = 0;
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      // Small ripple on leave
+      rippleRef.current = 0.4;
     };
 
     container.addEventListener("mousemove", handleMouse);
@@ -242,6 +298,7 @@ export default function PixelDisplacement({
 
     return () => {
       cancelAnimationFrame(animRef.current);
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
       container.removeEventListener("mousemove", handleMouse);
       container.removeEventListener("mouseleave", handleLeave);
       window.removeEventListener("resize", handleResize);

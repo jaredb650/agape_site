@@ -130,7 +130,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
                   ease: [0.455, 0.03, 0.515, 0.955],
                 }}
               >
-                AGAPE
+                ÄGAPĒ
               </motion.h1>
 
               {/* Subtitle with clip-path reveal */}

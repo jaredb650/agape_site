@@ -163,7 +163,7 @@ export function Footer() {
       <div className="border-t border-[#363636]/30">
         <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-6 py-6 md:flex-row md:px-10 lg:px-16">
           <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#888888]">
-            &copy; {new Date().getFullYear()} AGAPE Music. All rights reserved.
+            &copy; {new Date().getFullYear()} ÄGAPĒ Music. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link
