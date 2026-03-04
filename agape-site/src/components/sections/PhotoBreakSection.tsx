@@ -18,21 +18,26 @@ function GlitchLetters({ text }: { text: string }) {
   const [display, setDisplay] = useState(text);
 
   useEffect(() => {
+    // Skip on mobile
+    if (typeof window !== "undefined" && window.innerWidth < 768) return;
+
+    let scrambleId: ReturnType<typeof setInterval> | null = null;
+
     const glitch = () => {
-      // Pick 1-3 random positions to scramble
       const count = 1 + Math.floor(Math.random() * 3);
       const indices = new Set<number>();
       while (indices.size < count) {
         indices.add(Math.floor(Math.random() * text.length));
       }
 
-      // Rapid scramble: 4-6 frames of random chars then resolve
       let frame = 0;
       const totalFrames = 4 + Math.floor(Math.random() * 3);
-      const scrambleInterval = setInterval(() => {
+      if (scrambleId) clearInterval(scrambleId);
+      scrambleId = setInterval(() => {
         frame++;
         if (frame >= totalFrames) {
-          clearInterval(scrambleInterval);
+          if (scrambleId) clearInterval(scrambleId);
+          scrambleId = null;
           setDisplay(text);
           return;
         }
@@ -50,7 +55,10 @@ function GlitchLetters({ text }: { text: string }) {
     };
 
     const interval = setInterval(glitch, 1000 + Math.random() * 2000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (scrambleId) clearInterval(scrambleId);
+    };
   }, [text]);
 
   return <>{display}</>;

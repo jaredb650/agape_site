@@ -120,9 +120,10 @@ export default function PixelDisplacement({
   const startTimeRef = useRef(Date.now());
   // Ripple: when mouse stops, briefly spike then decay
   const rippleRef = useRef(0);
-  const [isMobile, setIsMobile] = useState(false);
+  // Default to mobile=true so WebGL never initializes on mobile's first render
+  const [isMobile, setIsMobile] = useState(true);
 
-  // Detect mobile
+  // Detect mobile — enables WebGL only on desktop after hydration
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();

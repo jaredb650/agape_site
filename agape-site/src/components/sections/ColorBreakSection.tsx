@@ -14,6 +14,12 @@ function GlitchWord({ word }: { word: string }) {
 
   // Idle glitch — random scramble
   useEffect(() => {
+    // Skip idle glitch on mobile to reduce timer load
+    if (typeof window !== "undefined" && window.innerWidth < 768) return;
+
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+    let scrambleId: ReturnType<typeof setInterval> | null = null;
+
     const glitch = () => {
       const count = 1 + Math.floor(Math.random() * Math.min(3, word.length));
       const indices = new Set<number>();
@@ -23,10 +29,12 @@ function GlitchWord({ word }: { word: string }) {
 
       let frame = 0;
       const totalFrames = 4 + Math.floor(Math.random() * 3);
-      const scrambleInterval = setInterval(() => {
+      if (scrambleId) clearInterval(scrambleId);
+      scrambleId = setInterval(() => {
         frame++;
         if (frame >= totalFrames) {
-          clearInterval(scrambleInterval);
+          if (scrambleId) clearInterval(scrambleId);
+          scrambleId = null;
           setDisplay(word);
           return;
         }
@@ -47,11 +55,14 @@ function GlitchWord({ word }: { word: string }) {
     const delay = Math.random() * 3000;
     const timeout = setTimeout(() => {
       glitch();
-      const interval = setInterval(glitch, 2000 + Math.random() * 4000);
-      return () => clearInterval(interval);
+      intervalId = setInterval(glitch, 2000 + Math.random() * 4000);
     }, delay);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (intervalId) clearInterval(intervalId);
+      if (scrambleId) clearInterval(scrambleId);
+    };
   }, [word]);
 
   // Hover glitch — full word scramble then resolve
