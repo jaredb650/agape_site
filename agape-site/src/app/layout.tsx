@@ -3,6 +3,9 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import GrainOverlay from "@/components/effects/GrainOverlay";
+import { PageTransition } from "@/components/layout/PageTransition";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -47,9 +50,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.variable}`}>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <PageTransition>
+            <GrainOverlay />
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </PageTransition>
+        </SmoothScroll>
       </body>
     </html>
   );
