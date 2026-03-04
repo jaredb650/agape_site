@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import GlitchText from "@/components/effects/GlitchText";
+import { asset } from "@/lib/asset";
 
 const navLinks = [
   { href: "/events", label: "Events", num: "01" },
@@ -58,7 +59,7 @@ export function Navbar() {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.455, 0.03, 0.515, 0.955] }}
           >
             <Image
-              src="/images/agape_logo_white.png"
+              src={asset("/images/agape_logo_white.png")}
               alt="AGAPE Music"
               width={120}
               height={60}

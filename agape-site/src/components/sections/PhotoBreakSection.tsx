@@ -3,11 +3,12 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { asset } from "@/lib/asset";
 
 const photos = [
-  { src: "/images/DSC05585.jpeg", alt: "Agape event moment", yRange: [-30, 30] as const },
-  { src: "/images/DSC05632.jpeg", alt: "Agape underground scene", yRange: [-30, 30] as const },
-  { src: "/images/AGAPE_F5.jpeg", alt: "Agape crowd energy", yRange: [-30, 30] as const },
+  { src: asset("/images/DSC05585.jpeg"), alt: "Agape event moment", yRange: [-30, 30] as const },
+  { src: asset("/images/DSC05632.jpeg"), alt: "Agape underground scene", yRange: [-30, 30] as const },
+  { src: asset("/images/AGAPE_F5.jpeg"), alt: "Agape crowd energy", yRange: [-30, 30] as const },
 ];
 
 const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";

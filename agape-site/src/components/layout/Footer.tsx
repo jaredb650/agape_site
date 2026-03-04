@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import GlitchText from "@/components/effects/GlitchText";
 import CornerBrackets from "@/components/effects/CornerBrackets";
+import { asset } from "@/lib/asset";
 
 const navLinks = [
   { href: "/events", label: "Events", num: "01" },
@@ -41,7 +42,7 @@ export function Footer() {
           <div className="flex flex-col gap-6">
             <Link href="/">
               <Image
-                src="/images/agape_logo_white.png"
+                src={asset("/images/agape_logo_white.png")}
                 alt="AGAPE Music"
                 width={120}
                 height={60}
