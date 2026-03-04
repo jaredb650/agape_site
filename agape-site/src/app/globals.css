@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+/* ===== AGAPE Design System ===== */
+
+@font-face {
+  font-family: "Anybody";
+  src: url("/fonts/Anybody-VariableFont_wdthwght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anybody";
+  src: url("/fonts/Anybody-Italic-VariableFont_wdthwght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DMSans-VariableFont_opszwght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DMSans-Italic-VariableFont_opszwght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alfarn";
+  src: url("/fonts/Alfarn2-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Andale Mono";
+  src: url("/fonts/Andale-Mono.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== Tailwind v4 Theme ===== */
+
+@theme {
+  /* Colors - from Webflow CSS custom properties */
+  --color-primary-light: #ffffff;
+  --color-primary-dark: #050505;
+  --color-secondary-light: #eaeaea;
+  --color-secondary-dark: #282828;
+  --color-tertiary-light: #a5a5a5;
+  --color-tertiary-dark: #6d6d6d;
+  --color-accent: #a1f081;
+  --color-accent-hover: #a5f684;
+  --color-alert: #f04400;
+  --color-body: #151515;
+
+  /* Font families */
+  --font-display: "Anybody", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-heavy: "Montserrat", sans-serif;
+  --font-accent: "Alfarn", serif;
+  --font-mono: "Andale Mono", monospace;
+
+  /* Font sizes - mapped from Webflow responsive scale */
+  --font-size-xs: 0.6rem;
+  --font-size-sm: 0.8rem;
+  --font-size-base: 1.1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 3.5rem;
+  --font-size-btn: 1.5rem;
+
+  /* Spacing */
+  --spacing-section: 6rem;
+  --spacing-container: 940px;
+
+  /* Animation */
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-slide-up: slide-up 0.6s ease-out forwards;
+  --animate-marquee: marquee 30s linear infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== Base Styles ===== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-body);
+  color: var(--color-primary-light);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-primary-dark);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-tertiary-dark);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-tertiary-light);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Link defaults */
+a {
+  color: inherit;
+  text-decoration: none;
+}
