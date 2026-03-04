@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { asset } from "@/lib/asset";
 
 const GLITCH_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
@@ -117,7 +118,7 @@ export default function ColorBreakSection() {
           className="h-full w-full object-cover"
           style={{ filter: "brightness(0.5) saturate(1.2)" }}
         >
-          <source src="/videos/red-strobes.mp4" type="video/mp4" />
+          <source src={asset("/videos/red-strobes.mp4")} type="video/mp4" />
         </video>
         {/* Subtle dark overlay */}
         <div

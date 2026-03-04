@@ -13,6 +13,7 @@ import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
 import PhotoBreakSection from "@/components/sections/PhotoBreakSection";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import ParallaxField from "@/components/effects/ParallaxField";
+import { asset } from "@/lib/asset";
 
 /* ──────────────────────────────────────────────
    PLACEHOLDER DATA
@@ -22,25 +23,25 @@ const EVENTS = [
     title: "Subliminal Frequencies",
     date: "Mar 22, 2026",
     venue: "Basement NYC",
-    image: "/images/DSC05585.jpeg",
+    image: asset("/images/DSC05585.jpeg"),
   },
   {
     title: "Nocturnal Transmission",
     date: "Apr 05, 2026",
     venue: "Knockdown Center",
-    image: "/images/DSC05632.jpeg",
+    image: asset("/images/DSC05632.jpeg"),
   },
   {
     title: "Raw Signal",
     date: "Apr 19, 2026",
     venue: "Elsewhere Zone 1",
-    image: "/images/AGAPE_F5.jpeg",
+    image: asset("/images/AGAPE_F5.jpeg"),
   },
   {
     title: "Under the Surface",
     date: "May 10, 2026",
     venue: "Good Room",
-    image: "/images/1D3A9620-2.jpeg",
+    image: asset("/images/1D3A9620-2.jpeg"),
   },
 ];
 
@@ -68,7 +69,7 @@ function HeroSection() {
         style={{ opacity: heroOpacity, scale: heroScale }}
       >
         <PixelDisplacement
-          src="/images/1D3A9267.jpg"
+          src={asset("/images/1D3A9267.jpg")}
           alt="Agape event — underground crowd"
           className="h-full w-full"
           intensity={1.2}
