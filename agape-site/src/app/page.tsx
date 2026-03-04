@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { organizationSchema } from "@/lib/seo";
 import PixelDisplacement from "@/components/effects/PixelDisplacement";
@@ -12,8 +13,13 @@ import EventCard from "@/components/cards/EventCard";
 import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
 import PhotoBreakSection from "@/components/sections/PhotoBreakSection";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
-import ParallaxField from "@/components/effects/ParallaxField";
 import { asset } from "@/lib/asset";
+
+// Lazy-load Three.js wireform — keeps it out of the main bundle for mobile
+const ParallaxField = dynamic(
+  () => import("@/components/effects/ParallaxField"),
+  { ssr: false },
+);
 
 /* ──────────────────────────────────────────────
    PLACEHOLDER DATA

@@ -189,14 +189,8 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      {/* Main content — fades in after preloader */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={!isLoading ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6, delay: 0.1, ease: [0.455, 0.03, 0.515, 0.955] }}
-      >
-        {children}
-      </motion.div>
+      {/* Main content — always visible in DOM; loading overlay covers it */}
+      {children}
     </>
   );
 }
