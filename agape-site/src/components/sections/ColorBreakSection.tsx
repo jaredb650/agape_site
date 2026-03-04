@@ -124,22 +124,18 @@ export default function ColorBreakSection() {
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{ contain: "paint" }}
     >
-      {/* Video background — skip autoplay on mobile to save memory */}
+      {/* Video background */}
       <div className="absolute inset-0">
-        {isMobile ? (
-          <div className="h-full w-full bg-[#1a0505]" />
-        ) : (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="h-full w-full object-cover"
-            style={{ filter: "brightness(0.5) saturate(1.2)" }}
-          >
-            <source src={asset("/videos/red-strobes.mp4")} type="video/mp4" />
-          </video>
-        )}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover"
+          style={{ filter: "brightness(0.5) saturate(1.2)" }}
+        >
+          <source src={asset("/videos/red-strobes.mp4")} type="video/mp4" />
+        </video>
         {/* Subtle dark overlay */}
         <div
           className="absolute inset-0"

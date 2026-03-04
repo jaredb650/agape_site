@@ -81,7 +81,7 @@ void main() {
    Dense interlocking-ring wireform
    60 great-circles on a sphere → GPU noise morph
    ────────────────────────────────────────────── */
-function Wireform() {
+function Wireform({ lite = false }: { lite?: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const scrollRef = useRef(0);
@@ -91,8 +91,8 @@ function Wireform() {
   /* Build geometry: many great circles evenly distributed */
   const geometry = useMemo(() => {
     const verts: number[] = [];
-    const NUM_RINGS = 60;
-    const PTS = 180;
+    const NUM_RINGS = lite ? 25 : 60;
+    const PTS = lite ? 90 : 180;
     const R = 2.8;
 
     for (let r = 0; r < NUM_RINGS; r++) {
@@ -141,7 +141,7 @@ function Wireform() {
     const geo = new THREE.BufferGeometry();
     geo.setAttribute("position", new THREE.Float32BufferAttribute(verts, 3));
     return geo;
-  }, []);
+  }, [lite]);
 
   /* Listeners */
   useEffect(() => {
@@ -202,19 +202,21 @@ function Wireform() {
 }
 
 /* ──────────────────────────────────────────────
-   Fixed Canvas Wrapper (desktop only)
+   Fixed Canvas Wrapper
+   Mobile: lite wireform (25 rings, dpr 1)
+   Desktop: full wireform (60 rings, dpr 1–1.5)
    ────────────────────────────────────────────── */
 export default function ParallaxField() {
-  const [enabled, setEnabled] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setEnabled(window.innerWidth >= 768);
-    const onResize = () => setEnabled(window.innerWidth >= 768);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
-  if (!enabled) return null;
+  if (isMobile === null) return null;
 
   return (
     <div
@@ -224,11 +226,11 @@ export default function ParallaxField() {
     >
       <Canvas
         camera={{ position: [0, 0, 7], fov: 45 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
-        dpr={[1, 1.5]}
+        dpr={isMobile ? 1 : [1, 1.5]}
       >
-        <Wireform />
+        <Wireform lite={isMobile} />
       </Canvas>
     </div>
   );
