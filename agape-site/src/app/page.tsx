@@ -247,8 +247,8 @@ function NarrativeSection() {
           <ScrollReveal delay={0.1} distance={30}>
             <CornerBrackets size={28} strokeWidth={1} color="#363636" className="inline-block">
               <h2
-                className="font-display font-bold uppercase text-[#fafafa] px-8 py-6"
-                style={{ fontSize: "clamp(1.8rem, 4vw, 3.5rem)", letterSpacing: "0.03em", lineHeight: 1.1 }}
+                className="font-bold uppercase text-[#fafafa] px-8 py-6"
+                style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.8rem, 4vw, 3.5rem)", letterSpacing: "0.03em", lineHeight: 1.1 }}
               >
                 Born from the
                 <br />
@@ -367,8 +367,8 @@ function EventsSection() {
             </ScrollReveal>
             <ScrollReveal delay={0.1} distance={25}>
               <h2
-                className="font-display font-bold uppercase text-[#fafafa]"
-                style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", letterSpacing: "0.03em" }}
+                className="font-bold uppercase text-[#fafafa]"
+                style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 4vw, 3.5rem)", letterSpacing: "0.03em" }}
               >
                 <GlitchText text="Events" />
               </h2>
@@ -533,8 +533,8 @@ function CTASection() {
 
         <ScrollReveal delay={0.1} distance={30}>
           <h2
-            className="font-display font-bold uppercase text-[#fafafa]"
-            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", letterSpacing: "0.03em", lineHeight: 1.1 }}
+            className="font-bold uppercase text-[#fafafa]"
+            style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 5vw, 4rem)", letterSpacing: "0.03em", lineHeight: 1.1 }}
           >
             Experience the
             <br />

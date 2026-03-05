@@ -50,6 +50,30 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Vanilla Cream";
+  src: url("./fonts/VanillaCreamOx-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bit Blast Sans";
+  src: url("./fonts/bitblastsans-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bit Blast Sans Textured";
+  src: url("./fonts/bitblastsans-textured.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== Tailwind v4 Theme ===== */
 
 @theme {
@@ -67,10 +91,12 @@
 
   /* Font families */
   --font-display: "Anybody", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  --font-body: "Bit Blast Sans", "DM Sans", sans-serif;
   --font-heavy: "Montserrat", sans-serif;
   --font-accent: "Alfarn", serif;
   --font-mono: "Andale Mono", monospace;
+  --font-heading: "Vanilla Cream", sans-serif;
+  --font-body-textured: "Bit Blast Sans Textured", "Bit Blast Sans", sans-serif;
 
   /* Font sizes - mapped from Webflow responsive scale */
   --font-size-xs: 0.6rem;

@@ -190,7 +190,7 @@ export default function ColorBreakSection() {
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
           className="flex flex-wrap gap-x-[0.3em] gap-y-[0.05em] uppercase font-bold text-white"
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: "var(--font-body-textured)",
             fontSize: "clamp(2rem, 5.5vw, 5.5rem)",
             lineHeight: 0.95,
             letterSpacing: "0.02em",

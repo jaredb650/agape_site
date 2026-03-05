@@ -64,7 +64,7 @@ export function Footer() {
 
           {/* Column 2 — Navigation */}
           <div className="flex flex-col gap-6">
-            <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+            <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#888888]" style={{ fontFamily: "var(--font-heading)" }}>
               Navigate
             </h4>
             <nav className="flex flex-col gap-3" aria-label="Footer navigation">
@@ -87,7 +87,7 @@ export function Footer() {
 
           {/* Column 3 — Social */}
           <div className="flex flex-col gap-6">
-            <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+            <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#888888]" style={{ fontFamily: "var(--font-heading)" }}>
               Connect
             </h4>
             <div className="flex flex-col gap-3">
@@ -121,7 +121,7 @@ export function Footer() {
 
           {/* Column 4 — Newsletter */}
           <div className="flex flex-col gap-6">
-            <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+            <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#888888]" style={{ fontFamily: "var(--font-heading)" }}>
               Stay Updated
             </h4>
             <p className="text-sm leading-relaxed text-[#888888]">
