@@ -51,6 +51,33 @@ const EVENTS = [
   },
 ];
 
+const RESIDENTS = [
+  {
+    name: "Andrés Garcil",
+    role: "Founder / DJ",
+    image: asset("/images/residents/andres-garcil-placeholder.webp"),
+    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    name: "Animal",
+    role: "Resident DJ",
+    image: asset("/images/residents/animal-placeholder.png"),
+    bio: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  },
+  {
+    name: "Diossa",
+    role: "Resident DJ",
+    image: asset("/images/residents/diossa-placeholder.jpg"),
+    bio: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    name: "Junk File",
+    role: "Resident DJ",
+    image: asset("/images/residents/junk-file-placeholder.jpg"),
+    bio: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  },
+];
+
 /* ──────────────────────────────────────────────
    HERO
    ────────────────────────────────────────────── */
@@ -498,6 +525,303 @@ function EventsSection() {
 }
 
 /* ──────────────────────────────────────────────
+   RESIDENTS
+   ────────────────────────────────────────────── */
+
+function ResidentPanel({
+  resident,
+  index,
+  isHovered,
+  anyHovered,
+  onHover,
+  onLeave,
+}: {
+  resident: (typeof RESIDENTS)[0];
+  index: number;
+  isHovered: boolean;
+  anyHovered: boolean;
+  onHover: () => void;
+  onLeave: () => void;
+}) {
+  return (
+    <motion.div
+      className="relative cursor-pointer overflow-hidden"
+      style={{ flex: isHovered ? 2.2 : anyHovered ? 0.7 : 1 }}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      animate={{
+        flex: isHovered ? 2.2 : anyHovered ? 0.7 : 1,
+      }}
+      transition={{ duration: 0.5, ease: [0.455, 0.03, 0.515, 0.955] }}
+    >
+      <CornerBrackets size={24} strokeWidth={1} color="#363636" className="h-full">
+        {/* Image */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.img
+            src={resident.image}
+            alt={resident.name}
+            className="h-full w-full object-cover"
+            animate={{
+              filter: isHovered ? "brightness(0.65)" : "brightness(0.3)",
+              scale: isHovered ? 1.05 : 1,
+            }}
+            transition={{ duration: 0.6, ease: [0.455, 0.03, 0.515, 0.955] }}
+          />
+        </div>
+
+        {/* Scan-line overlay */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+            mixBlendMode: "multiply",
+          }}
+        />
+
+        {/* Gradient overlay */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 40%, rgba(5,5,5,0.15) 100%)",
+          }}
+        />
+
+        {/* Content */}
+        <div className="relative z-10 flex h-full flex-col justify-between p-5 md:p-6">
+          {/* Index number top-left */}
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#555555]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          {/* Bottom info */}
+          <div className="flex flex-col gap-2">
+            {/* Role label */}
+            <motion.span
+              className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#666666]"
+              animate={{ opacity: isHovered ? 1 : 0.6 }}
+              transition={{ duration: 0.3 }}
+            >
+              {resident.role}
+            </motion.span>
+
+            {/* Name with glitch */}
+            <h3
+              className="font-display text-lg font-bold uppercase tracking-[0.05em] text-[#fafafa] md:text-xl"
+              style={{ lineHeight: 1.1 }}
+            >
+              <GlitchText text={resident.name} />
+            </h3>
+
+            {/* Bio — reveals on hover */}
+            <motion.div
+              className="overflow-hidden"
+              animate={{
+                height: isHovered ? "auto" : 0,
+                opacity: isHovered ? 1 : 0,
+              }}
+              initial={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
+            >
+              <p className="pt-2 font-body text-[12px] leading-[1.7] text-[#888888] md:text-[13px]">
+                {resident.bio}
+              </p>
+            </motion.div>
+
+            {/* Decorative line */}
+            <motion.div
+              className="h-[1px] bg-[#363636]"
+              animate={{ width: isHovered ? "100%" : "30px" }}
+              transition={{ duration: 0.5, ease: [0.455, 0.03, 0.515, 0.955] }}
+              style={{ originX: 0 }}
+            />
+          </div>
+        </div>
+      </CornerBrackets>
+    </motion.div>
+  );
+}
+
+function ResidentsSection() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [layout, setLayout] = useState<"mobile" | "tablet" | "desktop">("desktop");
+
+  useEffect(() => {
+    const check = () => {
+      const w = window.innerWidth;
+      if (w < 768) setLayout("mobile");
+      else if (w < 1024) setLayout("tablet");
+      else setLayout("desktop");
+    };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  return (
+    <section
+      className="relative overflow-hidden"
+      style={{
+        backgroundColor: "rgba(10, 10, 10, 0.55)",
+        paddingTop: "6rem",
+        paddingBottom: "8rem",
+      }}
+    >
+      {/* Section header */}
+      <div className="mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
+        <StaggerContainer className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
+          <div>
+            <ScrollReveal>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+                  03
+                </span>
+                <div className="h-[1px] w-12 bg-[#363636]" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+                  Residents
+                </span>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.1} distance={25}>
+              <h2
+                className="font-bold uppercase text-[#fafafa]"
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                  letterSpacing: "0.03em",
+                }}
+              >
+                <GlitchText text="Residents" />
+              </h2>
+            </ScrollReveal>
+          </div>
+        </StaggerContainer>
+      </div>
+
+      {/* Panels */}
+      <ScrollReveal delay={0.15}>
+        {layout === "desktop" ? (
+          /* Desktop: horizontal accordion panels */
+          <div
+            className="mx-auto flex w-full max-w-[1200px] gap-[2px] px-6 md:px-10 lg:px-16"
+            style={{ height: 520 }}
+          >
+            {RESIDENTS.map((resident, i) => (
+              <ResidentPanel
+                key={resident.name}
+                resident={resident}
+                index={i}
+                isHovered={hoveredIndex === i}
+                anyHovered={hoveredIndex !== null}
+                onHover={() => setHoveredIndex(i)}
+                onLeave={() => setHoveredIndex(null)}
+              />
+            ))}
+          </div>
+        ) : layout === "tablet" ? (
+          /* Tablet: 2x2 grid */
+          <div className="grid grid-cols-2 gap-3 px-6">
+            {RESIDENTS.map((resident, i) => (
+              <CornerBrackets key={resident.name} size={22} color="#363636">
+                <div className="relative h-[360px] overflow-hidden">
+                  <img
+                    src={resident.image}
+                    alt={resident.name}
+                    className="h-full w-full object-cover"
+                    style={{ filter: "brightness(0.4)" }}
+                  />
+                  {/* Scan-lines */}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+                    }}
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(0deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.2) 100%)",
+                    }}
+                  />
+                  <div className="absolute inset-0 flex flex-col justify-between p-5">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#555555]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.25em] text-[#666666]">
+                        {resident.role}
+                      </span>
+                      <h3 className="font-display text-lg font-bold uppercase tracking-[0.05em] text-[#fafafa]">
+                        <GlitchText text={resident.name} />
+                      </h3>
+                      <p className="mt-2 font-body text-[12px] leading-[1.7] text-[#888888]">
+                        {resident.bio}
+                      </p>
+                      <div className="mt-3 h-[1px] w-8 bg-[#363636]" />
+                    </div>
+                  </div>
+                </div>
+              </CornerBrackets>
+            ))}
+          </div>
+        ) : (
+          /* Mobile: stacked vertical cards */
+          <div className="flex flex-col gap-3 px-6">
+            {RESIDENTS.map((resident, i) => (
+              <CornerBrackets key={resident.name} size={20} color="#363636">
+                <div className="relative h-[300px] overflow-hidden">
+                  <img
+                    src={resident.image}
+                    alt={resident.name}
+                    className="h-full w-full object-cover"
+                    style={{ filter: "brightness(0.4)" }}
+                  />
+                  {/* Scan-lines */}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+                    }}
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(0deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.15) 100%)",
+                    }}
+                  />
+                  <div className="absolute inset-0 flex flex-col justify-between p-5">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#555555]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.25em] text-[#666666]">
+                        {resident.role}
+                      </span>
+                      <h3 className="font-display text-xl font-bold uppercase tracking-[0.05em] text-[#fafafa]">
+                        <GlitchText text={resident.name} />
+                      </h3>
+                      <p className="mt-2 font-body text-[12px] leading-[1.7] text-[#888888]">
+                        {resident.bio}
+                      </p>
+                      <div className="mt-3 h-[1px] w-8 bg-[#363636]" />
+                    </div>
+                  </div>
+                </div>
+              </CornerBrackets>
+            ))}
+          </div>
+        )}
+      </ScrollReveal>
+    </section>
+  );
+}
+
+/* ──────────────────────────────────────────────
    CTA / FINAL SECTION
    ────────────────────────────────────────────── */
 function CTASection() {
@@ -522,7 +846,7 @@ function CTASection() {
         <ScrollReveal>
           <div className="flex items-center gap-4">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
-              03
+              04
             </span>
             <div className="h-[1px] w-12 bg-[#363636]" />
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
@@ -604,6 +928,9 @@ export default function Home() {
         </div>
 
         <EventsSection />
+
+        {/* Residents — the collective */}
+        <ResidentsSection />
 
         {/* Color explosion — manifesto section */}
         <ColorBreakSection />
