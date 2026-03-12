@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { organizationSchema } from "@/lib/seo";
-import PixelDisplacement from "@/components/effects/PixelDisplacement";
+import Image from "next/image";
 import GlitchText from "@/components/effects/GlitchText";
 import CornerBrackets from "@/components/effects/CornerBrackets";
 import ScrollReveal, { StaggerContainer } from "@/components/effects/ScrollReveal";
@@ -96,29 +96,32 @@ function HeroSection() {
       ref={sectionRef}
       className="relative h-screen w-full overflow-hidden"
     >
-      {/* Background image with WebGL displacement */}
+      {/* Background image — static with parallax scale on scroll */}
       <motion.div
         className="absolute inset-0"
         style={{ opacity: heroOpacity, scale: heroScale }}
       >
-        <PixelDisplacement
-          src={asset("/images/1D3A9267.jpg")}
+        <Image
+          src={asset("/images/hero-crowd-wide-compressed.jpg")}
           alt="Agape event — underground crowd"
-          className="h-full w-full"
-          intensity={1.2}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          style={{ filter: "brightness(0.45)" }}
         />
-        {/* Deep dark overlay for text legibility (pointer-events-none so mouse reaches WebGL) */}
+        {/* Deep dark overlay for text legibility */}
         <div
-          className="pointer-events-none absolute inset-0"
+          className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.6) 50%, rgba(5,5,5,0.92) 100%)",
+              "linear-gradient(180deg, rgba(5,5,5,0.35) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.9) 100%)",
           }}
         />
       </motion.div>
 
-      {/* Hero content — corner brackets frame (pointer-events-none so mouse reaches WebGL canvas) */}
-      <div className="pointer-events-none relative z-10 flex h-full flex-col items-center justify-center px-6">
+      {/* Hero content — corner brackets frame */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6">
         <CornerBrackets
           className="flex flex-col items-center gap-6 p-10 md:p-16"
           size={32}
@@ -134,14 +137,24 @@ function HeroSection() {
                 </span>
               </ScrollReveal>
 
-              {/* Main headline — MASSIVE */}
+              {/* Agape logo mark */}
+              <ScrollReveal delay={0.15} distance={25}>
+                <Image
+                  src={asset("/images/agape_logo_white.png")}
+                  alt="Agape"
+                  width={72}
+                  height={72}
+                  className="opacity-90"
+                />
+              </ScrollReveal>
+
+              {/* Main headline */}
               <ScrollReveal delay={0.2} distance={30}>
                 <h1
-                  className="pointer-events-auto font-display font-bold uppercase text-[#fafafa] text-center leading-[0.9]"
+                  className="font-display font-bold uppercase text-[#fafafa] text-center leading-[0.9]"
                   style={{
                     fontSize: "clamp(3rem, 8vw, 8rem)",
                     letterSpacing: "0.04em",
-                    mixBlendMode: "exclusion",
                   }}
                 >
                   <GlitchText text="ÄGAPĒ" playOnMount duration={600} />
@@ -172,7 +185,7 @@ function HeroSection() {
 
               {/* CTA */}
               <ScrollReveal delay={0.65} distance={15}>
-                <FlickerButton href="/events" variant="outline" className="pointer-events-auto mt-2">
+                <FlickerButton href="/events" variant="outline" className="mt-2">
                   Explore Events
                 </FlickerButton>
               </ScrollReveal>

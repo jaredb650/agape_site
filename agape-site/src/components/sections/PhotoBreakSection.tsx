@@ -89,10 +89,11 @@ export default function PhotoBreakSection() {
         aria-hidden="true"
       >
         <span
-          className="select-none whitespace-nowrap font-display uppercase tracking-widest"
+          className="select-none whitespace-nowrap uppercase tracking-[0.15em]"
           style={{
+            fontFamily: "var(--font-heading)",
             fontSize: "clamp(3rem, 12vw, 12rem)",
-            WebkitTextStroke: "2px rgba(255,255,255,0.9)",
+            WebkitTextStroke: "1px rgba(255,255,255,0.7)",
             color: "transparent",
             lineHeight: 1,
           }}
