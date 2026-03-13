@@ -75,7 +75,7 @@ void main() {
 
 const fragmentShader = /* glsl */ `
 void main() {
-  gl_FragColor = vec4(1.0, 1.0, 1.0, 0.09);
+  gl_FragColor = vec4(1.0, 1.0, 1.0, 0.22);
 }`;
 
 /* ──────────────────────────────────────────────
