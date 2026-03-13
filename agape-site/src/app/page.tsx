@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { organizationSchema } from "@/lib/seo";
@@ -14,6 +14,7 @@ import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
 import PhotoBreakSection from "@/components/sections/PhotoBreakSection";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import { asset } from "@/lib/asset";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 // Lazy-load Three.js wireform — keeps it out of the main bundle for mobile
 const ParallaxField = dynamic(
@@ -221,7 +222,7 @@ function HeroSection() {
         </motion.div>
         {/* Glow dot */}
         <motion.div
-          className="h-1 w-1 bg-[var(--color-accent)]"
+          className="h-1 w-1 bg-[#c13243]"
           animate={{ opacity: [0.3, 1, 0.3] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -370,26 +371,16 @@ function NarrativeSection() {
    ────────────────────────────────────────────── */
 function EventsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [layout, setLayout] = useState<"mobile" | "tablet" | "desktop">("desktop");
-
-  useEffect(() => {
-    const check = () => {
-      const w = window.innerWidth;
-      if (w < 768) setLayout("mobile");
-      else if (w < 1024) setLayout("tablet");
-      else setLayout("desktop");
-    };
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
+  const layout = isMobile ? "mobile" : isTablet ? "tablet" : "desktop";
 
   return (
     <section
       id="events"
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "#0a0a0a",
+        backgroundColor: "rgba(10, 10, 10, 0.75)",
         paddingTop: "6rem",
         paddingBottom: "8rem",
       }}
@@ -435,10 +426,12 @@ function EventsSection() {
             {EVENTS.map((event, i) => (
               <CornerBrackets key={event.title} size={20} color="var(--color-tertiary-dark)">
                 <div className="relative h-[320px] overflow-hidden">
-                  <img
+                  <Image
                     src={event.image}
                     alt={event.title}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
                     style={{ filter: "brightness(0.55)" }}
                   />
                   <div
@@ -479,10 +472,12 @@ function EventsSection() {
             {EVENTS.map((event, i) => (
               <CornerBrackets key={event.title} size={22} color="var(--color-tertiary-dark)">
                 <div className="relative h-[380px] overflow-hidden">
-                  <img
+                  <Image
                     src={event.image}
                     alt={event.title}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="50vw"
+                    className="object-cover"
                     style={{ filter: "brightness(0.5)" }}
                   />
                   <div
@@ -574,16 +569,22 @@ function ResidentPanel({
       <CornerBrackets size={24} strokeWidth={1} color="#363636" className="h-full">
         {/* Image */}
         <div className="absolute inset-0 overflow-hidden">
-          <motion.img
-            src={resident.image}
-            alt={resident.name}
-            className="h-full w-full object-cover"
+          <motion.div
+            className="h-full w-full"
             animate={{
               filter: isHovered ? "brightness(0.65)" : "brightness(0.3)",
               scale: isHovered ? 1.05 : 1,
             }}
             transition={{ duration: 0.6, ease: [0.455, 0.03, 0.515, 0.955] }}
-          />
+          >
+            <Image
+              src={resident.image}
+              alt={resident.name}
+              fill
+              sizes="(max-width: 1023px) 100vw, 33vw"
+              className="object-cover"
+            />
+          </motion.div>
         </div>
 
         {/* Scan-line overlay */}
@@ -662,19 +663,9 @@ function ResidentPanel({
 
 function ResidentsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [layout, setLayout] = useState<"mobile" | "tablet" | "desktop">("desktop");
-
-  useEffect(() => {
-    const check = () => {
-      const w = window.innerWidth;
-      if (w < 768) setLayout("mobile");
-      else if (w < 1024) setLayout("tablet");
-      else setLayout("desktop");
-    };
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
+  const layout = isMobile ? "mobile" : isTablet ? "tablet" : "desktop";
 
   return (
     <section
@@ -743,10 +734,12 @@ function ResidentsSection() {
             {RESIDENTS.map((resident, i) => (
               <CornerBrackets key={resident.name} size={22} color="#363636">
                 <div className="relative h-[360px] overflow-hidden">
-                  <img
+                  <Image
                     src={resident.image}
                     alt={resident.name}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="50vw"
+                    className="object-cover"
                     style={{ filter: "brightness(0.4)" }}
                   />
                   {/* Scan-lines */}
@@ -791,10 +784,12 @@ function ResidentsSection() {
             {RESIDENTS.map((resident, i) => (
               <CornerBrackets key={resident.name} size={20} color="#363636">
                 <div className="relative h-[300px] overflow-hidden">
-                  <img
+                  <Image
                     src={resident.image}
                     alt={resident.name}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
                     style={{ filter: "brightness(0.4)" }}
                   />
                   {/* Scan-lines */}
@@ -932,7 +927,7 @@ export default function Home() {
             text="UPCOMING"
             variant="filled"
             speed={20}
-            separator={<span className="mx-[0.6em] text-[#363636]">///</span>}
+            separator={<span className="mx-[0.6em] text-[#363636]">{"///"}</span>}
           />
         </div>
 

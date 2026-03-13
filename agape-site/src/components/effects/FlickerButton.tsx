@@ -1,6 +1,7 @@
 "use client";
 
-import { type ReactNode, type ButtonHTMLAttributes } from "react";
+import Link from "next/link";
+import { type ButtonHTMLAttributes } from "react";
 import GlitchText from "./GlitchText";
 
 interface FlickerButtonProps
@@ -50,6 +51,16 @@ export default function FlickerButton({
   );
 
   if (href) {
+    const isInternal = href.startsWith("/") || href.startsWith("#");
+
+    if (isInternal) {
+      return (
+        <Link href={href} className={baseStyles}>
+          {inner}
+        </Link>
+      );
+    }
+
     return (
       <a href={href} className={baseStyles}>
         {inner}

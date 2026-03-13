@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 /* ── Ashima Arts simplex noise (GLSL) ── */
 const snoise3D = /* glsl */ `
@@ -207,16 +208,7 @@ function Wireform({ lite = false }: { lite?: boolean }) {
    Desktop: full wireform (60 rings, dpr 1–1.5)
    ────────────────────────────────────────────── */
 export default function ParallaxField() {
-  const [isMobile, setIsMobile] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  if (isMobile === null) return null;
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   return (
     <div

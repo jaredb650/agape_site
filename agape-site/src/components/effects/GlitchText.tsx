@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 
 const GLITCH_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
@@ -9,7 +9,6 @@ interface GlitchTextProps {
   /** Text to display — pass as children or as `text` prop */
   children?: string;
   text?: string;
-  as?: React.ElementType;
   className?: string;
   duration?: number;
   interval?: number;
@@ -20,7 +19,6 @@ interface GlitchTextProps {
 export default function GlitchText({
   children,
   text,
-  as: Tag = "span",
   className = "",
   duration = 400,
   interval = 75,
@@ -43,10 +41,8 @@ export default function GlitchText({
     const totalSteps = Math.ceil(duration / interval);
     const charsPerStep = Math.max(1, Math.ceil(original.length / totalSteps));
     let resolvedCount = 0;
-    let step = 0;
 
     timerRef.current = setInterval(() => {
-      step++;
       // Resolve characters left-to-right each step
       resolvedCount = Math.min(
         original.length,
@@ -76,23 +72,16 @@ export default function GlitchText({
     startGlitch();
   }, [startGlitch]);
 
-  // Play on mount once
-  const mountRef = useCallback(
-    (node: HTMLElement | null) => {
-      if (node && playOnMount && !hasPlayedOnMount.current) {
-        hasPlayedOnMount.current = true;
-        // Small delay so initial paint is visible first
-        requestAnimationFrame(() => startGlitch());
-      }
-    },
-    [playOnMount, startGlitch]
-  );
+  useEffect(() => {
+    if (!playOnMount || hasPlayedOnMount.current) return;
 
-  const Component = Tag as any;
+    hasPlayedOnMount.current = true;
+    const frameId = requestAnimationFrame(() => startGlitch());
+    return () => cancelAnimationFrame(frameId);
+  }, [playOnMount, startGlitch]);
 
   return (
-    <Component
-      ref={mountRef}
+    <span
       className={`inline-block ${className}`}
       onMouseEnter={handleMouseEnter}
       style={{
@@ -101,6 +90,6 @@ export default function GlitchText({
       }}
     >
       {displayText}
-    </Component>
+    </span>
   );
 }

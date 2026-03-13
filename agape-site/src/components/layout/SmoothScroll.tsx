@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, ReactNode } from "react";
 import Lenis from "lenis";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 interface SmoothScrollProps {
   children: ReactNode;
@@ -9,10 +10,10 @@ interface SmoothScrollProps {
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<Lenis | null>(null);
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
-    // Disable Lenis smooth scroll on mobile — native scroll is better for performance
-    if (window.innerWidth < 768) return;
+    if (isMobile) return;
 
     const lenis = new Lenis({
       lerp: 0.1,
@@ -36,7 +37,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, []);
+  }, [isMobile]);
 
   return <>{children}</>;
 }

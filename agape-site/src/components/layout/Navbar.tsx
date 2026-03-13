@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import GlitchText from "@/components/effects/GlitchText";
@@ -26,6 +26,16 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [hasRevealed, setHasRevealed] = useState(false);
+  const isOpenRef = useRef(isOpen);
+  const pastHeroRef = useRef(pastHero);
+
+  useEffect(() => {
+    isOpenRef.current = isOpen;
+  }, [isOpen]);
+
+  useEffect(() => {
+    pastHeroRef.current = pastHero;
+  }, [pastHero]);
 
   // Staggered clip-path reveal on mount
   useEffect(() => {
@@ -42,16 +52,20 @@ export function Navbar() {
       rafId = requestAnimationFrame(() => {
         rafId = 0;
         const hero = document.querySelector("section.h-screen, section[class*='h-screen']");
-        if (hero) {
-          const heroBottom = hero.getBoundingClientRect().bottom;
-          setPastHero(heroBottom < 100);
-        } else {
-          setPastHero(window.scrollY > window.innerHeight * 0.8);
+        const nextPastHero = hero
+          ? hero.getBoundingClientRect().bottom < 100
+          : window.scrollY > window.innerHeight * 0.8;
+
+        if (nextPastHero !== pastHeroRef.current && isOpenRef.current) {
+          setIsOpen(false);
         }
+
+        setPastHero(nextPastHero);
       });
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(rafId);
@@ -69,11 +83,6 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [isOpen, pastHero]);
-
-  // Close menu when switching between nav modes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pastHero]);
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -167,7 +176,7 @@ export function Navbar() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 1.2 }}
               >
-                <span className="h-[6px] w-[6px] bg-[#a1f081] animate-pulse" />
+                <span className="h-[6px] w-[6px] bg-[#c13243] animate-pulse" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#888888]">
                   NYC
                 </span>
@@ -309,7 +318,7 @@ export function Navbar() {
               <div className="flex items-center gap-4">
                 {/* Live indicator (desktop only) */}
                 <div className="hidden items-center gap-2 lg:flex">
-                  <span className="h-[5px] w-[5px] bg-[#a1f081] animate-pulse" />
+                  <span className="h-[5px] w-[5px] bg-[#c13243] animate-pulse" />
                   <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#666666]">
                     NYC
                   </span>

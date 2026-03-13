@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { asset } from "@/lib/asset";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 const GLITCH_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
@@ -107,11 +108,7 @@ function GlitchWord({ word }: { word: string }) {
 export default function ColorBreakSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   const words =
     "No VIP. No velvet ropes. Just raw energy and relentless beats in the spaces where music sounds the way it was meant to.".split(

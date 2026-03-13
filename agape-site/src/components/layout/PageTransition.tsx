@@ -2,26 +2,23 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 const EASE_EXPO: [number, number, number, number] = [0.455, 0.03, 0.515, 0.955];
 const EASE_OUT_EXPO: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
+  const isMobile = useMediaQuery("(max-width: 767px)");
   const [isLoading, setIsLoading] = useState(true);
   const [phase, setPhase] = useState<
     "borders" | "reveal" | "expand" | "done"
   >("borders");
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const mobile = window.innerWidth < 768;
-    setIsMobile(mobile);
-
     // Lock scroll during preloader
     document.body.style.overflow = "hidden";
 
-    if (mobile) {
-      // Mobile: fast preloader (1.8s total)
+    if (isMobile) {
       const t1 = setTimeout(() => setPhase("reveal"), 400);
       const t2 = setTimeout(() => setPhase("expand"), 1300);
       const t3 = setTimeout(() => {
@@ -37,14 +34,13 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       };
     }
 
-    // Desktop: full cinematic preloader (4.8s total)
-    const t1 = setTimeout(() => setPhase("reveal"), 1500);
-    const t2 = setTimeout(() => setPhase("expand"), 3800);
+    const t1 = setTimeout(() => setPhase("reveal"), 900);
+    const t2 = setTimeout(() => setPhase("expand"), 2200);
     const t3 = setTimeout(() => {
       setPhase("done");
       setIsLoading(false);
       document.body.style.overflow = "";
-    }, 4800);
+    }, 2900);
 
     return () => {
       clearTimeout(t1);
@@ -52,7 +48,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       clearTimeout(t3);
       document.body.style.overflow = "";
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <>
@@ -100,7 +96,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
                     </motion.h1>
                     <motion.div className="h-[1px] w-24 overflow-hidden bg-[#363636]/50">
                       <motion.div
-                        className="h-full bg-[#a1f081]"
+                        className="h-full bg-[#c13243]"
                         initial={{ width: "0%" }}
                         animate={{ width: "100%" }}
                         transition={{ duration: 1.0, ease: "linear" }}
@@ -294,7 +290,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
 
                     <motion.div className="mt-6 h-[1px] w-32 overflow-hidden bg-[#363636]/50">
                       <motion.div
-                        className="h-full bg-[#a1f081]"
+                        className="h-full bg-[#c13243]"
                         initial={{ width: "0%" }}
                         animate={{ width: "100%" }}
                         transition={{ duration: 3.5, ease: "linear" }}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import CornerBrackets from "@/components/effects/CornerBrackets";
 import GlitchText from "@/components/effects/GlitchText";
@@ -57,10 +58,12 @@ export default function EventCard({
       >
         {/* Background image */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src={image}
             alt={title}
-            className="h-full w-full object-cover"
+            fill
+            sizes="(max-width: 1023px) 100vw, 1200px"
+            className="object-cover"
             style={{
               filter: isHovered ? "brightness(0.6)" : "brightness(0.3)",
               transition: "filter 0.5s ease",

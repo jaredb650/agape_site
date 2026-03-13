@@ -8,17 +8,14 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath,
   assetPrefix: isProd ? "/agape_site/" : "",
+  turbopack: {
+    root: process.cwd(),
+  },
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,
   },
   images: {
     unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.sanity.io",
-      },
-    ],
   },
 };
 

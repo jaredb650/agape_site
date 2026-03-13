@@ -55,7 +55,7 @@ export function Footer() {
               in NYC&apos;s Underground.
             </p>
             <div className="flex items-center gap-2">
-              <span className="h-[5px] w-[5px] bg-[#a1f081] animate-pulse" />
+              <span className="h-[5px] w-[5px] bg-[#c13243] animate-pulse" />
               <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#888888]">
                 New York City
               </span>
