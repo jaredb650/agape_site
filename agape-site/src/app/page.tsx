@@ -29,25 +29,25 @@ const EVENTS = [
     title: "Subliminal Frequencies",
     date: "Mar 22, 2026",
     venue: "Basement NYC",
-    image: asset("/images/DSC05585.jpeg"),
+    image: asset("/images/events/event-1.jpg"),
   },
   {
     title: "Nocturnal Transmission",
     date: "Apr 05, 2026",
     venue: "Knockdown Center",
-    image: asset("/images/DSC05632.jpeg"),
+    image: asset("/images/events/event-2.jpg"),
   },
   {
     title: "Raw Signal",
     date: "Apr 19, 2026",
     venue: "Elsewhere Zone 1",
-    image: asset("/images/AGAPE_F5.jpeg"),
+    image: asset("/images/events/event-3.jpg"),
   },
   {
     title: "Under the Surface",
     date: "May 10, 2026",
     venue: "Good Room",
-    image: asset("/images/1D3A9620-2.jpeg"),
+    image: asset("/images/events/event-4.jpg"),
   },
 ];
 
@@ -96,20 +96,22 @@ function HeroSection() {
       ref={sectionRef}
       className="relative h-screen w-full overflow-hidden"
     >
-      {/* Background image — static with parallax scale on scroll */}
+      {/* Background video — looping crowd moment with parallax scale on scroll */}
       <motion.div
         className="absolute inset-0"
         style={{ opacity: heroOpacity, scale: heroScale }}
       >
-        <Image
-          src={asset("/images/hero-crowd-wide-compressed.jpg")}
-          alt="Agape event — underground crowd"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover"
           style={{ filter: "brightness(0.45)" }}
-        />
+          poster={asset("/images/hero-crowd-wide-compressed.jpg")}
+        >
+          <source src={asset("/videos/hero-loop.mp4")} type="video/mp4" />
+        </video>
         {/* Deep dark overlay for text legibility */}
         <div
           className="absolute inset-0"
@@ -241,10 +243,11 @@ function NarrativeSection() {
 
   return (
     <section
+      id="about"
       ref={sectionRef}
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(10, 10, 10, 0.55)",
+        backgroundColor: "rgba(10, 10, 10, 0.75)",
         paddingTop: "8rem",
         paddingBottom: "8rem",
       }}
@@ -274,7 +277,7 @@ function NarrativeSection() {
           <ScrollReveal>
             <div className="flex items-center gap-4">
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
-                01
+                02
               </span>
               <div className="h-[1px] w-12 bg-[#363636]" />
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
@@ -383,6 +386,7 @@ function EventsSection() {
 
   return (
     <section
+      id="events"
       className="relative overflow-hidden"
       style={{
         backgroundColor: "#0a0a0a",
@@ -397,7 +401,7 @@ function EventsSection() {
             <ScrollReveal>
               <div className="flex items-center gap-4 mb-4">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
-                  02
+                  01
                 </span>
                 <div className="h-[1px] w-12 bg-[#363636]" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
@@ -674,9 +678,10 @@ function ResidentsSection() {
 
   return (
     <section
+      id="residents"
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(10, 10, 10, 0.55)",
+        backgroundColor: "rgba(10, 10, 10, 0.75)",
         paddingTop: "6rem",
         paddingBottom: "8rem",
       }}
@@ -840,9 +845,10 @@ function ResidentsSection() {
 function CTASection() {
   return (
     <section
+      id="contact"
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(17, 17, 17, 0.55)",
+        backgroundColor: "rgba(17, 17, 17, 0.75)",
         paddingTop: "8rem",
         paddingBottom: "8rem",
       }}
@@ -920,17 +926,7 @@ export default function Home() {
 
         <HeroSection />
 
-        {/* Ghost marquee — background texture behind narrative */}
-        <div style={{ backgroundColor: "rgba(10, 10, 10, 0.55)" }}>
-          <InfiniteMarquee text="ÄGAPĒ" variant="ghost" speed={25} className="py-4" />
-        </div>
-
-        <NarrativeSection />
-
-        {/* Full-width immersive photo strip */}
-        <PhotoBreakSection />
-
-        {/* Filled marquee ticker — transitional element */}
+        {/* Filled marquee ticker — attached to hero bottom edge */}
         <div className="overflow-hidden border-t border-b border-dashed border-[#363636] bg-[#0a0a0a] py-5">
           <InfiniteMarquee
             text="UPCOMING"
@@ -941,6 +937,11 @@ export default function Home() {
         </div>
 
         <EventsSection />
+
+        {/* Full-width immersive photo strip */}
+        <PhotoBreakSection />
+
+        <NarrativeSection />
 
         {/* Residents — the collective */}
         <ResidentsSection />

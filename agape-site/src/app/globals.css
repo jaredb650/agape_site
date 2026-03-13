@@ -249,6 +249,22 @@ a {
     inset 0 0 8px rgba(161, 240, 129, 0.05);
 }
 
+/* ===== Preloader Noise Grain ===== */
+
+@keyframes noise-animation {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -3%); }
+  20% { transform: translate(-4%, 2%); }
+  30% { transform: translate(2%, -4%); }
+  40% { transform: translate(-2%, 5%); }
+  50% { transform: translate(-4%, 2%); }
+  60% { transform: translate(3%, 0); }
+  70% { transform: translate(0, 3%); }
+  80% { transform: translate(-3%, 0); }
+  90% { transform: translate(2%, 2%); }
+  100% { transform: translate(1%, 0); }
+}
+
 /* Disable flicker on mobile for performance */
 @media (max-width: 767px) {
   .flicker-btn {

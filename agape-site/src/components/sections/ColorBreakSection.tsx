@@ -120,6 +120,7 @@ export default function ColorBreakSection() {
 
   return (
     <section
+      id="manifesto"
       ref={sectionRef}
       className="relative w-full overflow-hidden py-24 md:py-32"
       style={{ contain: "paint" }}

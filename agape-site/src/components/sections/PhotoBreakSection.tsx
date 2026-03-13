@@ -6,9 +6,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { asset } from "@/lib/asset";
 
 const photos = [
-  { src: asset("/images/DSC05585.jpeg"), alt: "Agape event moment", yRange: [-30, 30] as const },
-  { src: asset("/images/DSC05632.jpeg"), alt: "Agape underground scene", yRange: [-30, 30] as const },
-  { src: asset("/images/AGAPE_F5.jpeg"), alt: "Agape crowd energy", yRange: [-30, 30] as const },
+  { src: asset("/images/underground/strip-1.jpg"), alt: "Crowd at the barrier", yRange: [-30, 30] as const },
+  { src: asset("/images/underground/strip-2.jpg"), alt: "Underground fashion and lights", yRange: [-30, 30] as const },
+  { src: asset("/images/underground/strip-3.jpg"), alt: "Raw crowd energy", yRange: [-30, 30] as const },
 ];
 
 const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
@@ -102,19 +102,19 @@ export default function PhotoBreakSection() {
         </span>
       </div>
 
-      {/* Desktop: 3-column strip / Mobile: stacked — all same height */}
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-[1fr_1.3fr_1fr] md:gap-0">
+      {/* Always 3-column strip — thin banner style */}
+      <div className="grid grid-cols-[1fr_1.3fr_1fr] gap-0">
         {photos.map((photo, i) => (
           <motion.div
             key={photo.src}
             style={{ y: yValues[i] }}
-            className="group relative h-[40vh] overflow-hidden md:h-[65vh]"
+            className="group relative h-[25vh] overflow-hidden md:h-[35vh]"
           >
             <Image
               src={photo.src}
               alt={photo.alt}
               fill
-              sizes="(max-width: 768px) 100vw, 40vw"
+              sizes="34vw"
               className="object-cover transition-[filter] duration-500 group-hover:brightness-110"
             />
             {/* Dark bottom-heavy gradient overlay */}
