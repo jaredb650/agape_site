@@ -27,28 +27,28 @@ const ParallaxField = dynamic(
    ────────────────────────────────────────────── */
 const EVENTS = [
   {
-    title: "Subliminal Frequencies",
-    date: "Mar 22, 2026",
-    venue: "Basement NYC",
-    image: asset("/images/events/event-1.jpg"),
+    title: "Kloud + Aphotic",
+    date: "Mar 14, 2026",
+    venue: "255 Randolph St.",
+    image: asset("/images/events/kloud-aphotic.png"),
   },
   {
-    title: "Nocturnal Transmission",
-    date: "Apr 05, 2026",
-    venue: "Knockdown Center",
-    image: asset("/images/events/event-2.jpg"),
+    title: "David Löhlein",
+    date: "Mar 27, 2026",
+    venue: "70 Scott Ave",
+    image: asset("/images/events/david-lohlein.png"),
   },
   {
-    title: "Raw Signal",
-    date: "Apr 19, 2026",
-    venue: "Elsewhere Zone 1",
-    image: asset("/images/events/event-3.jpg"),
+    title: "Aiden — All Night Long",
+    date: "Apr 03, 2026",
+    venue: "70 Scott Ave",
+    image: asset("/images/events/aiden.png"),
   },
   {
-    title: "Under the Surface",
-    date: "May 10, 2026",
-    venue: "Good Room",
-    image: asset("/images/events/event-4.jpg"),
+    title: "Rebekah + Tham",
+    date: "Apr 17, 2026",
+    venue: "99 Scott Ave",
+    image: asset("/images/events/rebekah-tham.png"),
   },
 ];
 
