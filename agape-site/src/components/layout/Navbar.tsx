@@ -419,7 +419,7 @@ export function Navbar() {
                 Pushing the Limits of Electronic Music
               </span>
               <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#888888]">
-                NYC Underground
+                NYC Electronic Music
               </span>
             </motion.div>
           </motion.div>

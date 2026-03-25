@@ -285,7 +285,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
                         ease: EASE_EXPO,
                       }}
                     >
-                      Electronic Music — NYC Underground
+                      Electronic Music — NYC
                     </motion.p>
 
                     <motion.div className="mt-6 h-[1px] w-32 overflow-hidden bg-[#363636]/50">

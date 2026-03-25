@@ -136,7 +136,7 @@ function HeroSection() {
               {/* Pre-title label */}
               <ScrollReveal delay={0.1} distance={20}>
                 <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#888888]">
-                  NYC Underground
+                  NYC Electronic Music
                 </span>
               </ScrollReveal>
 
@@ -182,7 +182,7 @@ function HeroSection() {
                 >
                   Pushing the Limits of Electronic Music
                   <br />
-                  in NYC&apos;s Underground
+                  in NYC&apos;s Dance Scene
                 </p>
               </ScrollReveal>
 
@@ -297,35 +297,22 @@ function NarrativeSection() {
                 Born from the
                 <br />
                 <span className="text-[#f0f0f0]">
-                  <GlitchText text="Underground" />
+                  <GlitchText text="Dancefloor" />
                 </span>
               </h2>
             </CornerBrackets>
           </ScrollReveal>
 
-          {/* Body text — two column on desktop */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-            <ScrollReveal delay={0.2}>
-              <p
-                className="font-body text-base leading-[1.8] text-[#888888]"
-              >
-                Agape is more than an events company. We are a collective of
-                artists, DJs, and creators dedicated to pushing electronic music
-                forward in New York City. Every night we curate is an experiment
-                in sound, space, and connection.
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={0.3}>
-              <p
-                className="font-body text-base leading-[1.8] text-[#888888]"
-              >
-                From warehouse raves to intimate basement sets, we build
-                experiences that blur the line between performer and audience.
-                No VIP. No velvet ropes. Just raw energy and relentless beats
-                in the spaces where music sounds the way it was meant to.
-              </p>
-            </ScrollReveal>
-          </div>
+          {/* Body text */}
+          <ScrollReveal delay={0.2}>
+            <p
+              className="max-w-2xl font-body text-base leading-[1.8] text-[#888888]"
+            >
+              Agapē is a New York based event platform and record label
+              dedicated to underground electronic music. Through events and
+              releases we bring artists and community together.
+            </p>
+          </ScrollReveal>
 
           {/* Stats row */}
           <ScrollReveal delay={0.35}>
@@ -876,7 +863,7 @@ function CTASection() {
           >
             Experience the
             <br />
-            <GlitchText text="Underground" />
+            <GlitchText text="Movement" />
           </h2>
         </ScrollReveal>
 

@@ -52,7 +52,7 @@ export function Footer() {
             <p className="font-body text-sm leading-relaxed text-[#888888]">
               Pushing the Limits of Electronic Music
               <br />
-              in NYC&apos;s Underground.
+              in NYC&apos;s Dance Scene.
             </p>
             <div className="flex items-center gap-2">
               <span className="h-[5px] w-[5px] bg-[#c13243] animate-pulse" />

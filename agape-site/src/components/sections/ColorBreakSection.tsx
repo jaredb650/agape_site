@@ -111,7 +111,7 @@ export default function ColorBreakSection() {
   const isMobile = useMediaQuery("(max-width: 767px)");
 
   const words =
-    "No VIP. No velvet ropes. Just raw energy and relentless beats in the spaces where music sounds the way it was meant to.".split(
+    "Agapē is built around the dancefloor. We focus on good music, strong sound systems, and spaces where people can come together and experience the night without distractions.".split(
       " "
     );
 
@@ -213,7 +213,7 @@ export default function ColorBreakSection() {
           <span>NYC</span>
           <span className="mx-4 hidden sm:inline text-white/30">---</span>
           <span className="mx-2 sm:hidden text-white/30">—</span>
-          <span>Underground</span>
+          <span>Dancefloor</span>
         </motion.div>
       </div>
     </section>

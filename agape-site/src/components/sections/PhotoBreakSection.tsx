@@ -8,7 +8,7 @@ import { asset } from "@/lib/asset";
 const photos = [
   { src: asset("/images/underground/strip-1.jpg"), alt: "Crowd at the barrier", yRange: [-30, 30] as const },
   { src: asset("/images/underground/strip-2.jpg"), alt: "Underground fashion and lights", yRange: [-30, 30] as const },
-  { src: asset("/images/underground/strip-3.jpg"), alt: "Raw crowd energy", yRange: [-30, 30] as const },
+  { src: asset("/images/rave-shots/dj-red-light.jpg"), alt: "DJ under red and green lights", yRange: [-30, 30] as const },
 ];
 
 const GLITCH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
@@ -98,7 +98,7 @@ export default function PhotoBreakSection() {
             lineHeight: 1,
           }}
         >
-          <GlitchLetters text="UNDERGROUND" />
+          <GlitchLetters text="DANCEFLOOR" />
         </span>
       </div>
 
