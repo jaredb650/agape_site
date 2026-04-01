@@ -13,6 +13,7 @@ import EventCard from "@/components/cards/EventCard";
 import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
 import PhotoBreakSection from "@/components/sections/PhotoBreakSection";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
+import EventGallerySection from "@/components/sections/EventGallerySection";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
@@ -55,27 +56,27 @@ const EVENTS = [
 const RESIDENTS = [
   {
     name: "Andrés Garcil",
-    role: "Founder / DJ",
+    role: "Resident DJ",
     image: asset("/images/residents/andres-garcil-placeholder.webp"),
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    bio: "Hailing from the capital of Colombia, Andres Garcil was immersed at an early age into the world of electronic music. Now based in Brooklyn, and at only 21, he's proven that what he lacks in years, he makes up for with his masterful poise when navigating the decks for his ever-growing, high-bpm desiring crowds, stealing the show at several of our events already. His signature style is captivating, blending hard techno, hard dance, and industrial sounds. With big plans already underway in the Big Apple, playing closing out already some of Agape's biggest shows, and many national plays yet to be announced, Andres is set to become one of the leading forces in Brooklyn's underground scene and beyond.",
   },
   {
     name: "Animal",
     role: "Resident DJ",
     image: asset("/images/residents/animal-placeholder.png"),
-    bio: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    bio: "",
   },
   {
     name: "Diossa",
     role: "Resident DJ",
     image: asset("/images/residents/diossa-placeholder.jpg"),
-    bio: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    bio: "DIOSSA is a Colombian-born, New York City\u2013based techno DJ and producer operating at the intersection of groove, hypnosis, and velocity. As a new resident of Agape, she represents the next wave of artists shaping the city's underground with discipline, clarity of vision, and uncompromising energy. Her sound is fast, driving, and immersive, built on hypnotic loops, layered percussion, and textured atmospheres that balance physical impact with mental focus. DIOSSA constructs her sets as continuous journeys, locking dance floors into a trance state while maintaining relentless forward motion. With roots in Colombia's underground and a growing international presence, she has performed at Baum Festival, H\u00F6r Berlin, ADE, Elements Music & Arts Festival, and clubs across the US, Europe, and South America. She has shared lineups with Vladimir Dubyshkin, Chl\u00E4r, Anetha, and Lacchesi, while her H\u00F6r Berlin set has surpassed 93,000 streams. As a producer, DIOSSA is building a distinct sonic identity. Her debut EP Oberon on Infrablack Records reached the Top 20 on Beatport's Hypnotic Techno chart, followed by releases on Therefore Records. She now launches Obsidia Records, a platform dedicated to bold, rhythm-driven techno rooted in introspection and impact.",
   },
   {
     name: "Junk File",
-    role: "Resident DJ",
+    role: "Founder / DJ",
     image: asset("/images/residents/junk-file-placeholder.jpg"),
-    bio: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    bio: "Junkfile moved to NYC five years ago, where he launched his career as a DJ, producer, and promoter. He is the founder of Agape and Agape Records, playing a key role in shaping the city's current techno landscape. He has performed at some of NYC's most respected venues, including H0L0, Elsewhere, Bossa Nova Civic Club, and 99 Scott, building a reputation for driving, groove-focused sets. Sharing stages with artists like Grace Dahl, SHDW, Vladimir Dubyshkin, Hadone, and others, Junkfile continues to establish himself as a consistent presence in the scene. In early 2026, he released on BCCO, marking a strong step forward in his production career. Alongside previous releases on So-Tight Records and ongoing output through his own Brooklyn-based label, his sound continues to evolve with a clear focus on high-energy, forward-leaning techno.",
   },
 ];
 
@@ -542,12 +543,19 @@ function ResidentPanel({
   onHover: () => void;
   onLeave: () => void;
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasBio = resident.bio.length > 0;
+
   return (
     <motion.div
       className="relative cursor-pointer overflow-hidden"
       style={{ flex: isHovered ? 2.2 : anyHovered ? 0.7 : 1 }}
       onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+      onMouseLeave={() => {
+        onLeave();
+        setIsExpanded(false);
+      }}
+      onClick={() => hasBio && setIsExpanded((prev) => !prev)}
       animate={{
         flex: isHovered ? 2.2 : anyHovered ? 0.7 : 1,
       }}
@@ -559,7 +567,11 @@ function ResidentPanel({
           <motion.div
             className="h-full w-full"
             animate={{
-              filter: isHovered ? "brightness(0.65)" : "brightness(0.3)",
+              filter: isHovered
+                ? isExpanded
+                  ? "brightness(0.25)"
+                  : "brightness(0.65)"
+                : "brightness(0.3)",
               scale: isHovered ? 1.05 : 1,
             }}
             transition={{ duration: 0.6, ease: [0.455, 0.03, 0.515, 0.955] }}
@@ -584,13 +596,15 @@ function ResidentPanel({
           }}
         />
 
-        {/* Gradient overlay */}
-        <div
+        {/* Gradient overlay — stronger when expanded */}
+        <motion.div
           className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(0deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 40%, rgba(5,5,5,0.15) 100%)",
+          animate={{
+            background: isExpanded
+              ? "linear-gradient(0deg, rgba(5,5,5,0.98) 0%, rgba(5,5,5,0.85) 60%, rgba(5,5,5,0.6) 100%)"
+              : "linear-gradient(0deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 40%, rgba(5,5,5,0.15) 100%)",
           }}
+          transition={{ duration: 0.4 }}
         />
 
         {/* Content */}
@@ -619,20 +633,44 @@ function ResidentPanel({
               <GlitchText text={resident.name} />
             </h3>
 
-            {/* Bio — reveals on hover */}
-            <motion.div
-              className="overflow-hidden"
-              animate={{
-                height: isHovered ? "auto" : 0,
-                opacity: isHovered ? 1 : 0,
-              }}
-              initial={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
-            >
-              <p className="pt-2 font-body text-[12px] leading-[1.7] text-[#888888] md:text-[13px]">
-                {resident.bio}
-              </p>
-            </motion.div>
+            {/* Bio — truncated on hover, full on click */}
+            {hasBio && (
+              <motion.div
+                className="overflow-hidden"
+                animate={{
+                  height: isExpanded ? "auto" : isHovered ? 22 : 0,
+                  opacity: isHovered ? 1 : 0,
+                }}
+                initial={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
+              >
+                <p
+                  className="pt-1 font-body text-[12px] leading-[1.7] text-[#888888] md:text-[13px]"
+                  style={
+                    isExpanded
+                      ? {}
+                      : {
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }
+                  }
+                >
+                  {resident.bio}
+                </p>
+              </motion.div>
+            )}
+
+            {/* "Read more" hint on hover, "Click to close" when expanded */}
+            {hasBio && (
+              <motion.span
+                className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#c13243]"
+                animate={{ opacity: isHovered ? 0.8 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {isExpanded ? "[ Click to close ]" : "[ Click to read ]"}
+              </motion.span>
+            )}
 
             {/* Decorative line */}
             <motion.div
@@ -645,6 +683,103 @@ function ResidentPanel({
         </div>
       </CornerBrackets>
     </motion.div>
+  );
+}
+
+function ResidentCard({
+  resident,
+  index,
+  height,
+  sizes,
+  bracketSize,
+  nameSize = "text-lg",
+}: {
+  resident: (typeof RESIDENTS)[0];
+  index: number;
+  height: number;
+  sizes: string;
+  bracketSize: number;
+  nameSize?: string;
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasBio = resident.bio.length > 0;
+
+  return (
+    <CornerBrackets size={bracketSize} color="#363636">
+      <motion.div
+        className="relative overflow-hidden cursor-pointer"
+        style={{ height }}
+        animate={{ height: isExpanded ? height + 120 : height }}
+        transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
+        onClick={() => hasBio && setIsExpanded((prev) => !prev)}
+      >
+        <Image
+          src={resident.image}
+          alt={resident.name}
+          fill
+          sizes={sizes}
+          className="object-cover"
+          style={{ filter: isExpanded ? "brightness(0.2)" : "brightness(0.4)" }}
+        />
+        {/* Scan-lines */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: isExpanded
+              ? "linear-gradient(0deg, rgba(5,5,5,0.98) 0%, rgba(5,5,5,0.8) 60%, rgba(5,5,5,0.4) 100%)"
+              : "linear-gradient(0deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.2) 100%)",
+          }}
+        />
+        <div className="absolute inset-0 flex flex-col justify-between p-5">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#555555]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <div>
+            <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.25em] text-[#666666]">
+              {resident.role}
+            </span>
+            <h3 className={`font-display ${nameSize} font-bold uppercase tracking-[0.05em] text-[#fafafa]`}>
+              <GlitchText text={resident.name} />
+            </h3>
+            {hasBio && (
+              <motion.div
+                className="overflow-hidden"
+                animate={{ height: isExpanded ? "auto" : 20 }}
+                transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
+              >
+                <p
+                  className="mt-2 font-body text-[12px] leading-[1.7] text-[#888888]"
+                  style={
+                    isExpanded
+                      ? {}
+                      : {
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }
+                  }
+                >
+                  {resident.bio}
+                </p>
+              </motion.div>
+            )}
+            {hasBio && (
+              <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.15em] text-[#c13243] opacity-80">
+                {isExpanded ? "[ Tap to close ]" : "[ Tap to read ]"}
+              </span>
+            )}
+            <div className="mt-3 h-[1px] w-8 bg-[#363636]" />
+          </div>
+        </div>
+      </motion.div>
+    </CornerBrackets>
   );
 }
 
@@ -719,100 +854,14 @@ function ResidentsSection() {
           /* Tablet: 2x2 grid */
           <div className="grid grid-cols-2 gap-3 px-6">
             {RESIDENTS.map((resident, i) => (
-              <CornerBrackets key={resident.name} size={22} color="#363636">
-                <div className="relative h-[360px] overflow-hidden">
-                  <Image
-                    src={resident.image}
-                    alt={resident.name}
-                    fill
-                    sizes="50vw"
-                    className="object-cover"
-                    style={{ filter: "brightness(0.4)" }}
-                  />
-                  {/* Scan-lines */}
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(0deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.2) 100%)",
-                    }}
-                  />
-                  <div className="absolute inset-0 flex flex-col justify-between p-5">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#555555]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.25em] text-[#666666]">
-                        {resident.role}
-                      </span>
-                      <h3 className="font-display text-lg font-bold uppercase tracking-[0.05em] text-[#fafafa]">
-                        <GlitchText text={resident.name} />
-                      </h3>
-                      <p className="mt-2 font-body text-[12px] leading-[1.7] text-[#888888]">
-                        {resident.bio}
-                      </p>
-                      <div className="mt-3 h-[1px] w-8 bg-[#363636]" />
-                    </div>
-                  </div>
-                </div>
-              </CornerBrackets>
+              <ResidentCard key={resident.name} resident={resident} index={i} height={360} sizes="50vw" bracketSize={22} />
             ))}
           </div>
         ) : (
           /* Mobile: stacked vertical cards */
           <div className="flex flex-col gap-3 px-6">
             {RESIDENTS.map((resident, i) => (
-              <CornerBrackets key={resident.name} size={20} color="#363636">
-                <div className="relative h-[300px] overflow-hidden">
-                  <Image
-                    src={resident.image}
-                    alt={resident.name}
-                    fill
-                    sizes="100vw"
-                    className="object-cover"
-                    style={{ filter: "brightness(0.4)" }}
-                  />
-                  {/* Scan-lines */}
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(0deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.15) 100%)",
-                    }}
-                  />
-                  <div className="absolute inset-0 flex flex-col justify-between p-5">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#555555]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.25em] text-[#666666]">
-                        {resident.role}
-                      </span>
-                      <h3 className="font-display text-xl font-bold uppercase tracking-[0.05em] text-[#fafafa]">
-                        <GlitchText text={resident.name} />
-                      </h3>
-                      <p className="mt-2 font-body text-[12px] leading-[1.7] text-[#888888]">
-                        {resident.bio}
-                      </p>
-                      <div className="mt-3 h-[1px] w-8 bg-[#363636]" />
-                    </div>
-                  </div>
-                </div>
-              </CornerBrackets>
+              <ResidentCard key={resident.name} resident={resident} index={i} height={300} sizes="100vw" bracketSize={20} nameSize="text-xl" />
             ))}
           </div>
         )}
@@ -927,6 +976,9 @@ export default function Home() {
 
         {/* Residents — the collective */}
         <ResidentsSection />
+
+        {/* Event gallery — editorial photo spread */}
+        <EventGallerySection />
 
         {/* Color explosion — manifesto section */}
         <ColorBreakSection />
