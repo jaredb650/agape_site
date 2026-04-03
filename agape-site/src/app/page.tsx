@@ -403,7 +403,7 @@ function EventsSection() {
           </div>
 
           <ScrollReveal delay={0.2}>
-            <FlickerButton href="/events" variant="outline" className="self-start md:self-auto">
+            <FlickerButton href="https://posh.vip/g/agape" variant="outline" className="self-start md:self-auto">
               View All
             </FlickerButton>
           </ScrollReveal>

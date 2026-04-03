@@ -62,7 +62,7 @@ export default function FlickerButton({
     }
 
     return (
-      <a href={href} className={baseStyles}>
+      <a href={href} className={baseStyles} target="_blank" rel="noopener noreferrer">
         {inner}
       </a>
     );
