@@ -32,24 +32,28 @@ const EVENTS = [
     date: "Mar 14, 2026",
     venue: "255 Randolph St.",
     image: asset("/images/events/kloud-aphotic.png"),
+    ticketUrl: "https://posh.vip/e/agap-presents-kloud-aphtic",
   },
   {
     title: "David Löhlein",
     date: "Mar 27, 2026",
     venue: "70 Scott Ave",
     image: asset("/images/events/david-lohlein.png"),
+    ticketUrl: "https://posh.vip/e/agap-presents-david-lhlein",
   },
   {
     title: "Aiden — All Night Long",
     date: "Apr 03, 2026",
     venue: "70 Scott Ave",
     image: asset("/images/events/aiden.png"),
+    ticketUrl: "https://posh.vip/e/agape-presents-aiden-all-night-long",
   },
   {
     title: "Rebekah + Tham",
     date: "Apr 17, 2026",
     venue: "99 Scott Ave",
     image: asset("/images/events/rebekah-tham.png"),
+    ticketUrl: "https://posh.vip/e/agape-presents-rebekah-at-99-scott",
   },
 ];
 
@@ -445,9 +449,11 @@ function EventsSection() {
                       </span>
                     </div>
                     <div className="mt-4">
-                      <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
-                        Notify Me
-                      </FlickerButton>
+                      <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
+                        <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
+                          Buy Tickets
+                        </FlickerButton>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -491,9 +497,11 @@ function EventsSection() {
                       </span>
                     </div>
                     <div className="mt-4">
-                      <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
-                        Notify Me
-                      </FlickerButton>
+                      <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
+                        <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
+                          Buy Tickets
+                        </FlickerButton>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -510,6 +518,7 @@ function EventsSection() {
                 date={event.date}
                 venue={event.venue}
                 image={event.image}
+                ticketUrl={event.ticketUrl}
                 index={i}
                 isHovered={hoveredIndex === i}
                 anyHovered={hoveredIndex !== null}

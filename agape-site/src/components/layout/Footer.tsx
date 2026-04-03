@@ -18,7 +18,7 @@ const navLinks = [
 const socialLinks = [
   { href: "https://instagram.com/agapemusic.us", label: "Instagram" },
   { href: "https://soundcloud.com/agape-music-us", label: "SoundCloud" },
-  { href: "https://ra.co/promoters/114558", label: "RA" },
+  { href: "https://posh.vip/g/agape", label: "Posh" },
 ];
 
 export function Footer() {
@@ -163,7 +163,7 @@ export function Footer() {
       {/* Bottom bar — legal */}
       <div className="border-t border-[#363636]/30">
         <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-6 py-6 md:flex-row md:px-10 lg:px-16">
-          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#888888]">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#888888]" suppressHydrationWarning>
             &copy; {new Date().getFullYear()} ÄGAPĒ Music. All rights reserved.
           </p>
           <div className="flex gap-6">

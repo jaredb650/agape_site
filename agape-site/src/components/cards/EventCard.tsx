@@ -11,6 +11,7 @@ interface EventCardProps {
   date: string;
   venue: string;
   image: string;
+  ticketUrl: string;
   index: number;
   isHovered: boolean;
   onHover: () => void;
@@ -23,6 +24,7 @@ export default function EventCard({
   date,
   venue,
   image,
+  ticketUrl,
   index,
   isHovered,
   onHover,
@@ -131,9 +133,11 @@ export default function EventCard({
                 ease: [0.455, 0.03, 0.515, 0.955],
               }}
             >
-              <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap">
-                Notify Me
-              </FlickerButton>
+              <a href={ticketUrl} target="_blank" rel="noopener noreferrer">
+                <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap">
+                  Buy Tickets
+                </FlickerButton>
+              </a>
             </motion.div>
           </div>
         </div>
