@@ -6,6 +6,8 @@ import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import GrainOverlay from "@/components/effects/GrainOverlay";
 import { PageTransition } from "@/components/layout/PageTransition";
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://agapemusic.us"
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
     description: "Pushing the Limits of Electronic Music in NYC's Underground.",
     type: "website",
     locale: "en_US",
-    images: ["/images/webclip.png"],
+    images: [`${base}/images/webclip.png`],
   },
   twitter: {
     card: "summary_large_image",
@@ -29,8 +31,8 @@ export const metadata: Metadata = {
     description: "Pushing the Limits of Electronic Music in NYC's Underground.",
   },
   icons: {
-    icon: "/images/favicon.png",
-    apple: "/images/webclip.png",
+    icon: `${base}/images/favicon.png`,
+    apple: `${base}/images/webclip.png`,
   },
 };
 

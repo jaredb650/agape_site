@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://agapemusic.us";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 interface SeoParams {
   title: string;
@@ -14,7 +15,7 @@ export function generatePageMetadata({
   title,
   description,
   path,
-  ogImage = "/images/webclip.png",
+  ogImage = `${BASE_PATH}/images/webclip.png`,
   type = "website",
 }: SeoParams): Metadata {
   const url = `${SITE_URL}${path}`;
@@ -48,7 +49,7 @@ export function organizationSchema() {
     "@type": "Organization",
     name: "AGAPE Music",
     url: SITE_URL,
-    logo: `${SITE_URL}/images/agape_logo_white.png`,
+    logo: `${SITE_URL}${BASE_PATH}/images/agape_logo_white.png`,
     description:
       "Pushing the Limits of Electronic Music in NYC's Underground.",
     sameAs: [],
@@ -164,7 +165,7 @@ export function articleSchema(article: {
       name: "AGAPE Music",
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/images/agape_logo_white.png`,
+        url: `${SITE_URL}${BASE_PATH}/images/agape_logo_white.png`,
       },
     },
   };
