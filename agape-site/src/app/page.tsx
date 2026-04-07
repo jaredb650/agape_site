@@ -18,10 +18,11 @@ import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
 // Lazy-load Three.js wireform — keeps it out of the main bundle for mobile
-const ParallaxField = dynamic(
-  () => import("@/components/effects/ParallaxField"),
-  { ssr: false },
-);
+// COMMENTED OUT: client wants to see plain black background
+// const ParallaxField = dynamic(
+//   () => import("@/components/effects/ParallaxField"),
+//   { ssr: false },
+// );
 
 /* ──────────────────────────────────────────────
    PLACEHOLDER DATA
@@ -55,6 +56,20 @@ const EVENTS = [
     image: asset("/images/events/rebekah-tham.png"),
     ticketUrl: "https://posh.vip/e/agape-presents-rebekah-at-99-scott",
   },
+  {
+    title: "Refuge",
+    date: "Apr 24, 2026",
+    venue: "366 Ten Eyck, BKLYN",
+    image: asset("/images/events/refuge.jpg"),
+    ticketUrl: "https://www.eventbrite.com/e/refuge-fridays-w-bours-the-chronics-tigerhead-junkfile-and-more-tickets-19854900074260",
+  },
+  {
+    title: "LESSSS",
+    date: "Apr 24, 2026",
+    venue: "774 Myrtle Ave, Brooklyn",
+    image: asset("/images/events/lessss.jpg"),
+    ticketUrl: "",
+  },
 ];
 
 const RESIDENTS = [
@@ -77,7 +92,7 @@ const RESIDENTS = [
     bio: "DIOSSA is a Colombian-born, New York City\u2013based techno DJ and producer operating at the intersection of groove, hypnosis, and velocity. As a new resident of Agape, she represents the next wave of artists shaping the city's underground with discipline, clarity of vision, and uncompromising energy. Her sound is fast, driving, and immersive, built on hypnotic loops, layered percussion, and textured atmospheres that balance physical impact with mental focus. DIOSSA constructs her sets as continuous journeys, locking dance floors into a trance state while maintaining relentless forward motion. With roots in Colombia's underground and a growing international presence, she has performed at Baum Festival, H\u00F6r Berlin, ADE, Elements Music & Arts Festival, and clubs across the US, Europe, and South America. She has shared lineups with Vladimir Dubyshkin, Chl\u00E4r, Anetha, and Lacchesi, while her H\u00F6r Berlin set has surpassed 93,000 streams. As a producer, DIOSSA is building a distinct sonic identity. Her debut EP Oberon on Infrablack Records reached the Top 20 on Beatport's Hypnotic Techno chart, followed by releases on Therefore Records. She now launches Obsidia Records, a platform dedicated to bold, rhythm-driven techno rooted in introspection and impact.",
   },
   {
-    name: "Junk File",
+    name: "Junkfile",
     role: "Founder / DJ",
     image: asset("/images/residents/junk-file-placeholder.jpg"),
     bio: "Junkfile moved to NYC five years ago, where he launched his career as a DJ, producer, and promoter. He is the founder of Agape and Agape Records, playing a key role in shaping the city's current techno landscape. He has performed at some of NYC's most respected venues, including H0L0, Elsewhere, Bossa Nova Civic Club, and 99 Scott, building a reputation for driving, groove-focused sets. Sharing stages with artists like Grace Dahl, SHDW, Vladimir Dubyshkin, Hadone, and others, Junkfile continues to establish himself as a consistent presence in the scene. In early 2026, he released on BCCO, marking a strong step forward in his production career. Alongside previous releases on So-Tight Records and ongoing output through his own Brooklyn-based label, his sound continues to evolve with a clear focus on high-energy, forward-leaning techno.",
@@ -359,6 +374,105 @@ function NarrativeSection() {
 }
 
 /* ──────────────────────────────────────────────
+   FESTIVAL BANNER (inline, full-bleed)
+   ────────────────────────────────────────────── */
+function FestivalBannerInline() {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.a
+      href="https://agape-festival.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative block w-full cursor-pointer overflow-hidden"
+      style={{ borderTop: "1px dashed var(--color-tertiary-dark)", borderBottom: "1px dashed var(--color-tertiary-dark)" }}
+      animate={{ height: hovered ? 340 : 220 }}
+      transition={{ duration: 0.8, ease: [0.455, 0.03, 0.515, 0.955] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Looping video background */}
+      <motion.video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+        animate={{ filter: hovered ? "brightness(0.5)" : "brightness(0.25)", scale: hovered ? 1.03 : 1 }}
+        transition={{ duration: 0.7, ease: [0.455, 0.03, 0.515, 0.955] }}
+      >
+        <source src={asset("/videos/festival-flyer.mp4")} type="video/mp4" />
+      </motion.video>
+
+      {/* Overlays */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(5,5,5,0.75) 0%, rgba(5,5,5,0.2) 50%, rgba(5,5,5,0.75) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(10,10,10,0.7) 0%, transparent 30%, transparent 70%, rgba(10,10,10,0.7) 100%)",
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 flex h-full items-end p-6 md:p-8">
+        {/* Top-left label */}
+        <motion.span
+          className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888] md:left-8 md:top-8"
+          animate={{ opacity: hovered ? 1 : 0.6 }}
+          transition={{ duration: 0.3 }}
+        >
+          Featured Event
+        </motion.span>
+
+        {/* Info + CTA row */}
+        <div className="flex w-full items-end justify-between gap-6">
+          <div>
+            <motion.div
+              animate={{ y: hovered ? -8 : 0 }}
+              transition={{ duration: 0.5, ease: [0.455, 0.03, 0.515, 0.955] }}
+            >
+              <h3 className="font-display text-2xl font-bold uppercase tracking-[0.05em] text-[#fafafa] md:text-4xl">
+                <GlitchText text="Agape Festival" />
+              </h3>
+            </motion.div>
+            <motion.div
+              className="mt-2 flex gap-6"
+              animate={{ opacity: hovered ? 1 : 0.7, y: hovered ? -4 : 0 }}
+              transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
+            >
+              <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
+                Summer 2026
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#888888]">
+                agape-festival.com
+              </span>
+            </motion.div>
+          </div>
+
+          {/* CTA — slides in on hover */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : 20 }}
+            transition={{ duration: 0.35, delay: hovered ? 0.15 : 0, ease: [0.455, 0.03, 0.515, 0.955] }}
+          >
+            <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap pointer-events-none">
+              Get Tickets
+            </FlickerButton>
+          </motion.div>
+        </div>
+      </div>
+    </motion.a>
+  );
+}
+
+/* ──────────────────────────────────────────────
    EVENTS CAROUSEL
    ────────────────────────────────────────────── */
 function EventsSection() {
@@ -410,6 +524,13 @@ function EventsSection() {
         </StaggerContainer>
       </div>
 
+      {/* Featured event — Festival full-bleed banner */}
+      <div className="mb-12 md:mb-16">
+        <ScrollReveal>
+          <FestivalBannerInline />
+        </ScrollReveal>
+      </div>
+
       {/* Cards — Desktop: horizontal row with hover expansion, Tablet: 2-col grid, Mobile: stacked */}
       <ScrollReveal delay={0.15}>
         {layout === "mobile" ? (
@@ -448,13 +569,15 @@ function EventsSection() {
                         {event.venue}
                       </span>
                     </div>
-                    <div className="mt-4">
-                      <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
-                        <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
-                          Buy Tickets
-                        </FlickerButton>
-                      </a>
-                    </div>
+                    {event.ticketUrl && (
+                      <div className="mt-4">
+                        <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
+                          <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
+                            Buy Tickets
+                          </FlickerButton>
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </CornerBrackets>
@@ -496,13 +619,15 @@ function EventsSection() {
                         {event.venue}
                       </span>
                     </div>
-                    <div className="mt-4">
-                      <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
-                        <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
-                          Buy Tickets
-                        </FlickerButton>
-                      </a>
-                    </div>
+                    {event.ticketUrl && (
+                      <div className="mt-4">
+                        <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
+                          <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
+                            Buy Tickets
+                          </FlickerButton>
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </CornerBrackets>
@@ -954,7 +1079,7 @@ export default function Home() {
   return (
     <>
       {/* Fixed Three.js terrain — visible behind semi-transparent sections */}
-      <ParallaxField />
+      {/* <ParallaxField /> */}
 
       <div className="relative" style={{ zIndex: 1 }}>
         <script

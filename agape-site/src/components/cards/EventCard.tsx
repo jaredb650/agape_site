@@ -121,24 +121,26 @@ export default function EventCard({
             </div>
 
             {/* CTA — slides in on hover */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{
-                opacity: isHovered ? 1 : 0,
-                x: isHovered ? 0 : 20,
-              }}
-              transition={{
-                duration: 0.35,
-                delay: isHovered ? 0.15 : 0,
-                ease: [0.455, 0.03, 0.515, 0.955],
-              }}
-            >
-              <a href={ticketUrl} target="_blank" rel="noopener noreferrer">
-                <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap">
-                  Buy Tickets
-                </FlickerButton>
-              </a>
-            </motion.div>
+            {ticketUrl && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{
+                  opacity: isHovered ? 1 : 0,
+                  x: isHovered ? 0 : 20,
+                }}
+                transition={{
+                  duration: 0.35,
+                  delay: isHovered ? 0.15 : 0,
+                  ease: [0.455, 0.03, 0.515, 0.955],
+                }}
+              >
+                <a href={ticketUrl} target="_blank" rel="noopener noreferrer">
+                  <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap">
+                    Buy Tickets
+                  </FlickerButton>
+                </a>
+              </motion.div>
+            )}
           </div>
         </div>
       </CornerBrackets>
