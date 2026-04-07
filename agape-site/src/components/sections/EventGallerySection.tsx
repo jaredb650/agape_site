@@ -17,7 +17,6 @@ const GALLERY_IMAGES = [
   { src: "gallery-30.jpg", alt: "DJs behind the decks with massive crowd", span: "hero" as const },
   { src: "gallery-33.jpg", alt: "Blue and purple stage lighting rig", span: "wide" as const },
   { src: "gallery-35.jpg", alt: "Crowd dancing under green light", span: "tall" as const },
-  { src: "gallery-28.jpg", alt: "Masked dancer in red jacket", span: "normal" as const },
   { src: "gallery-42.jpg", alt: "Silhouette with yellow light beams", span: "tall" as const },
   { src: "gallery-41.jpg", alt: "DJ working the decks", span: "wide" as const },
   { src: "gallery-36.jpg", alt: "DJ at Pioneer decks", span: "tall" as const },
@@ -335,36 +334,35 @@ export default function EventGallerySection() {
 
             />
 
-            {/* Row 2: Three columns — wide + tall + normal */}
-            <div className="grid grid-cols-[1.4fr_0.8fr_0.8fr] gap-3">
+            {/* Row 2: Two columns — wide + tall */}
+            <div className="grid grid-cols-[1.4fr_0.8fr] gap-3">
               <GalleryImage {...GALLERY_IMAGES[1]} index={1} />
               <GalleryImage {...GALLERY_IMAGES[2]} index={2} />
-              <GalleryImage {...GALLERY_IMAGES[3]} index={3} />
             </div>
 
             {/* Row 3: Two columns — tall portrait + wide landscape stacked */}
             <div className="grid grid-cols-[0.7fr_1.3fr] gap-3">
-              <GalleryImage {...GALLERY_IMAGES[4]} index={4} />
+              <GalleryImage {...GALLERY_IMAGES[3]} index={3} />
               <div className="flex flex-col gap-3">
+                <GalleryImage {...GALLERY_IMAGES[4]} index={4} />
                 <GalleryImage {...GALLERY_IMAGES[5]} index={5} />
-                <GalleryImage {...GALLERY_IMAGES[6]} index={6} />
               </div>
             </div>
 
             {/* Row 4: Three columns — equal weight */}
             <div className="grid grid-cols-3 gap-3">
+              <GalleryImage {...GALLERY_IMAGES[6]} index={6} />
               <GalleryImage {...GALLERY_IMAGES[7]} index={7} />
               <GalleryImage {...GALLERY_IMAGES[8]} index={8} />
-              <GalleryImage {...GALLERY_IMAGES[9]} index={9} />
             </div>
 
             {/* Row 5: Two columns — wide + tall */}
             <div className="grid grid-cols-[1.3fr_0.7fr] gap-3">
               <div className="flex flex-col gap-3">
+                <GalleryImage {...GALLERY_IMAGES[10]} index={10} />
                 <GalleryImage {...GALLERY_IMAGES[11]} index={11} />
-                <GalleryImage {...GALLERY_IMAGES[12]} index={12} />
               </div>
-              <GalleryImage {...GALLERY_IMAGES[10]} index={10} />
+              <GalleryImage {...GALLERY_IMAGES[9]} index={9} />
             </div>
           </div>
         )}

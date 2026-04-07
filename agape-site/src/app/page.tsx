@@ -71,6 +71,13 @@ const EVENTS = [
     ticketUrl: "https://posh.vip/e/agap-presents-lessss",
   },
   {
+    title: "Serafina — All Night Long",
+    date: "May 12, 2026",
+    venue: "TBA — Brooklyn, NY",
+    image: asset("/images/events/serafina.webp"),
+    ticketUrl: "https://ra.co/events/2384560",
+  },
+  {
     title: "Sara Landry",
     date: "Jul 31 – Aug 01, 2026",
     venue: "Under the K Bridge Park, BK",
