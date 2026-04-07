@@ -57,7 +57,7 @@ const EVENTS = [
     ticketUrl: "https://posh.vip/e/agape-presents-rebekah-at-99-scott",
   },
   {
-    title: "Refuge",
+    title: "Raw Showcase @ Refuge",
     date: "Apr 24, 2026",
     venue: "366 Ten Eyck, BKLYN",
     image: asset("/images/events/refuge.jpg"),
@@ -71,18 +71,18 @@ const EVENTS = [
     ticketUrl: "https://posh.vip/e/agap-presents-lessss",
   },
   {
-    title: "Serafina — All Night Long",
-    date: "May 12, 2026",
-    venue: "TBA — Brooklyn, NY",
-    image: asset("/images/events/serafina.webp"),
-    ticketUrl: "https://ra.co/events/2384560",
-  },
-  {
     title: "Sara Landry",
-    date: "Jul 31 – Aug 01, 2026",
+    date: "Aug 01, 2026",
     venue: "Under the K Bridge Park, BK",
     image: asset("/images/events/sara-landry.jpg"),
     ticketUrl: "https://www.axs.com/events/1322106/sara-landry-tickets",
+  },
+  {
+    title: "Serafina — All Night Long",
+    date: "Dec 05, 2026",
+    venue: "TBA — Brooklyn, NY",
+    image: asset("/images/events/serafina.webp"),
+    ticketUrl: "https://posh.vip/e/agap-presents-serafina-all-night-long",
   },
 ];
 
