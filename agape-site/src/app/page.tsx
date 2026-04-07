@@ -397,6 +397,7 @@ function FestivalBannerInline() {
         loop
         muted
         playsInline
+        poster={asset("/images/events/festival-flyer-poster.jpg")}
         className="absolute inset-0 h-full w-full object-cover"
         animate={{ filter: hovered ? "brightness(0.5)" : "brightness(0.25)", scale: hovered ? 1.03 : 1 }}
         transition={{ duration: 0.7, ease: [0.455, 0.03, 0.515, 0.955] }}
