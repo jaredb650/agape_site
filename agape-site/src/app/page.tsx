@@ -28,27 +28,27 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
    PLACEHOLDER DATA
    ────────────────────────────────────────────── */
 const EVENTS = [
-  {
-    title: "Kloud + Aphotic",
-    date: "Mar 14, 2026",
-    venue: "255 Randolph St.",
-    image: asset("/images/events/kloud-aphotic.png"),
-    ticketUrl: "https://posh.vip/e/agap-presents-kloud-aphtic",
-  },
-  {
-    title: "David Löhlein",
-    date: "Mar 27, 2026",
-    venue: "70 Scott Ave",
-    image: asset("/images/events/david-lohlein.png"),
-    ticketUrl: "https://posh.vip/e/agap-presents-david-lhlein",
-  },
-  {
-    title: "Aiden — All Night Long",
-    date: "Apr 03, 2026",
-    venue: "70 Scott Ave",
-    image: asset("/images/events/aiden.png"),
-    ticketUrl: "https://posh.vip/e/agape-presents-aiden-all-night-long",
-  },
+  // {
+  //   title: "Kloud + Aphotic",
+  //   date: "Mar 14, 2026",
+  //   venue: "255 Randolph St.",
+  //   image: asset("/images/events/kloud-aphotic.png"),
+  //   ticketUrl: "https://posh.vip/e/agap-presents-kloud-aphtic",
+  // },
+  // {
+  //   title: "David Löhlein",
+  //   date: "Mar 27, 2026",
+  //   venue: "70 Scott Ave",
+  //   image: asset("/images/events/david-lohlein.png"),
+  //   ticketUrl: "https://posh.vip/e/agap-presents-david-lhlein",
+  // },
+  // {
+  //   title: "Aiden — All Night Long",
+  //   date: "Apr 03, 2026",
+  //   venue: "70 Scott Ave",
+  //   image: asset("/images/events/aiden.png"),
+  //   ticketUrl: "https://posh.vip/e/agape-presents-aiden-all-night-long",
+  // },
   {
     title: "Rebekah + Tham",
     date: "Apr 17, 2026",
@@ -61,14 +61,21 @@ const EVENTS = [
     date: "Apr 24, 2026",
     venue: "366 Ten Eyck, BKLYN",
     image: asset("/images/events/refuge.jpg"),
-    ticketUrl: "https://www.eventbrite.com/e/refuge-fridays-w-bours-the-chronics-tigerhead-junkfile-and-more-tickets-19854900074260",
+    ticketUrl: "https://www.eventbrite.com/e/refuge-fridays-w-bours-the-chronics-tigerhead-junkfile-and-more-tickets-1985490074260",
   },
   {
     title: "LESSSS",
     date: "Apr 24, 2026",
     venue: "774 Myrtle Ave, Brooklyn",
     image: asset("/images/events/lessss.jpg"),
-    ticketUrl: "",
+    ticketUrl: "https://posh.vip/e/agap-presents-lessss",
+  },
+  {
+    title: "Sara Landry",
+    date: "Jul 31 – Aug 01, 2026",
+    venue: "Under the K Bridge Park, BK",
+    image: asset("/images/events/sara-landry.jpg"),
+    ticketUrl: "https://www.axs.com/events/1322106/sara-landry-tickets",
   },
 ];
 
