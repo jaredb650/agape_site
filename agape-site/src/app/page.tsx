@@ -167,13 +167,6 @@ function HeroSection() {
         >
           <motion.div style={{ y: textY }}>
             <StaggerContainer className="flex flex-col items-center gap-5" stagger={0.12}>
-              {/* Pre-title label */}
-              <ScrollReveal delay={0.1} distance={20}>
-                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#888888]">
-                  NYC Electronic Music
-                </span>
-              </ScrollReveal>
-
               {/* Agape logo mark */}
               <ScrollReveal delay={0.15} distance={25}>
                 <Image
