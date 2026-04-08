@@ -97,7 +97,7 @@ const RESIDENTS = [
     name: "@nimal",
     role: "Resident DJ",
     image: asset("/images/residents/animal-placeholder.png"),
-    bio: "",
+    bio: "@nimal, (pronounced 'animal'), is an American trance music producer making noise in New York's underground techno scene. Inspired by industrial EBM and 80's new wave as well as drawing influence from his background in the genre of gothic synthwave, his retro production style puts a unique spin on the trance genre and gives his work an instantly recognizable blend of nostalgia, aggression, and emotional introspection. As a resident artist for the techno event platform, Ägapē, @nimal has performed numerous supporting sets for DJs such as Somewhen, Rouge, VCL, and Afem Syko. He continues to captivate ravers with his candid and engaging presence behind the decks.",
   },
   {
     name: "Diossa",
@@ -793,20 +793,25 @@ function ResidentPanel({
                 initial={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
               >
-                <p
-                  className="pt-1 font-body text-[12px] leading-[1.7] text-[#888888] md:text-[13px]"
-                  style={
-                    isExpanded
-                      ? {}
-                      : {
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }
-                  }
+                <div
+                  className={isExpanded ? "max-h-[40vh] overflow-y-auto" : ""}
+                  style={isExpanded ? { scrollbarWidth: "thin", scrollbarColor: "#c13243 transparent" } : {}}
                 >
-                  {resident.bio}
-                </p>
+                  <p
+                    className="pt-1 font-body text-[12px] leading-[1.7] text-[#888888] md:text-[13px]"
+                    style={
+                      isExpanded
+                        ? {}
+                        : {
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }
+                    }
+                  >
+                    {resident.bio}
+                  </p>
+                </div>
               </motion.div>
             )}
 
@@ -903,20 +908,25 @@ function ResidentCard({
                 animate={{ height: isExpanded ? "auto" : 20 }}
                 transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
               >
-                <p
-                  className="mt-2 font-body text-[12px] leading-[1.7] text-[#888888]"
-                  style={
-                    isExpanded
-                      ? {}
-                      : {
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }
-                  }
+                <div
+                  className={isExpanded ? "max-h-[35vh] overflow-y-auto" : ""}
+                  style={isExpanded ? { scrollbarWidth: "thin", scrollbarColor: "#c13243 transparent" } : {}}
                 >
-                  {resident.bio}
-                </p>
+                  <p
+                    className="mt-2 font-body text-[12px] leading-[1.7] text-[#888888]"
+                    style={
+                      isExpanded
+                        ? {}
+                        : {
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }
+                    }
+                  >
+                    {resident.bio}
+                  </p>
+                </div>
               </motion.div>
             )}
             {hasBio && (
