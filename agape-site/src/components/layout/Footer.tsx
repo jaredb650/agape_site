@@ -8,16 +8,16 @@ import CornerBrackets from "@/components/effects/CornerBrackets";
 import { asset } from "@/lib/asset";
 
 const navLinks = [
-  { href: "/events", label: "Events", num: "01" },
-  { href: "/music", label: "Music", num: "02" },
-  { href: "/news", label: "News", num: "03" },
-  { href: "/about", label: "About", num: "04" },
-  { href: "/contact", label: "Contact", num: "05" },
+  { href: "/#events", label: "Events", num: "01" },
+  { href: "https://soundcloud.com/agape-513401947", label: "Music", num: "02" },
+  { href: "https://instagram.com/agapemusic.us", label: "News", num: "03" },
+  { href: "/#about", label: "About", num: "04" },
+  { href: "mailto:bookings@agapemusic.us", label: "Contact", num: "05" },
 ];
 
 const socialLinks = [
   { href: "https://instagram.com/agapemusic.us", label: "Instagram" },
-  { href: "https://soundcloud.com/agape-music-us", label: "SoundCloud" },
+  { href: "https://soundcloud.com/agape-513401947", label: "SoundCloud" },
   { href: "https://posh.vip/g/agape", label: "Posh" },
 ];
 
@@ -68,20 +68,26 @@ export function Footer() {
               Navigate
             </h4>
             <nav className="flex flex-col gap-3" aria-label="Footer navigation">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="group flex items-baseline gap-3"
-                >
-                  <span className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#a1f081]">
-                    {link.num}
-                  </span>
-                  <span className="font-display text-sm uppercase tracking-[0.1em] text-[#f0f0f0]">
-                    <GlitchText text={link.label} />
-                  </span>
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isExternal = link.href.startsWith("http") || link.href.startsWith("mailto:");
+                const Tag = isExternal ? "a" : Link;
+                const extraProps = isExternal && link.href.startsWith("http") ? { target: "_blank" as const, rel: "noopener noreferrer" } : {};
+                return (
+                  <Tag
+                    key={link.href}
+                    href={link.href}
+                    className="group flex items-baseline gap-3"
+                    {...extraProps}
+                  >
+                    <span className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#a1f081]">
+                      {link.num}
+                    </span>
+                    <span className="font-display text-sm uppercase tracking-[0.1em] text-[#f0f0f0]">
+                      <GlitchText text={link.label} />
+                    </span>
+                  </Tag>
+                );
+              })}
             </nav>
           </div>
 

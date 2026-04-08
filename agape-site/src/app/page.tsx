@@ -222,7 +222,7 @@ function HeroSection() {
 
               {/* CTA */}
               <ScrollReveal delay={0.65} distance={15}>
-                <FlickerButton href="/events" variant="outline" className="mt-2">
+                <FlickerButton href="https://posh.vip/g/agape" variant="outline" className="mt-2">
                   Explore Events
                 </FlickerButton>
               </ScrollReveal>
@@ -1084,10 +1084,10 @@ function CTASection() {
 
         <ScrollReveal delay={0.3}>
           <div className="flex flex-col items-center gap-4 sm:flex-row">
-            <FlickerButton href="/events" variant="outline">
+            <FlickerButton href="https://posh.vip/g/agape" variant="outline">
               Upcoming Events
             </FlickerButton>
-            <FlickerButton href="/contact" variant="outline">
+            <FlickerButton href="mailto:bookings@agapemusic.us" variant="outline">
               Get In Touch
             </FlickerButton>
           </div>
