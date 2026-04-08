@@ -6,3 +6,24 @@ node_modules/
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# Unused images kept locally as asset library
+agape-site/public/images/2D_flyer_main.png
+agape-site/public/images/1D3A7592.jpeg
+agape-site/public/images/1D3A9488.jpeg
+agape-site/public/images/20250419-AGAPE-Pop-Up-10.jpeg
+agape-site/public/images/DSC05632.jpeg
+agape-site/public/images/AGAPE_F5.jpeg
+agape-site/public/images/DSC05585.jpeg
+agape-site/public/images/1D3A9620-2.jpeg
+agape-site/public/images/1D3A9267.jpg
+agape-site/public/images/3BF199AD.jpg
+agape-site/public/images/artists/kobosil-headshot.png
+agape-site/public/images/artists/claracuve-headshot.png
+agape-site/public/images/artists/ueberrest-headshot.png
+agape-site/public/images/events/kloud-aphotic.png
+agape-site/public/images/events/david-lohlein.png
+agape-site/public/images/events/aiden.png
+agape-site/public/images/residents/animal-placeholder.png
+agape-site/public/images/events/rebekah-tham.png
+agape-site/public/images/headz-logo-black.svg

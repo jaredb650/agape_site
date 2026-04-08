@@ -14,6 +14,7 @@ import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
 import PhotoBreakSection from "@/components/sections/PhotoBreakSection";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import EventGallerySection from "@/components/sections/EventGallerySection";
+import LazyVideo from "@/components/effects/LazyVideo";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
@@ -53,7 +54,7 @@ const EVENTS = [
     title: "Rebekah + Tham",
     date: "Apr 17, 2026",
     venue: "99 Scott Ave",
-    image: asset("/images/events/rebekah-tham.png"),
+    image: asset("/images/events/rebekah-tham.webp"),
     ticketUrl: "https://posh.vip/e/agape-presents-rebekah-at-99-scott",
   },
   {
@@ -96,7 +97,7 @@ const RESIDENTS = [
   {
     name: "@nimal",
     role: "Resident DJ",
-    image: asset("/images/residents/animal-placeholder.png"),
+    image: asset("/images/residents/animal-placeholder.webp"),
     bio: "@nimal, (pronounced 'animal'), is an American trance music producer making noise in New York's underground techno scene. Inspired by industrial EBM and 80's new wave as well as drawing influence from his background in the genre of gothic synthwave, his retro production style puts a unique spin on the trance genre and gives his work an instantly recognizable blend of nostalgia, aggression, and emotional introspection. As a resident artist for the techno event platform, Ägapē, @nimal has performed numerous supporting sets for DJs such as Somewhen, Rouge, VCL, and Afem Syko. He continues to captivate ravers with his candid and engaging presence behind the decks.",
   },
   {
@@ -142,17 +143,12 @@ function HeroSection() {
         className="absolute inset-0"
         style={{ opacity: heroOpacity, scale: heroScale }}
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-          style={{ filter: "brightness(0.45)" }}
+        <LazyVideo
+          src={asset("/videos/hero-loop.mp4")}
           poster={asset("/images/hero-crowd-wide-compressed.jpg")}
-        >
-          <source src={asset("/videos/hero-loop.mp4")} type="video/mp4" />
-        </video>
+          className="h-full w-full"
+          style={{ filter: "brightness(0.45)" }}
+        />
         {/* Deep dark overlay for text legibility */}
         <div
           className="absolute inset-0"

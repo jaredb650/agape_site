@@ -6,6 +6,7 @@ import GlitchText from "@/components/effects/GlitchText";
 import FlickerButton from "@/components/effects/FlickerButton";
 import ScrollReveal from "@/components/effects/ScrollReveal";
 import { asset } from "@/lib/asset";
+import LazyVideo from "@/components/effects/LazyVideo";
 
 export default function FestivalBanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -23,16 +24,11 @@ export default function FestivalBanner() {
     >
       {/* Looping video background */}
       <motion.div className="absolute inset-0" style={{ scale }}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover"
+        <LazyVideo
+          src={asset("/videos/festival-flyer.mp4")}
+          className="h-full w-full"
           style={{ filter: "brightness(0.4)" }}
-        >
-          <source src={asset("/videos/festival-flyer.mp4")} type="video/mp4" />
-        </video>
+        />
       </motion.div>
 
       {/* Dark overlays for legibility */}

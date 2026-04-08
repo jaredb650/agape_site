@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import LazyVideo from "@/components/effects/LazyVideo";
 
 const GLITCH_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
@@ -124,16 +125,11 @@ export default function ColorBreakSection() {
     >
       {/* Video background */}
       <div className="absolute inset-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
+        <LazyVideo
+          src={asset("/videos/red-strobes.mp4")}
+          className="h-full w-full"
           style={{ filter: "brightness(0.5) saturate(1.2)" }}
-        >
-          <source src={asset("/videos/red-strobes.mp4")} type="video/mp4" />
-        </video>
+        />
         {/* Subtle dark overlay */}
         <div
           className="absolute inset-0"
