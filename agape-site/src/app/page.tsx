@@ -215,7 +215,7 @@ function HeroSection() {
 
               {/* CTA */}
               <ScrollReveal delay={0.65} distance={15}>
-                <FlickerButton href="https://posh.vip/g/agape" variant="outline" className="mt-2">
+                <FlickerButton href="#events" variant="outline" className="mt-2">
                   Explore Events
                 </FlickerButton>
               </ScrollReveal>
