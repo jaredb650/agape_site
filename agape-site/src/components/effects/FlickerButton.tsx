@@ -51,7 +51,16 @@ export default function FlickerButton({
   );
 
   if (href) {
-    const isInternal = href.startsWith("/") || href.startsWith("#");
+    const isHash = href.startsWith("#");
+    const isInternal = href.startsWith("/") || isHash;
+
+    if (isHash) {
+      return (
+        <a href={href} className={baseStyles}>
+          {inner}
+        </a>
+      );
+    }
 
     if (isInternal) {
       return (
