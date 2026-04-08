@@ -14,7 +14,7 @@ export function generatePageMetadata({
   title,
   description,
   path,
-  ogImage = `/images/webclip.png`,
+  ogImage = `/images/og-image.jpg`,
   type = "website",
 }: SeoParams): Metadata {
   const url = `${SITE_URL}${path}`;

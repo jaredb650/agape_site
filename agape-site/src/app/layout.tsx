@@ -15,23 +15,27 @@ export const metadata: Metadata = {
     template: "%s | AGAPE Music",
   },
   description:
-    "Pushing the Limits of Electronic Music in NYC's Underground.",
+    "New York underground electronic music platform and record label. Events, resident DJs, and community in Brooklyn.",
   openGraph: {
-    title: "AGAPE",
-    description: "Pushing the Limits of Electronic Music in NYC's Underground.",
+    title: "AGAPE | Underground Electronic Music — Brooklyn, NY",
+    description: "New York underground electronic music platform and record label. Events, resident DJs, and community in Brooklyn.",
+    siteName: "AGAPE Music",
+    url: "https://agapemusic.us",
     type: "website",
     locale: "en_US",
-    images: ["/images/webclip.png"],
+    images: [{ url: "/images/og-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AGAPE",
-    description: "Pushing the Limits of Electronic Music in NYC's Underground.",
+    title: "AGAPE | Underground Electronic Music — Brooklyn, NY",
+    description: "New York underground electronic music platform and record label. Events, resident DJs, and community in Brooklyn.",
+    images: ["/images/og-image.jpg"],
   },
   icons: {
     icon: "/images/favicon.png",
-    apple: "/images/webclip.png",
+    apple: "/images/apple-touch-icon.png",
   },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
