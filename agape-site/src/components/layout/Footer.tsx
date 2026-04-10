@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import GlitchText from "@/components/effects/GlitchText";
-import CornerBrackets from "@/components/effects/CornerBrackets";
 import { asset } from "@/lib/asset";
 
 const navLinks = [
@@ -22,22 +20,11 @@ const socialLinks = [
 ];
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    // TODO: integrate with Resend API
-    setSubscribed(true);
-    setEmail("");
-  };
-
   return (
     <footer className="relative border-t border-[#363636]/50 bg-[#050505]">
       {/* Main footer content */}
       <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-24 lg:px-16">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:gap-8">
           {/* Column 1 — Brand */}
           <div className="flex flex-col gap-6">
             <Link href="/">
@@ -125,44 +112,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 4 — Newsletter */}
-          <div className="flex flex-col gap-6">
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-[#888888]" style={{ fontFamily: "var(--font-heading)" }}>
-              Stay Updated
-            </h4>
-            <p className="text-sm leading-relaxed text-[#888888]">
-              Get notified about upcoming events and releases.
-            </p>
-            <CornerBrackets>
-              <form
-                onSubmit={handleSubscribe}
-                className="flex flex-col gap-3 p-4"
-              >
-                {subscribed ? (
-                  <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#a1f081]">
-                    Subscribed — stay tuned.
-                  </p>
-                ) : (
-                  <>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your@email.com"
-                      required
-                      className="w-full border-b border-[#363636] bg-transparent py-2 font-mono text-[12px] text-[#f0f0f0] placeholder-[#888888] outline-none transition-colors duration-200 focus:border-[#a1f081]"
-                    />
-                    <button
-                      type="submit"
-                      className="group self-start border border-[#363636] px-5 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-[#f0f0f0] transition-all duration-300 hover:border-[#a1f081] hover:text-[#a1f081]"
-                    >
-                      <GlitchText text="Subscribe" />
-                    </button>
-                  </>
-                )}
-              </form>
-            </CornerBrackets>
-          </div>
         </div>
       </div>
 
