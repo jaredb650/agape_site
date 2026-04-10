@@ -3,8 +3,9 @@ import { generatePageMetadata } from "@/lib/seo";
 
 export const metadata = generatePageMetadata({
   title: "About",
-  description: "About AGAPE and the collective behind the events.",
+  description: "AGAPE is a Brooklyn-based electronic music collective and record label pushing NYC's underground forward.",
   path: "/about",
+  noindex: true,
 });
 
 export default function AboutPage() {
@@ -12,9 +13,9 @@ export default function AboutPage() {
     <StaticPage
       eyebrow="04"
       title="About AGAPE"
-      description="The homepage narrative section remains the primary about experience. This route now mirrors that content direction without leaving users in a 404."
+      description="A Brooklyn-based collective building the next chapter of NYC's underground. Read the full story on the home page."
       primaryHref="/#about"
-      primaryLabel="Read the About Section"
+      primaryLabel="Read More"
       secondaryHref="/"
       secondaryLabel="Back Home"
     />

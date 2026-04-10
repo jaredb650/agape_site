@@ -8,6 +8,7 @@ interface SeoParams {
   path: string;
   ogImage?: string;
   type?: "website" | "article";
+  noindex?: boolean;
 }
 
 export function generatePageMetadata({
@@ -16,6 +17,7 @@ export function generatePageMetadata({
   path,
   ogImage = `/images/og-image.jpg`,
   type = "website",
+  noindex = false,
 }: SeoParams): Metadata {
   const url = `${SITE_URL}${path}`;
 
@@ -25,6 +27,12 @@ export function generatePageMetadata({
     alternates: {
       canonical: url,
     },
+    ...(noindex && {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    }),
     openGraph: {
       title,
       description,

@@ -79,12 +79,11 @@ export default function GrainOverlay() {
         position: "fixed",
         inset: 0,
         width: "100vw",
-        height: "100vh",
+        height: "100dvh",
         pointerEvents: "none",
-        zIndex: 9999,
+        zIndex: 40,
         imageRendering: "pixelated",
         mixBlendMode: "overlay",
-        opacity: 0.025,
       }}
     />
   );

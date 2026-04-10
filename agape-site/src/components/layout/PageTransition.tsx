@@ -55,7 +55,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       <AnimatePresence>
         {isLoading && (
           <motion.div
-            className="fixed inset-0 z-[9999]"
+            className="fixed inset-0 z-50"
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1 }}
           >

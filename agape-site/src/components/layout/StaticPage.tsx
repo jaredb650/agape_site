@@ -10,6 +10,44 @@ interface StaticPageProps {
   secondaryLabel?: string;
 }
 
+function isExternal(href: string) {
+  return /^(https?:|mailto:|tel:)/.test(href);
+}
+
+function CtaLink({
+  href,
+  children,
+  variant,
+}: {
+  href: string;
+  children: React.ReactNode;
+  variant: "primary" | "secondary";
+}) {
+  const classes =
+    variant === "primary"
+      ? "border border-[#363636] px-8 py-3 font-mono text-[11px] uppercase tracking-[0.15em] text-[#f0f0f0] transition-colors duration-200 hover:border-[#a1f081] hover:text-[#a1f081]"
+      : "border border-[#363636] px-8 py-3 font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888] transition-colors duration-200 hover:text-[#f0f0f0]";
+
+  if (isExternal(href)) {
+    const isHttp = href.startsWith("http");
+    return (
+      <a
+        href={href}
+        className={classes}
+        {...(isHttp && { target: "_blank", rel: "noopener noreferrer" })}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={classes}>
+      {children}
+    </Link>
+  );
+}
+
 export function StaticPage({
   eyebrow,
   title,
@@ -53,19 +91,13 @@ export function StaticPage({
         </p>
 
         <div className="flex flex-col gap-4 sm:flex-row">
-          <Link
-            href={primaryHref}
-            className="border border-[#363636] px-8 py-3 font-mono text-[11px] uppercase tracking-[0.15em] text-[#f0f0f0] transition-colors duration-200 hover:border-[#a1f081] hover:text-[#a1f081]"
-          >
+          <CtaLink href={primaryHref} variant="primary">
             {primaryLabel}
-          </Link>
+          </CtaLink>
           {secondaryHref && secondaryLabel ? (
-            <Link
-              href={secondaryHref}
-              className="border border-[#363636] px-8 py-3 font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888] transition-colors duration-200 hover:text-[#f0f0f0]"
-            >
+            <CtaLink href={secondaryHref} variant="secondary">
               {secondaryLabel}
-            </Link>
+            </CtaLink>
           ) : null}
         </div>
       </div>

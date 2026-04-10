@@ -3,18 +3,21 @@ import { generatePageMetadata } from "@/lib/seo";
 
 export const metadata = generatePageMetadata({
   title: "News",
-  description: "Updates, editorials, and announcements from AGAPE.",
+  description: "The latest from AGAPE — announcements, editorials, and updates from the collective.",
   path: "/news",
+  noindex: true,
 });
 
 export default function NewsPage() {
   return (
     <StaticPage
       eyebrow="03"
-      title="News Feed In Progress"
-      description="This route now exists so the live site no longer advertises dead links. It can be expanded into a proper editorial archive when content is ready."
-      primaryHref="/"
-      primaryLabel="Back Home"
+      title="News"
+      description="Editorial archive coming soon. Follow along on Instagram for announcements and updates."
+      primaryHref="https://instagram.com/agapenyc"
+      primaryLabel="Instagram"
+      secondaryHref="/"
+      secondaryLabel="Back Home"
     />
   );
 }

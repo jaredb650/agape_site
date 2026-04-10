@@ -119,8 +119,18 @@ export function Navbar() {
                 WebkitBackdropFilter: "blur(12px)",
               }}
             >
-              {/* Logo */}
-              <a href="#" onClick={(e) => { e.preventDefault(); scrollToTop(); }} className="relative z-50">
+              {/* Logo — links home; smooth-scrolls to top if already there */}
+              <a
+                href="/"
+                onClick={(e) => {
+                  if (window.location.pathname === "/") {
+                    e.preventDefault();
+                    scrollToTop();
+                  }
+                }}
+                aria-label="AGAPE Music — Home"
+                className="relative z-50"
+              >
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}

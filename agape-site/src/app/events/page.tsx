@@ -3,18 +3,19 @@ import { generatePageMetadata } from "@/lib/seo";
 
 export const metadata = generatePageMetadata({
   title: "Events",
-  description: "Upcoming AGAPE events and ticket information.",
+  description: "Upcoming AGAPE events in Brooklyn and beyond. Ticket links, lineups, and venues.",
   path: "/events",
+  noindex: true,
 });
 
 export default function EventsPage() {
   return (
     <StaticPage
       eyebrow="01"
-      title="Events Are Moving Here Next"
-      description="The homepage section is live now. This route is kept active so the current navigation and calls-to-action do not break while the dedicated events experience is being built."
+      title="Upcoming Events"
+      description="Every upcoming show, lineup, and ticket link lives on the home page for now."
       primaryHref="/#events"
-      primaryLabel="View Events Section"
+      primaryLabel="View Events"
       secondaryHref="/"
       secondaryLabel="Back Home"
     />

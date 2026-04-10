@@ -200,10 +200,14 @@ body {
   background: var(--color-tertiary-light);
 }
 
-/* Grain overlay — mobile gets higher opacity for visibility */
+/* Grain overlay — desktop default, mobile gets higher opacity for visibility */
+.grain-overlay {
+  opacity: 0.025;
+}
+
 @media (max-width: 767px) {
   .grain-overlay {
-    opacity: 0.2 !important;
+    opacity: 0.2;
   }
 }
 

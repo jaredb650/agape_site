@@ -59,9 +59,11 @@ export default function LazyVideo({ src, poster, className, style }: LazyVideoPr
         </video>
       ) : (
         poster && (
+          // Decorative background poster shown while the video is deferred on mobile
           <img
             src={poster}
             alt=""
+            aria-hidden="true"
             className="h-full w-full object-cover"
             style={style}
           />

@@ -3,8 +3,9 @@ import { generatePageMetadata } from "@/lib/seo";
 
 export const metadata = generatePageMetadata({
   title: "Contact",
-  description: "Contact AGAPE for bookings, partnerships, and inquiries.",
+  description: "Bookings, press, and partnership inquiries for AGAPE Music.",
   path: "/contact",
+  noindex: true,
 });
 
 export default function ContactPage() {
@@ -12,9 +13,9 @@ export default function ContactPage() {
     <StaticPage
       eyebrow="05"
       title="Get In Touch"
-      description="Bookings and general inquiries can still go directly through the footer email links. This route now stays live while the full contact workflow is finalized."
-      primaryHref="/#contact"
-      primaryLabel="Go to Contact Section"
+      description="For bookings, press, and partnerships, reach out directly at bookings@agapemusic.us."
+      primaryHref="mailto:bookings@agapemusic.us"
+      primaryLabel="Email Us"
       secondaryHref="/"
       secondaryLabel="Back Home"
     />
