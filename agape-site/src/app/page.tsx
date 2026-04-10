@@ -72,6 +72,20 @@ const EVENTS = [
     ticketUrl: "https://posh.vip/e/agap-presents-lessss",
   },
   {
+    title: "Nikolina Kander + Byorn",
+    date: "May 15, 2026",
+    venue: "255 Randolph St, Brooklyn",
+    image: asset("/images/events/nikolina-kander-byorn.webp"),
+    ticketUrl: "https://posh.vip/e/agap-presents-nikolina-kander-byorn",
+  },
+  {
+    title: "Intercell — NYC",
+    date: "May 30, 2026",
+    venue: "99 Scott Ave",
+    image: asset("/images/events/intercell.webp"),
+    ticketUrl: "https://laylo.com/agapenyc/upnKc3",
+  },
+  {
     title: "Sara Landry",
     date: "Aug 01, 2026",
     venue: "Under the K Bridge Park, BK",
