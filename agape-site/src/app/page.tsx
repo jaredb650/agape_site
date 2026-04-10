@@ -72,7 +72,7 @@ const EVENTS = [
     ticketUrl: "https://posh.vip/e/agap-presents-lessss",
   },
   {
-    title: "Nikolina Kander + Byorn",
+    title: "Nikolina + Kander + Byorn",
     date: "May 15, 2026",
     venue: "255 Randolph St, Brooklyn",
     image: asset("/images/events/nikolina-kander-byorn.webp"),
