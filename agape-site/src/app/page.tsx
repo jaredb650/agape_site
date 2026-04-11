@@ -794,7 +794,7 @@ function ResidentPanel({
               className="font-display text-lg font-bold uppercase tracking-[0.05em] text-[#fafafa] md:text-xl"
               style={{ lineHeight: 1.1 }}
             >
-              <GlitchText text={resident.name} />
+              <GlitchText text={resident.name} wrap />
             </h3>
 
             {/* Bio — truncated on hover, full on click */}
@@ -915,7 +915,7 @@ function ResidentCard({
               {resident.role}
             </span>
             <h3 className={`font-display ${nameSize} font-bold uppercase tracking-[0.05em] text-[#fafafa]`}>
-              <GlitchText text={resident.name} />
+              <GlitchText text={resident.name} wrap />
             </h3>
             {hasBio && (
               <motion.div

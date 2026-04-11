@@ -14,6 +14,8 @@ interface GlitchTextProps {
   interval?: number;
   /** If true, glitch plays on mount instead of hover */
   playOnMount?: boolean;
+  /** If true, allow the text to wrap to multiple lines in narrow containers */
+  wrap?: boolean;
 }
 
 export default function GlitchText({
@@ -23,6 +25,7 @@ export default function GlitchText({
   duration = 400,
   interval = 75,
   playOnMount = false,
+  wrap = false,
 }: GlitchTextProps) {
   const content = (children ?? text) as string;
   const [displayText, setDisplayText] = useState(content);
@@ -86,7 +89,8 @@ export default function GlitchText({
       onMouseEnter={handleMouseEnter}
       style={{
         fontVariantNumeric: "tabular-nums",
-        whiteSpace: "pre",
+        whiteSpace: wrap ? "pre-wrap" : "pre",
+        wordBreak: wrap ? "break-word" : undefined,
       }}
     >
       {displayText}
