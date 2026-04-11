@@ -1007,9 +1007,10 @@ function ResidentsSection() {
       {/* Panels */}
       <ScrollReveal delay={0.15}>
         {layout === "desktop" ? (
-          /* Desktop: horizontal accordion panels */
+          /* Desktop: horizontal accordion panels — wider than other
+             sections to give each resting panel room for long names */
           <div
-            className="mx-auto flex w-full max-w-[1200px] gap-[2px] px-6 md:px-10 lg:px-16"
+            className="mx-auto flex w-full max-w-[1600px] gap-[2px] px-6 md:px-10 lg:px-16"
             style={{ height: 520 }}
           >
             {RESIDENTS.map((resident, i) => (
