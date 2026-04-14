@@ -83,7 +83,7 @@ const EVENTS = [
     date: "May 30, 2026",
     venue: "99 Scott Ave",
     image: asset("/images/events/intercell.webp"),
-    ticketUrl: "https://laylo.com/agapenyc/upnKc3",
+    ticketUrl: "https://posh.vip/e/intercell-nyc",
   },
   {
     title: "Sara Landry",
