@@ -105,27 +105,32 @@ export default function PhotoBreakSection() {
       {/* Always 3-column strip — thin banner style */}
       <div className="grid grid-cols-[1fr_1.3fr_1fr] gap-0">
         {photos.map((photo, i) => (
-          <motion.div
+          <div
             key={photo.src}
-            style={{ y: yValues[i] }}
             className="group relative h-[25vh] overflow-hidden md:h-[35vh]"
           >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              sizes="34vw"
-              className="object-cover transition-[filter] duration-500 group-hover:brightness-110"
-            />
+            {/* Parallax on the image itself, scaled up to cover shift */}
+            <motion.div
+              className="absolute inset-[-30px] z-0"
+              style={{ y: yValues[i] }}
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="34vw"
+                className="object-cover transition-[filter] duration-500 group-hover:brightness-110"
+              />
+            </motion.div>
             {/* Dark bottom-heavy gradient overlay */}
             <div
-              className="pointer-events-none absolute inset-0"
+              className="pointer-events-none absolute inset-0 z-[1]"
               style={{
                 background:
                   "linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.7) 100%)",
               }}
             />
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>
