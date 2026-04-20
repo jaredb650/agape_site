@@ -51,13 +51,6 @@ const EVENTS = [
   //   ticketUrl: "https://posh.vip/e/agape-presents-aiden-all-night-long",
   // },
   {
-    title: "Rebekah + Tham",
-    date: "Apr 17, 2026",
-    venue: "99 Scott Ave",
-    image: asset("/images/events/rebekah-tham.webp"),
-    ticketUrl: "https://posh.vip/e/agape-presents-rebekah-at-99-scott",
-  },
-  {
     title: "Raw Showcase @ Refuge",
     date: "Apr 24, 2026",
     venue: "366 Ten Eyck, BKLYN",
