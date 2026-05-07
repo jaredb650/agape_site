@@ -79,6 +79,13 @@ const EVENTS = [
     ticketUrl: "https://posh.vip/e/intercell-nyc",
   },
   {
+    title: "Luke Slater + LPV",
+    date: "Jul 17, 2026",
+    venue: "70 Scott Ave, Brooklyn",
+    image: asset("/images/events/luke-slater.webp"),
+    ticketUrl: "https://posh.vip/e/agap-presents-luke-slater-lpv",
+  },
+  {
     title: "Sara Landry",
     date: "Aug 01, 2026",
     venue: "Under the K Bridge Park, BK",
