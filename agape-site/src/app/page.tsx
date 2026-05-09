@@ -80,7 +80,7 @@ const EVENTS = [
   },
   {
     title: "Luke Slater + LPV",
-    date: "Jul 13, 2026",
+    date: "Jun 13, 2026",
     venue: "70 Scott Ave, Brooklyn",
     image: asset("/images/events/luke-slater.webp"),
     ticketUrl: "https://posh.vip/e/agap-presents-luke-slater-lpv",
