@@ -103,12 +103,6 @@ const EVENTS = [
 
 const RESIDENTS = [
   {
-    name: "Andrés Garcil",
-    role: "Resident DJ",
-    image: asset("/images/residents/andres-garcil-placeholder.webp"),
-    bio: "Hailing from the capital of Colombia, Andres Garcil was immersed at an early age into the world of electronic music. Now based in Brooklyn, and at only 21, he's proven that what he lacks in years, he makes up for with his masterful poise when navigating the decks for his ever-growing, high-bpm desiring crowds, stealing the show at several of our events already. His signature style is captivating, blending hard techno, hard dance, and industrial sounds. With big plans already underway in the Big Apple, playing closing out already some of Agape's biggest shows, and many national plays yet to be announced, Andres is set to become one of the leading forces in Brooklyn's underground scene and beyond.",
-  },
-  {
     name: "@nimal",
     role: "Resident DJ",
     image: asset("/images/residents/animal-placeholder.webp"),
