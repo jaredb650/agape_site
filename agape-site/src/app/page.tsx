@@ -71,19 +71,26 @@ const EVENTS = [
   //   image: asset("/images/events/nikolina-kander-byorn.webp"),
   //   ticketUrl: "https://posh.vip/e/agap-presents-nikolina-kander-byorn",
   // },
-  {
-    title: "Intercell — NYC",
-    date: "May 30, 2026",
-    venue: "99 Scott Ave",
-    image: asset("/images/events/intercell.webp"),
-    ticketUrl: "https://posh.vip/e/intercell-nyc",
-  },
+  // {
+  //   title: "Intercell — NYC",
+  //   date: "May 30, 2026",
+  //   venue: "99 Scott Ave",
+  //   image: asset("/images/events/intercell.webp"),
+  //   ticketUrl: "https://posh.vip/e/intercell-nyc",
+  // },
   {
     title: "Luke Slater + LPV",
     date: "Jun 13, 2026",
     venue: "70 Scott Ave, Brooklyn",
     image: asset("/images/events/luke-slater.webp"),
     ticketUrl: "https://posh.vip/e/agap-presents-luke-slater-lpv",
+  },
+  {
+    title: "Rooftop Sesh w/ Zwilling",
+    date: "Jul 02, 2026",
+    venue: "74 Wythe Ave, Brooklyn",
+    image: asset("/images/events/zwilling.webp"),
+    ticketUrl: "https://posh.vip/e/rooftop-w-zwilling-agap-day-party",
   },
   {
     title: "Sara Landry",
