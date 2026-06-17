@@ -78,13 +78,13 @@ const EVENTS = [
   //   image: asset("/images/events/intercell.webp"),
   //   ticketUrl: "https://posh.vip/e/intercell-nyc",
   // },
-  {
-    title: "Luke Slater + LPV",
-    date: "Jun 13, 2026",
-    venue: "70 Scott Ave, Brooklyn",
-    image: asset("/images/events/luke-slater.webp"),
-    ticketUrl: "https://posh.vip/e/agap-presents-luke-slater-lpv",
-  },
+  // {
+  //   title: "Luke Slater + LPV",
+  //   date: "Jun 13, 2026",
+  //   venue: "70 Scott Ave, Brooklyn",
+  //   image: asset("/images/events/luke-slater.webp"),
+  //   ticketUrl: "https://posh.vip/e/agap-presents-luke-slater-lpv",
+  // },
   {
     title: "Rooftop Sesh w/ Zwilling",
     date: "Jul 02, 2026",
