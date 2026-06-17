@@ -11,7 +11,6 @@ import ScrollReveal, { StaggerContainer } from "@/components/effects/ScrollRevea
 import FlickerButton from "@/components/effects/FlickerButton";
 import EventCard from "@/components/cards/EventCard";
 import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
-import PhotoBreakSection from "@/components/sections/PhotoBreakSection";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import EventGallerySection from "@/components/sections/EventGallerySection";
 import LazyVideo from "@/components/effects/LazyVideo";
@@ -1144,9 +1143,6 @@ export default function Home() {
         </div>
 
         <EventsSection />
-
-        {/* Full-width immersive photo strip */}
-        <PhotoBreakSection />
 
         <NarrativeSection />
 
