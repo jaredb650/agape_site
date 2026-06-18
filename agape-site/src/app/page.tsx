@@ -85,6 +85,13 @@ const EVENTS = [
   //   ticketUrl: "https://posh.vip/e/agap-presents-luke-slater-lpv",
   // },
   {
+    title: "Refuge: Adrian Hex b2b Michelle Kay, Cleric, Frederic., Juno, Hyden, TONI BA",
+    date: "Jun 26, 2026",
+    venue: "366 Ten Eyck, BKLYN NY",
+    image: asset("/images/events/refuge-june-26.png"),
+    ticketUrl: "https://www.eventbrite.com/e/refuge-friday-agape-with-cleric-frederic-hyden-toni-ba-tickets-1990532982735",
+  },
+  {
     title: "Rooftop Sesh w/ Zwilling",
     date: "Jul 02, 2026",
     venue: "74 Wythe Ave, Brooklyn",
