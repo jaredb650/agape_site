@@ -596,7 +596,7 @@ function EventsSection() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="font-display text-xl font-bold uppercase tracking-[0.05em] text-[#fafafa]">
-                      <GlitchText text={event.title} />
+                      <GlitchText text={event.title} lines={2} />
                     </h3>
                     <div className="mt-2 flex flex-col gap-1">
                       <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
@@ -646,7 +646,7 @@ function EventsSection() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="font-display text-lg font-bold uppercase tracking-[0.05em] text-[#fafafa]">
-                      <GlitchText text={event.title} />
+                      <GlitchText text={event.title} lines={2} />
                     </h3>
                     <div className="mt-2 flex flex-col gap-1">
                       <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
