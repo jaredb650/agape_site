@@ -14,6 +14,7 @@ import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
 import MetallicDivider from "@/components/effects/MetallicDivider";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import EventGallerySection from "@/components/sections/EventGallerySection";
+import VideosSection from "@/components/sections/VideosSection";
 import LazyVideo from "@/components/effects/LazyVideo";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
@@ -1075,7 +1076,7 @@ function CTASection() {
         <ScrollReveal>
           <div className="flex items-center gap-4">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]/70">
-              04
+              06
             </span>
             <div className="h-[1px] w-12 bg-[#363636]" />
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
@@ -1152,6 +1153,9 @@ export default function Home() {
 
         {/* Residents — the collective */}
         <ResidentsSection />
+
+        {/* Recorded sets — YouTube with custom in-style players */}
+        <VideosSection />
 
         {/* Event gallery — editorial photo spread */}
         <EventGallerySection />

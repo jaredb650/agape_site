@@ -10,8 +10,9 @@ const navLinks = [
   { href: "#events", label: "Events", num: "01" },
   { href: "#about", label: "About", num: "02" },
   { href: "#residents", label: "Residents", num: "03" },
-  { href: "#manifesto", label: "Manifesto", num: "04" },
-  { href: "#contact", label: "Contact", num: "05" },
+  { href: "#videos", label: "Videos", num: "04" },
+  { href: "#manifesto", label: "Manifesto", num: "05" },
+  { href: "#contact", label: "Contact", num: "06" },
 ];
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
