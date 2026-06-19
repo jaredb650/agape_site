@@ -135,11 +135,9 @@ export default function EventCard({
                   ease: [0.455, 0.03, 0.515, 0.955],
                 }}
               >
-                <a href={ticketUrl} target="_blank" rel="noopener noreferrer">
-                  <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap">
-                    Buy Tickets
-                  </FlickerButton>
-                </a>
+                <FlickerButton href={ticketUrl} variant="ticket" className="text-[11px] px-6 py-2 whitespace-nowrap">
+                  Buy Tickets
+                </FlickerButton>
               </motion.div>
             )}
           </div>

@@ -160,7 +160,7 @@ function GalleryImage({
 
       {/* Hover: red accent line that slides in from left */}
       <motion.div
-        className="absolute bottom-0 left-0 h-[2px] bg-[#c13243]"
+        className="absolute bottom-0 left-0 h-[2px] bg-[#ff2a2a]"
         initial={{ width: "0%" }}
         animate={{ width: isHovered ? "100%" : "0%" }}
         transition={{ duration: 0.4, ease: EASE_EXPO }}
@@ -172,10 +172,10 @@ function GalleryImage({
         animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 8 }}
         transition={{ duration: 0.3, ease: EASE_EXPO }}
       >
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#c13243]">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <div className="h-[1px] w-6 bg-[#c13243]/50" />
+        <div className="h-[1px] w-6 bg-[#ff2a2a]/50" />
       </motion.div>
 
       {/* Hover: glitch flash effect — brief white overlay */}
@@ -216,7 +216,7 @@ export default function EventGallerySection() {
       ref={sectionRef}
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(10, 10, 10, 0.75)",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
         paddingTop: "6rem",
         paddingBottom: "8rem",
       }}
@@ -277,7 +277,7 @@ export default function EventGallerySection() {
         >
           <div>
             <div className="flex items-center gap-4 mb-4">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]/70">
                 05
               </span>
               <div className="h-[1px] w-12 bg-[#363636]" />

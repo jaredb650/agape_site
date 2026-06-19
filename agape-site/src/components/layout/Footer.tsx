@@ -21,7 +21,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-[#363636]/50 bg-[#050505]">
+    <footer className="relative border-t border-[#363636]/50 bg-black">
       {/* Main footer content */}
       <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-10 md:py-24 lg:px-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:gap-8">
@@ -42,7 +42,7 @@ export function Footer() {
               in NYC&apos;s Dance Scene.
             </p>
             <div className="flex items-center gap-2">
-              <span className="h-[5px] w-[5px] bg-[#c13243] animate-pulse" />
+              <span className="h-[5px] w-[5px] bg-[#ff2a2a] animate-pulse" />
               <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#888888]">
                 New York City
               </span>
@@ -66,7 +66,7 @@ export function Footer() {
                     className="group flex items-baseline gap-3"
                     {...extraProps}
                   >
-                    <span className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#a1f081]">
+                    <span className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#ff2a2a]">
                       {link.num}
                     </span>
                     <span className="font-display text-sm uppercase tracking-[0.1em] text-[#f0f0f0]">

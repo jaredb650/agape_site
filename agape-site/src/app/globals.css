@@ -152,13 +152,18 @@
 /* ===== Teletech Color Palette (CSS Variables) ===== */
 
 :root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
   --text-primary: #f0f0f0;
   --text-secondary: #fafafa;
   --text-muted: #888888;
   --border: #363636;
-  --accent-error: #c13243;
+  --accent-error: #ff2a2a;
+
+  /* Festival red accent — primary chromatic identity */
+  --accent-red: #8b0000;
+  --accent-red-hover: #a00000;
+  --accent-red-bright: #ff2a2a;
 }
 
 /* ===== Base Styles ===== */
@@ -178,8 +183,8 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-primary-dark);
+  background-color: var(--accent-red);
+  color: var(--text-secondary);
 }
 
 /* Scrollbar */
@@ -249,8 +254,8 @@ a {
 .flicker-btn:hover {
   animation: neon-flicker 1.5s linear infinite;
   box-shadow:
-    0 0 8px rgba(161, 240, 129, 0.15),
-    inset 0 0 8px rgba(161, 240, 129, 0.05);
+    0 0 8px rgba(200, 0, 0, 0.18),
+    inset 0 0 8px rgba(200, 0, 0, 0.06);
 }
 
 /* ===== Preloader Noise Grain ===== */
@@ -277,5 +282,104 @@ a {
   .flicker-btn:hover {
     animation: none;
     box-shadow: none;
+  }
+}
+
+/* ===== Red Ticket Button — ported from Agape Festival ===== */
+
+@keyframes ticketGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(200,0,0,0.3); }
+  50% { box-shadow: 0 0 25px rgba(200,0,0,0.5), 0 0 60px rgba(139,0,0,0.2); }
+}
+
+@keyframes ticketPulse {
+  0%, 82%, 100% { transform: scale(1); }
+  88% { transform: scale(1.02); }
+  94% { transform: scale(0.998); }
+}
+
+@keyframes ticketAttention {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.08); }
+  30% { transform: scale(0.97); }
+  45% { transform: scale(1.05); }
+  60% { transform: scale(0.99); }
+  75% { transform: scale(1.03); }
+}
+
+.ticket-wrap {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.ticket-wrap:hover { transform: scale(1.05); }
+
+.ticket-btn {
+  position: relative;
+  overflow: hidden;
+  animation: ticketGlow 4s ease-in-out infinite, ticketPulse 7s ease-in-out infinite;
+}
+.ticket-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.08) 50%),
+    linear-gradient(90deg, rgba(255,0,0,0.02), rgba(0,255,0,0.01), rgba(0,0,255,0.02));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.ticket-attention {
+  animation: ticketAttention 0.8s ease-in-out 2;
+}
+
+/* ===== Chrome / Metallic shimmer text — ported from Agape Festival ===== */
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.chrome-text {
+  background: linear-gradient(90deg, #444, #aaa, #fff, #aaa, #444);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+}
+.chrome-text-slow {
+  background: linear-gradient(90deg, #333, #888, #ddd, #888, #333);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 10s linear infinite;
+}
+
+/* ===== Reduced motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .chrome-text, .chrome-text-slow {
+    background: #ddd;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: none !important;
+  }
+}
+
+/* Mobile: calm the always-on ticket glow/pulse for performance */
+@media (max-width: 767px) {
+  .ticket-btn {
+    animation: none;
   }
 }
