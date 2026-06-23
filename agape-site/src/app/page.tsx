@@ -15,6 +15,7 @@ import MetallicDivider from "@/components/effects/MetallicDivider";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import EventGallerySection from "@/components/sections/EventGallerySection";
 import VideosSection from "@/components/sections/VideosSection";
+import MediaArchive from "@/components/sections/MediaArchive";
 import LazyVideo from "@/components/effects/LazyVideo";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
@@ -1156,6 +1157,9 @@ export default function Home() {
 
         {/* Recorded sets — YouTube with custom in-style players */}
         <VideosSection />
+
+        {/* Media archive HUD — media prototype */}
+        <MediaArchive />
 
         {/* Event gallery — editorial photo spread */}
         <EventGallerySection />
