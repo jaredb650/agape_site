@@ -11,7 +11,7 @@ import { asset } from "@/lib/asset";
 const TILES = [
   { src: "bts-5", location: "AT THE BARRICADE" },
   { src: "bts-14", location: "WITH THE FANS" },
-  { src: "bts-15", location: "MAKING FRIENDS" },
+  { src: "bts-10", location: "THE COMMUNITY" },
 ] as const;
 
 /* ── A single muted, autoplaying vertical ambient tile ── */
