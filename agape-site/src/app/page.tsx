@@ -15,6 +15,7 @@ import MetallicDivider from "@/components/effects/MetallicDivider";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import EventGallerySection from "@/components/sections/EventGallerySection";
 import VideosSection from "@/components/sections/VideosSection";
+import MediaContactSheet from "@/components/sections/MediaContactSheet";
 import LazyVideo from "@/components/effects/LazyVideo";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
@@ -1159,6 +1160,9 @@ export default function Home() {
 
         {/* Event gallery — editorial photo spread */}
         <EventGallerySection />
+
+        {/* Media contact sheet — media prototype */}
+        <MediaContactSheet />
 
         {/* Color explosion — manifesto section */}
         <ColorBreakSection />
