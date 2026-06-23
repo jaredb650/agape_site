@@ -15,6 +15,7 @@ import MetallicDivider from "@/components/effects/MetallicDivider";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import EventGallerySection from "@/components/sections/EventGallerySection";
 import VideosSection from "@/components/sections/VideosSection";
+import CinematicMedia from "@/components/sections/CinematicMedia";
 import LazyVideo from "@/components/effects/LazyVideo";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
@@ -1146,6 +1147,9 @@ export default function Home() {
             separator={<span className="mx-[0.6em] text-[#363636]">{"///"}</span>}
           />
         </div>
+
+        {/* Cinematic promo reel — media prototype */}
+        <CinematicMedia />
 
         <EventsSection />
 
