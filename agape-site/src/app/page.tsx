@@ -174,10 +174,10 @@ function HeroSection() {
         style={{ opacity: heroOpacity, scale: heroScale }}
       >
         <LazyVideo
-          src={asset("/videos/hero-loop.mp4")}
-          poster={asset("/images/hero-crowd-wide-compressed.jpg")}
+          src={asset("/media/promo-hero.mp4")}
+          poster={asset("/media/promo.jpg")}
           className="h-full w-full"
-          style={{ filter: "brightness(0.45)" }}
+          style={{ filter: "brightness(0.5) grayscale(1)" }}
         />
         {/* Deep dark overlay for text legibility */}
         <div
@@ -199,23 +199,14 @@ function HeroSection() {
         >
           <motion.div style={{ y: textY }}>
             <StaggerContainer className="flex flex-col items-center gap-5" stagger={0.12}>
-              {/* Agape logo mark */}
-              <ScrollReveal delay={0.15} distance={25}>
-                <Image
-                  src={asset("/images/agape_logo_white.png")}
-                  alt="Agape"
-                  width={72}
-                  height={72}
-                  className="opacity-90"
-                />
-              </ScrollReveal>
+              {/* Logo mark removed per client — wordmark only */}
 
               {/* Main headline */}
               <ScrollReveal delay={0.2} distance={30}>
                 <h1
                   className="font-display font-bold uppercase text-[#fafafa] text-center leading-[0.9]"
                   style={{
-                    fontSize: "clamp(3rem, 8vw, 8rem)",
+                    fontSize: "clamp(2.75rem, 7vw, 7rem)",
                     letterSpacing: "0.04em",
                   }}
                 >
