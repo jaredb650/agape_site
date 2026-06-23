@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import CornerBrackets from "@/components/effects/CornerBrackets";
 import GlitchText from "@/components/effects/GlitchText";
@@ -10,8 +9,8 @@ import { asset } from "@/lib/asset";
 /* ── Ambient BTS tiles below the centerpiece reel ── */
 const TILES = [
   { src: "bts-5", location: "AT THE BARRICADE" },
-  { src: "bts-14", location: "WITH THE FANS" },
   { src: "bts-10", location: "THE COMMUNITY" },
+  { src: "bts-15", location: "MAKING FRIENDS" },
 ] as const;
 
 /* ── A single muted, autoplaying vertical ambient tile ── */
@@ -35,12 +34,12 @@ function AmbientTile({
             aria-label={`Ambient crowd footage — ${location.toLowerCase()}`}
             poster={asset(`/media/${src}.jpg`)}
             className="absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.04]"
-            style={{ filter: "brightness(0.45) saturate(0.9)" }}
+            style={{ filter: "grayscale(1) brightness(0.6)" }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.filter = "brightness(1) saturate(1.05)";
+              e.currentTarget.style.filter = "grayscale(0) brightness(1)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.filter = "brightness(0.45) saturate(0.9)";
+              e.currentTarget.style.filter = "grayscale(1) brightness(0.6)";
             }}
           >
             <source src={asset(`/media/${src}.mp4`)} type="video/mp4" />
@@ -69,7 +68,6 @@ function AmbientTile({
 }
 
 export default function CinematicMedia() {
-  const [revealed, setRevealed] = useState(false);
 
   return (
     <section
@@ -139,9 +137,6 @@ export default function CinematicMedia() {
             {/* Vertical 9:16 promo frame */}
             <motion.div
               className="relative w-full max-w-[clamp(260px,44vw,440px)] cursor-pointer"
-              onHoverStart={() => setRevealed(true)}
-              onHoverEnd={() => setRevealed(false)}
-              onTapStart={() => setRevealed(true)}
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.5, ease: [0.455, 0.03, 0.515, 0.955] }}
             >
@@ -160,10 +155,7 @@ export default function CinematicMedia() {
                     poster={asset("/media/promo.jpg")}
                     className="absolute inset-0 h-full w-full object-cover"
                     style={{
-                      filter: revealed
-                        ? "grayscale(0) brightness(1) contrast(1.05)"
-                        : "grayscale(1) brightness(0.78) contrast(1.1)",
-                      transition: "filter 0.9s ease",
+                      filter: "brightness(0.95) contrast(1.05)",
                     }}
                   >
                     <source src={asset("/media/promo.mp4")} type="video/mp4" />
@@ -177,18 +169,6 @@ export default function CinematicMedia() {
                     }}
                   />
 
-                  {/* Hover hint — color burst cue */}
-                  <motion.div
-                    className="pointer-events-none absolute left-4 top-4 flex items-center gap-2"
-                    initial={false}
-                    animate={{ opacity: revealed ? 0 : 1 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <span className="h-[6px] w-[6px] rounded-full bg-[#ff2a2a]" />
-                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#fafafa]/80">
-                      HOVER FOR COLOR
-                    </span>
-                  </motion.div>
                 </div>
               </CornerBrackets>
             </motion.div>
@@ -199,7 +179,7 @@ export default function CinematicMedia() {
                 <div className="mb-4 flex items-center justify-center gap-3 lg:justify-start">
                   <span className="h-[1px] w-10 bg-[#8b0000]" />
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]/70">
-                    PROMO REEL
+                    AGAPE FILM
                   </span>
                 </div>
                 <h3
@@ -228,6 +208,12 @@ export default function CinematicMedia() {
             <div className="h-[1px] w-12 bg-[#363636]" />
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
               FROM THE FLOOR
+            </span>
+            <span className="ml-1 flex items-center gap-1.5">
+              <span className="h-[5px] w-[5px] rounded-full bg-[#ff2a2a]" />
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#fafafa]/55">
+                Hover for color
+              </span>
             </span>
           </div>
         </ScrollReveal>

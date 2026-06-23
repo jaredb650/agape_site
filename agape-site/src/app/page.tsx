@@ -238,7 +238,7 @@ function HeroSection() {
 
               {/* CTA */}
               <ScrollReveal delay={0.65} distance={15}>
-                <FlickerButton href="#events" variant="outline" className="mt-2">
+                <FlickerButton href="#events" variant="ticket" className="mt-2">
                   Explore Events
                 </FlickerButton>
               </ScrollReveal>
@@ -548,7 +548,7 @@ function EventsSection() {
           </div>
 
           <ScrollReveal delay={0.2}>
-            <FlickerButton href="https://posh.vip/g/agape" variant="outline" className="self-start md:self-auto">
+            <FlickerButton href="https://posh.vip/g/agape" variant="ticket" className="self-start md:self-auto">
               View All
             </FlickerButton>
           </ScrollReveal>
