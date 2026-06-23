@@ -64,7 +64,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
               <>
                 {/* Solid black background — slides up to reveal page */}
                 <motion.div
-                  className="absolute inset-0 bg-[#050505] flex items-center justify-center"
+                  className="absolute inset-0 bg-black flex items-center justify-center"
                   animate={
                     phase === "expand"
                       ? { y: "-100%" }
@@ -96,7 +96,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
                     </motion.h1>
                     <motion.div className="h-[1px] w-24 overflow-hidden bg-[#363636]/50">
                       <motion.div
-                        className="h-full bg-[#c13243]"
+                        className="h-full bg-[#ff2a2a]"
                         initial={{ width: "0%" }}
                         animate={{ width: "100%" }}
                         transition={{ duration: 1.0, ease: "linear" }}
@@ -114,7 +114,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
                   they sit flush, covering the full viewport.
                 */}
                 <motion.div
-                  className="absolute top-0 left-0 right-0 bg-[#050505]"
+                  className="absolute top-0 left-0 right-0 bg-black"
                   style={{ height: "50.5%" }}
                   animate={
                     phase === "expand"
@@ -128,7 +128,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
                   }
                 />
                 <motion.div
-                  className="absolute bottom-0 left-0 right-0 bg-[#050505]"
+                  className="absolute bottom-0 left-0 right-0 bg-black"
                   style={{ height: "50.5%" }}
                   animate={
                     phase === "expand"
@@ -290,7 +290,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
 
                     <motion.div className="mt-6 h-[1px] w-32 overflow-hidden bg-[#363636]/50">
                       <motion.div
-                        className="h-full bg-[#c13243]"
+                        className="h-full bg-[#ff2a2a]"
                         initial={{ width: "0%" }}
                         animate={{ width: "100%" }}
                         transition={{ duration: 3.5, ease: "linear" }}

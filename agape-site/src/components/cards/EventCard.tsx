@@ -93,13 +93,13 @@ export default function EventCard({
 
           {/* Event info */}
           <div className="flex w-full items-end justify-between gap-6">
-            <div>
+            <div className="min-w-0 flex-1">
               <motion.div
                 animate={{ y: isHovered ? -8 : 0 }}
                 transition={{ duration: 0.5, ease: [0.455, 0.03, 0.515, 0.955] }}
               >
                 <h3 className="font-display text-xl font-bold uppercase tracking-[0.05em] text-[#fafafa] md:text-3xl">
-                  <GlitchText text={title} />
+                  <GlitchText text={title} lines={2} />
                 </h3>
               </motion.div>
 
@@ -123,6 +123,7 @@ export default function EventCard({
             {/* CTA — slides in on hover */}
             {ticketUrl && (
               <motion.div
+                className="shrink-0"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{
                   opacity: isHovered ? 1 : 0,
@@ -134,11 +135,9 @@ export default function EventCard({
                   ease: [0.455, 0.03, 0.515, 0.955],
                 }}
               >
-                <a href={ticketUrl} target="_blank" rel="noopener noreferrer">
-                  <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap">
-                    Buy Tickets
-                  </FlickerButton>
-                </a>
+                <FlickerButton href={ticketUrl} variant="ticket" className="text-[11px] px-6 py-2 whitespace-nowrap">
+                  Buy Tickets
+                </FlickerButton>
               </motion.div>
             )}
           </div>

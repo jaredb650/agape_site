@@ -3,7 +3,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
-import GrainOverlay from "@/components/effects/GrainOverlay";
+// import GrainOverlay from "@/components/effects/GrainOverlay"; // grain fx disabled for cinematic
 import { PageTransition } from "@/components/layout/PageTransition";
 
 export const metadata: Metadata = {
@@ -48,7 +48,7 @@ export default function RootLayout({
       <body>
         <SmoothScroll>
           <PageTransition>
-            <GrainOverlay />
+            {/* <GrainOverlay /> — grain fx disabled for cinematic */}
             <Navbar />
             <main>{children}</main>
             <Footer />

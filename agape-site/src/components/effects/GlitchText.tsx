@@ -16,6 +16,8 @@ interface GlitchTextProps {
   playOnMount?: boolean;
   /** If true, allow the text to wrap to multiple lines in narrow containers */
   wrap?: boolean;
+  /** Clamp the text to N lines, truncating overflow with an ellipsis. Implies wrap. */
+  lines?: number;
 }
 
 export default function GlitchText({
@@ -26,7 +28,9 @@ export default function GlitchText({
   interval = 75,
   playOnMount = false,
   wrap = false,
+  lines,
 }: GlitchTextProps) {
+  const shouldWrap = wrap || lines !== undefined;
   const content = (children ?? text) as string;
   const [displayText, setDisplayText] = useState(content);
   const isAnimating = useRef(false);
@@ -89,8 +93,14 @@ export default function GlitchText({
       onMouseEnter={handleMouseEnter}
       style={{
         fontVariantNumeric: "tabular-nums",
-        whiteSpace: wrap ? "pre-wrap" : "pre",
-        wordBreak: wrap ? "break-word" : undefined,
+        whiteSpace: shouldWrap ? "pre-wrap" : "pre",
+        wordBreak: shouldWrap ? "break-word" : undefined,
+        ...(lines !== undefined && {
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          WebkitLineClamp: lines,
+          overflow: "hidden",
+        }),
       }}
     >
       {displayText}

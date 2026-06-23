@@ -25,7 +25,7 @@ function CtaLink({
 }) {
   const classes =
     variant === "primary"
-      ? "border border-[#363636] px-8 py-3 font-mono text-[11px] uppercase tracking-[0.15em] text-[#f0f0f0] transition-colors duration-200 hover:border-[#a1f081] hover:text-[#a1f081]"
+      ? "border border-[#363636] px-8 py-3 font-mono text-[11px] uppercase tracking-[0.15em] text-[#f0f0f0] transition-colors duration-200 hover:border-[#ff2a2a] hover:text-[#ff2a2a]"
       : "border border-[#363636] px-8 py-3 font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888] transition-colors duration-200 hover:text-[#f0f0f0]";
 
   if (isExternal(href)) {

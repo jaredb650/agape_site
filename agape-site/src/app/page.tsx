@@ -11,8 +11,11 @@ import ScrollReveal, { StaggerContainer } from "@/components/effects/ScrollRevea
 import FlickerButton from "@/components/effects/FlickerButton";
 import EventCard from "@/components/cards/EventCard";
 import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
+import MetallicDivider from "@/components/effects/MetallicDivider";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
 import EventGallerySection from "@/components/sections/EventGallerySection";
+import VideosSection from "@/components/sections/VideosSection";
+import CinematicMedia from "@/components/sections/CinematicMedia";
 import LazyVideo from "@/components/effects/LazyVideo";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
@@ -171,10 +174,10 @@ function HeroSection() {
         style={{ opacity: heroOpacity, scale: heroScale }}
       >
         <LazyVideo
-          src={asset("/videos/hero-loop.mp4")}
-          poster={asset("/images/hero-crowd-wide-compressed.jpg")}
+          src={asset("/media/promo-hero.mp4")}
+          poster={asset("/media/promo.jpg")}
           className="h-full w-full"
-          style={{ filter: "brightness(0.45)" }}
+          style={{ filter: "brightness(0.5) grayscale(1)" }}
         />
         {/* Deep dark overlay for text legibility */}
         <div
@@ -196,23 +199,14 @@ function HeroSection() {
         >
           <motion.div style={{ y: textY }}>
             <StaggerContainer className="flex flex-col items-center gap-5" stagger={0.12}>
-              {/* Agape logo mark */}
-              <ScrollReveal delay={0.15} distance={25}>
-                <Image
-                  src={asset("/images/agape_logo_white.png")}
-                  alt="Agape"
-                  width={72}
-                  height={72}
-                  className="opacity-90"
-                />
-              </ScrollReveal>
+              {/* Logo mark removed per client — wordmark only */}
 
               {/* Main headline */}
               <ScrollReveal delay={0.2} distance={30}>
                 <h1
                   className="font-display font-bold uppercase text-[#fafafa] text-center leading-[0.9]"
                   style={{
-                    fontSize: "clamp(3rem, 8vw, 8rem)",
+                    fontSize: "clamp(2.75rem, 7vw, 7rem)",
                     letterSpacing: "0.04em",
                   }}
                 >
@@ -244,7 +238,7 @@ function HeroSection() {
 
               {/* CTA */}
               <ScrollReveal delay={0.65} distance={15}>
-                <FlickerButton href="#events" variant="outline" className="mt-2">
+                <FlickerButton href="#events" variant="ticket" className="mt-2">
                   Explore Events
                 </FlickerButton>
               </ScrollReveal>
@@ -278,7 +272,7 @@ function HeroSection() {
         </motion.div>
         {/* Glow dot */}
         <motion.div
-          className="h-1 w-1 bg-[#c13243]"
+          className="h-1 w-1 bg-[#ff2a2a]"
           animate={{ opacity: [0.3, 1, 0.3] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -304,7 +298,7 @@ function NarrativeSection() {
       ref={sectionRef}
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(10, 10, 10, 0.75)",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
         paddingTop: "8rem",
         paddingBottom: "8rem",
       }}
@@ -333,7 +327,7 @@ function NarrativeSection() {
           {/* Section label */}
           <ScrollReveal>
             <div className="flex items-center gap-4">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]/70">
                 02
               </span>
               <div className="h-[1px] w-12 bg-[#363636]" />
@@ -376,9 +370,9 @@ function NarrativeSection() {
               className="flex flex-wrap gap-0 border-t border-b border-dashed border-[#363636] py-0"
             >
               {[
-                { number: "50+", label: "Events Hosted" },
+                { number: "100+", label: "Events Hosted" },
                 { number: "120+", label: "Artists Featured" },
-                { number: "10K+", label: "Community Members" },
+                { number: "4K+", label: "Community Members" },
               ].map((stat, i) => (
                 <div
                   key={stat.label}
@@ -433,12 +427,12 @@ function FestivalBannerInline() {
         loop
         muted
         playsInline
-        poster={asset("/images/events/festival-flyer-poster.jpg")}
+        poster={asset("/media/festival-banner.webp")}
         className="absolute inset-0 h-full w-full object-cover"
         animate={{ filter: hovered ? "brightness(0.5)" : "brightness(0.25)", scale: hovered ? 1.03 : 1 }}
         transition={{ duration: 0.7, ease: [0.455, 0.03, 0.515, 0.955] }}
       >
-        <source src={asset("/videos/festival-flyer.mp4")} type="video/mp4" />
+        <source src={asset("/media/festival-banner.mp4")} type="video/mp4" />
       </motion.video>
 
       {/* Overlays */}
@@ -453,7 +447,7 @@ function FestivalBannerInline() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(10,10,10,0.7) 0%, transparent 30%, transparent 70%, rgba(10,10,10,0.7) 100%)",
+            "linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.7) 100%)",
         }}
       />
 
@@ -499,7 +493,7 @@ function FestivalBannerInline() {
             animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : 20 }}
             transition={{ duration: 0.35, delay: hovered ? 0.15 : 0, ease: [0.455, 0.03, 0.515, 0.955] }}
           >
-            <FlickerButton variant="outline" className="text-[11px] px-6 py-2 whitespace-nowrap pointer-events-none">
+            <FlickerButton variant="ticket" className="text-[11px] px-6 py-2 whitespace-nowrap pointer-events-none">
               Get Tickets
             </FlickerButton>
           </motion.div>
@@ -523,7 +517,7 @@ function EventsSection() {
       id="events"
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(10, 10, 10, 0.75)",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
         paddingTop: "6rem",
         paddingBottom: "8rem",
       }}
@@ -534,7 +528,7 @@ function EventsSection() {
           <div>
             <ScrollReveal>
               <div className="flex items-center gap-4 mb-4">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]/70">
                   01
                 </span>
                 <div className="h-[1px] w-12 bg-[#363636]" />
@@ -545,7 +539,7 @@ function EventsSection() {
             </ScrollReveal>
             <ScrollReveal delay={0.1} distance={25}>
               <h2
-                className="font-bold uppercase text-[#fafafa]"
+                className="chrome-text font-bold uppercase text-[#fafafa]"
                 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 4vw, 3.5rem)", letterSpacing: "0.03em" }}
               >
                 <GlitchText text="Events" />
@@ -554,7 +548,7 @@ function EventsSection() {
           </div>
 
           <ScrollReveal delay={0.2}>
-            <FlickerButton href="https://posh.vip/g/agape" variant="outline" className="self-start md:self-auto">
+            <FlickerButton href="https://posh.vip/g/agape" variant="ticket" className="self-start md:self-auto">
               View All
             </FlickerButton>
           </ScrollReveal>
@@ -596,7 +590,7 @@ function EventsSection() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="font-display text-xl font-bold uppercase tracking-[0.05em] text-[#fafafa]">
-                      <GlitchText text={event.title} />
+                      <GlitchText text={event.title} lines={2} />
                     </h3>
                     <div className="mt-2 flex flex-col gap-1">
                       <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
@@ -608,11 +602,9 @@ function EventsSection() {
                     </div>
                     {event.ticketUrl && (
                       <div className="mt-4">
-                        <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
-                          <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
-                            Buy Tickets
-                          </FlickerButton>
-                        </a>
+                        <FlickerButton href={event.ticketUrl} variant="ticket" className="text-[11px] px-6 py-2">
+                          Buy Tickets
+                        </FlickerButton>
                       </div>
                     )}
                   </div>
@@ -646,7 +638,7 @@ function EventsSection() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="font-display text-lg font-bold uppercase tracking-[0.05em] text-[#fafafa]">
-                      <GlitchText text={event.title} />
+                      <GlitchText text={event.title} lines={2} />
                     </h3>
                     <div className="mt-2 flex flex-col gap-1">
                       <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
@@ -658,11 +650,9 @@ function EventsSection() {
                     </div>
                     {event.ticketUrl && (
                       <div className="mt-4">
-                        <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
-                          <FlickerButton variant="outline" className="text-[11px] px-6 py-2">
-                            Buy Tickets
-                          </FlickerButton>
-                        </a>
+                        <FlickerButton href={event.ticketUrl} variant="ticket" className="text-[11px] px-6 py-2">
+                          Buy Tickets
+                        </FlickerButton>
                       </div>
                     )}
                   </div>
@@ -817,7 +807,7 @@ function ResidentPanel({
               >
                 <div
                   className={isExpanded ? "max-h-[40vh] overflow-y-auto" : ""}
-                  style={isExpanded ? { scrollbarWidth: "thin", scrollbarColor: "#c13243 transparent" } : {}}
+                  style={isExpanded ? { scrollbarWidth: "thin", scrollbarColor: "#ff2a2a transparent" } : {}}
                 >
                   <p
                     className="pt-1 font-body text-[12px] leading-[1.7] text-[#888888] md:text-[13px]"
@@ -840,7 +830,7 @@ function ResidentPanel({
             {/* "Read more" hint on hover, "Click to close" when expanded */}
             {hasBio && (
               <motion.span
-                className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#c13243]"
+                className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#ff2a2a]"
                 animate={{ opacity: isHovered ? 0.8 : 0 }}
                 transition={{ duration: 0.2 }}
               >
@@ -932,7 +922,7 @@ function ResidentCard({
               >
                 <div
                   className={isExpanded ? "max-h-[35vh] overflow-y-auto" : ""}
-                  style={isExpanded ? { scrollbarWidth: "thin", scrollbarColor: "#c13243 transparent" } : {}}
+                  style={isExpanded ? { scrollbarWidth: "thin", scrollbarColor: "#ff2a2a transparent" } : {}}
                 >
                   <p
                     className="mt-2 font-body text-[12px] leading-[1.7] text-[#888888]"
@@ -952,7 +942,7 @@ function ResidentCard({
               </motion.div>
             )}
             {hasBio && (
-              <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.15em] text-[#c13243] opacity-80">
+              <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.15em] text-[#ff2a2a] opacity-80">
                 {isExpanded ? "[ Tap to close ]" : "[ Tap to read ]"}
               </span>
             )}
@@ -975,7 +965,7 @@ function ResidentsSection() {
       id="residents"
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(10, 10, 10, 0.75)",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
         paddingTop: "6rem",
         paddingBottom: "8rem",
       }}
@@ -986,7 +976,7 @@ function ResidentsSection() {
           <div>
             <ScrollReveal>
               <div className="flex items-center gap-4 mb-4">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]/70">
                   03
                 </span>
                 <div className="h-[1px] w-12 bg-[#363636]" />
@@ -1061,7 +1051,7 @@ function CTASection() {
       id="contact"
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(17, 17, 17, 0.75)",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
         paddingTop: "8rem",
         paddingBottom: "8rem",
       }}
@@ -1077,8 +1067,8 @@ function CTASection() {
       <div className="relative mx-auto flex max-w-[800px] flex-col items-center gap-8 px-6 text-center md:px-10">
         <ScrollReveal>
           <div className="flex items-center gap-4">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
-              04
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]/70">
+              06
             </span>
             <div className="h-[1px] w-12 bg-[#363636]" />
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
@@ -1089,7 +1079,7 @@ function CTASection() {
 
         <ScrollReveal delay={0.1} distance={30}>
           <h2
-            className="font-bold uppercase text-[#fafafa]"
+            className="chrome-text font-bold uppercase text-[#fafafa]"
             style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem, 5vw, 4rem)", letterSpacing: "0.03em", lineHeight: 1.1 }}
           >
             Experience the
@@ -1107,7 +1097,7 @@ function CTASection() {
 
         <ScrollReveal delay={0.3}>
           <div className="flex flex-col items-center gap-4 sm:flex-row">
-            <FlickerButton href="https://posh.vip/g/agape" variant="outline">
+            <FlickerButton href="https://posh.vip/g/agape" variant="ticket">
               Upcoming Events
             </FlickerButton>
             <FlickerButton href="mailto:bookings@agapemusic.us" variant="outline">
@@ -1140,7 +1130,7 @@ export default function Home() {
         <HeroSection />
 
         {/* Filled marquee ticker — attached to hero bottom edge */}
-        <div className="overflow-hidden border-t border-b border-dashed border-[#363636] bg-[#0a0a0a] py-5">
+        <div className="overflow-hidden border-t border-b border-dashed border-[#363636] bg-black/60 py-5">
           <InfiniteMarquee
             text="UPCOMING"
             variant="filled"
@@ -1149,6 +1139,9 @@ export default function Home() {
           />
         </div>
 
+        {/* Cinematic promo reel — media prototype */}
+        <CinematicMedia />
+
         <EventsSection />
 
         <NarrativeSection />
@@ -1156,13 +1149,18 @@ export default function Home() {
         {/* Residents — the collective */}
         <ResidentsSection />
 
+        {/* Recorded sets — YouTube with custom in-style players */}
+        <VideosSection />
+
         {/* Event gallery — editorial photo spread */}
         <EventGallerySection />
 
         {/* Color explosion — manifesto section */}
         <ColorBreakSection />
 
-        <div className="h-[1px] w-full border-t border-dashed border-[#363636]" />
+        <div className="px-6 md:px-10 lg:px-16">
+          <MetallicDivider />
+        </div>
 
         <CTASection />
       </div>

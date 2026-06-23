@@ -14,18 +14,12 @@ import GlitchText from "@/components/effects/GlitchText";
 
 /* ─── Image data with layout hints ─── */
 const GALLERY_IMAGES = [
-  { src: "gallery-30.jpg", alt: "DJs behind the decks with massive crowd", span: "hero" as const },
-  { src: "gallery-33.jpg", alt: "Blue and purple stage lighting rig", span: "wide" as const },
-  { src: "gallery-35.jpg", alt: "Crowd dancing under green light", span: "tall" as const },
-  { src: "gallery-42.jpg", alt: "Silhouette with yellow light beams", span: "tall" as const },
-  { src: "gallery-41.jpg", alt: "DJ working the decks", span: "wide" as const },
-  { src: "gallery-36.jpg", alt: "DJ at Pioneer decks", span: "tall" as const },
-  { src: "gallery-46.jpg", alt: "Silhouettes against stage lights", span: "normal" as const },
-  { src: "gallery-25.jpg", alt: "DJ booth b2b session", span: "wide" as const },
-  { src: "gallery-37.jpg", alt: "Blue-lit crowd silhouette", span: "normal" as const },
-  { src: "gallery-38.jpg", alt: "Dancer under warm spotlight", span: "tall" as const },
-  { src: "gallery-43.jpg", alt: "Dense crowd from above", span: "wide" as const },
-  { src: "gallery-29.jpg", alt: "DJ booth low angle", span: "normal" as const },
+  { src: "gallery-30.jpg", alt: "DJs behind the decks with a massive crowd", span: "hero" as const },
+  { src: "gallery-36.jpg", alt: "DJ at the Pioneer decks", span: "wide" as const },
+  { src: "gallery-35.jpg", alt: "Crowd dancing under green light", span: "wide" as const },
+  { src: "gallery-38.jpg", alt: "Dancer under a warm spotlight", span: "normal" as const },
+  { src: "gallery-42.jpg", alt: "Silhouettes in gold light beams", span: "normal" as const },
+  { src: "gallery-46.jpg", alt: "Crowd against purple stage light", span: "normal" as const },
 ];
 
 const EASE_EXPO: [number, number, number, number] = [0.455, 0.03, 0.515, 0.955];
@@ -160,7 +154,7 @@ function GalleryImage({
 
       {/* Hover: red accent line that slides in from left */}
       <motion.div
-        className="absolute bottom-0 left-0 h-[2px] bg-[#c13243]"
+        className="absolute bottom-0 left-0 h-[2px] bg-[#ff2a2a]"
         initial={{ width: "0%" }}
         animate={{ width: isHovered ? "100%" : "0%" }}
         transition={{ duration: 0.4, ease: EASE_EXPO }}
@@ -172,10 +166,10 @@ function GalleryImage({
         animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 8 }}
         transition={{ duration: 0.3, ease: EASE_EXPO }}
       >
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#c13243]">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <div className="h-[1px] w-6 bg-[#c13243]/50" />
+        <div className="h-[1px] w-6 bg-[#ff2a2a]/50" />
       </motion.div>
 
       {/* Hover: glitch flash effect — brief white overlay */}
@@ -216,7 +210,7 @@ export default function EventGallerySection() {
       ref={sectionRef}
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(10, 10, 10, 0.75)",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
         paddingTop: "6rem",
         paddingBottom: "8rem",
       }}
@@ -277,7 +271,7 @@ export default function EventGallerySection() {
         >
           <div>
             <div className="flex items-center gap-4 mb-4">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff2a2a]/70">
                 05
               </span>
               <div className="h-[1px] w-12 bg-[#363636]" />
@@ -323,46 +317,27 @@ export default function EventGallerySection() {
             ))}
           </div>
         ) : (
-          /* ─ Desktop: asymmetric bento grid ─ */
+          /* ─ Desktop: trimmed 6-shot bento ─ */
           <div className="flex flex-col gap-3">
-            {/* Row 1: Hero shot — full width cinematic */}
+            {/* Row 1: hero — full width */}
             <GalleryImage
               src={GALLERY_IMAGES[0].src}
               alt={GALLERY_IMAGES[0].alt}
               span="hero"
               index={0}
-
             />
 
-            {/* Row 2: Two columns — wide + tall */}
-            <div className="grid grid-cols-[1.4fr_0.8fr] gap-3">
+            {/* Row 2: two columns */}
+            <div className="grid grid-cols-2 gap-3">
               <GalleryImage {...GALLERY_IMAGES[1]} index={1} />
               <GalleryImage {...GALLERY_IMAGES[2]} index={2} />
             </div>
 
-            {/* Row 3: Two columns — tall portrait + wide landscape stacked */}
-            <div className="grid grid-cols-[0.7fr_1.3fr] gap-3">
-              <GalleryImage {...GALLERY_IMAGES[3]} index={3} />
-              <div className="flex flex-col gap-3">
-                <GalleryImage {...GALLERY_IMAGES[4]} index={4} />
-                <GalleryImage {...GALLERY_IMAGES[5]} index={5} />
-              </div>
-            </div>
-
-            {/* Row 4: Three columns — equal weight */}
+            {/* Row 3: three columns */}
             <div className="grid grid-cols-3 gap-3">
-              <GalleryImage {...GALLERY_IMAGES[6]} index={6} />
-              <GalleryImage {...GALLERY_IMAGES[7]} index={7} />
-              <GalleryImage {...GALLERY_IMAGES[8]} index={8} />
-            </div>
-
-            {/* Row 5: Two columns — wide + tall */}
-            <div className="grid grid-cols-[1.3fr_0.7fr] gap-3">
-              <div className="flex flex-col gap-3">
-                <GalleryImage {...GALLERY_IMAGES[10]} index={10} />
-                <GalleryImage {...GALLERY_IMAGES[11]} index={11} />
-              </div>
-              <GalleryImage {...GALLERY_IMAGES[9]} index={9} />
+              <GalleryImage {...GALLERY_IMAGES[3]} index={3} />
+              <GalleryImage {...GALLERY_IMAGES[4]} index={4} />
+              <GalleryImage {...GALLERY_IMAGES[5]} index={5} />
             </div>
           </div>
         )}

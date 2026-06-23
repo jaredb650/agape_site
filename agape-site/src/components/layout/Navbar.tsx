@@ -10,8 +10,9 @@ const navLinks = [
   { href: "#events", label: "Events", num: "01" },
   { href: "#about", label: "About", num: "02" },
   { href: "#residents", label: "Residents", num: "03" },
-  { href: "#manifesto", label: "Manifesto", num: "04" },
-  { href: "#contact", label: "Contact", num: "05" },
+  { href: "#videos", label: "Videos", num: "04" },
+  { href: "#manifesto", label: "Manifesto", num: "05" },
+  { href: "#contact", label: "Contact", num: "06" },
 ];
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -114,7 +115,7 @@ export function Navbar() {
               role="navigation"
               className="flex items-center justify-between px-6 py-4 md:px-10 lg:px-16"
               style={{
-                backgroundColor: "rgba(5, 5, 5, 0.85)",
+                backgroundColor: "rgba(0, 0, 0, 0.85)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
               }}
@@ -166,7 +167,7 @@ export function Navbar() {
                       className="group flex items-baseline gap-2"
                     >
                       <span
-                        className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#a1f081]"
+                        className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#ff2a2a]"
                         style={{ letterSpacing: "0.05em" }}
                       >
                         {link.num}
@@ -186,7 +187,7 @@ export function Navbar() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 1.2 }}
               >
-                <span className="h-[6px] w-[6px] bg-[#c13243] animate-pulse" />
+                <span className="h-[6px] w-[6px] bg-[#ff2a2a] animate-pulse" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#888888]">
                   NYC
                 </span>
@@ -250,7 +251,7 @@ export function Navbar() {
                   <div
                     className="flex w-full flex-col items-center gap-5 border border-[#363636]/30 px-14 py-6"
                     style={{
-                      backgroundColor: "rgba(5, 5, 5, 0.92)",
+                      backgroundColor: "rgba(0, 0, 0, 0.92)",
                       backdropFilter: "blur(24px)",
                       WebkitBackdropFilter: "blur(24px)",
                     }}
@@ -267,7 +268,7 @@ export function Navbar() {
                           onClick={(e) => handleNavClick(e, link.href)}
                           className="group flex items-baseline gap-3"
                         >
-                          <span className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#a1f081]">
+                          <span className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#ff2a2a]">
                             {link.num}
                           </span>
                           <span className="font-display text-sm uppercase tracking-[0.15em] text-[#f0f0f0] transition-colors duration-200 group-hover:text-white">
@@ -285,7 +286,7 @@ export function Navbar() {
             <div
               className="flex items-center justify-between border border-[#363636]/30 px-3 py-2.5 sm:px-5"
               style={{
-                backgroundColor: "rgba(5, 5, 5, 0.85)",
+                backgroundColor: "rgba(0, 0, 0, 0.85)",
                 backdropFilter: "blur(24px)",
                 WebkitBackdropFilter: "blur(24px)",
               }}
@@ -314,7 +315,7 @@ export function Navbar() {
                     onClick={(e) => handleNavClick(e, link.href)}
                     className="group flex items-baseline gap-2"
                   >
-                    <span className="font-mono text-[9px] text-[#666666] transition-colors duration-200 group-hover:text-[#a1f081]">
+                    <span className="font-mono text-[9px] text-[#666666] transition-colors duration-200 group-hover:text-[#ff2a2a]">
                       {link.num}
                     </span>
                     <span className="font-display text-[12px] uppercase tracking-[0.12em] text-[#999999] transition-colors duration-200 group-hover:text-[#f0f0f0]">
@@ -328,7 +329,7 @@ export function Navbar() {
               <div className="flex items-center gap-4">
                 {/* Live indicator (desktop only) */}
                 <div className="hidden items-center gap-2 lg:flex">
-                  <span className="h-[5px] w-[5px] bg-[#c13243] animate-pulse" />
+                  <span className="h-[5px] w-[5px] bg-[#ff2a2a] animate-pulse" />
                   <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#666666]">
                     NYC
                   </span>
@@ -377,7 +378,7 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && !pastHero && (
           <motion.div
-            className="fixed inset-0 z-40 flex flex-col items-start justify-center bg-[#050505] px-8 lg:hidden"
+            className="fixed inset-0 z-40 flex flex-col items-start justify-center bg-black px-8 lg:hidden"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
@@ -407,7 +408,7 @@ export function Navbar() {
                     onClick={(e) => handleNavClick(e, link.href)}
                     className="group flex items-baseline gap-4"
                   >
-                    <span className="font-mono text-sm text-[#888888] transition-colors duration-200 group-hover:text-[#a1f081]">
+                    <span className="font-mono text-sm text-[#888888] transition-colors duration-200 group-hover:text-[#ff2a2a]">
                       {link.num}
                     </span>
                     <span className="font-display text-4xl uppercase tracking-[0.08em] text-[#f0f0f0]">

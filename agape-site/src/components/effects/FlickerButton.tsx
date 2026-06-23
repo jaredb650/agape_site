@@ -11,8 +11,8 @@ interface FlickerButtonProps
   href?: string;
   /** Show glitch text on hover (default: true) */
   glitch?: boolean;
-  /** Visual variant */
-  variant?: "outline" | "solid";
+  /** Visual variant. `ticket` = solid red purchase CTA (festival style). */
+  variant?: "outline" | "solid" | "ticket";
   className?: string;
 }
 
@@ -24,19 +24,26 @@ export default function FlickerButton({
   className = "",
   ...props
 }: FlickerButtonProps) {
+  const isTicket = variant === "ticket";
+
   const baseStyles = [
-    "flicker-btn",
     "relative inline-flex items-center justify-center",
     "px-8 py-3",
-    "text-sm uppercase tracking-[0.1em]",
-    "font-medium",
+    "uppercase font-medium",
     "transition-colors duration-200",
-    "border border-[var(--color-tertiary-dark)]",
     "cursor-pointer",
     "select-none",
-    variant === "outline"
-      ? "bg-transparent text-[var(--color-primary-light)] hover:bg-[var(--color-secondary-dark)]"
-      : "bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] hover:bg-[var(--color-secondary-light)]",
+    isTicket
+      ? // Solid red purchase CTA — glow + pulse from .ticket-btn, white mono label
+        "ticket-btn border-0 bg-[var(--accent-red)] text-white hover:bg-[var(--accent-red-hover)] font-mono text-sm tracking-[0.3em]"
+      : [
+          "flicker-btn",
+          "border border-[var(--color-tertiary-dark)]",
+          "text-sm tracking-[0.1em]",
+          variant === "outline"
+            ? "bg-transparent text-[var(--color-primary-light)] hover:bg-[var(--color-secondary-dark)]"
+            : "bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] hover:bg-[var(--color-secondary-light)]",
+        ].join(" "),
     className,
   ]
     .filter(Boolean)
