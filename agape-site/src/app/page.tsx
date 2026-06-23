@@ -370,9 +370,9 @@ function NarrativeSection() {
               className="flex flex-wrap gap-0 border-t border-b border-dashed border-[#363636] py-0"
             >
               {[
-                { number: "50+", label: "Events Hosted" },
+                { number: "100+", label: "Events Hosted" },
                 { number: "120+", label: "Artists Featured" },
-                { number: "10K+", label: "Community Members" },
+                { number: "4K+", label: "Community Members" },
               ].map((stat, i) => (
                 <div
                   key={stat.label}
