@@ -10,8 +10,8 @@ import { asset } from "@/lib/asset";
 /* ── Ambient BTS tiles below the centerpiece reel ── */
 const TILES = [
   { src: "bts-5", location: "AT THE BARRICADE" },
-  { src: "bts-12", location: "MAIN FLOOR" },
-  { src: "bts-13", location: "DISCO ROOM" },
+  { src: "bts-14", location: "WITH THE FANS" },
+  { src: "bts-15", location: "MAKING FRIENDS" },
 ] as const;
 
 /* ── A single muted, autoplaying vertical ambient tile ── */
@@ -211,10 +211,6 @@ export default function CinematicMedia() {
                 >
                   <GlitchText text="ENTER THE ROOM" />
                 </h3>
-                <p className="mt-5 text-sm leading-relaxed text-[#888888]">
-                  Darkness, then color. A warehouse comes alive — bodies, light,
-                  bass. This is the room before the drop.
-                </p>
                 <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
                   720 × 1280 / SILENT LOOP
                 </p>
