@@ -23,7 +23,7 @@ function AmbientTile({
   location: string;
 }) {
   return (
-    <ScrollReveal mode="fade-slide-clip" distance={32}>
+    <ScrollReveal mode="fade-slide" distance={32}>
       <CornerBrackets size={16} strokeWidth={1} color="#363636">
         <div className="group relative aspect-[9/16] w-full overflow-hidden bg-black">
           <video
@@ -134,7 +134,7 @@ export default function CinematicMedia() {
         </ScrollReveal>
 
         {/* ── Centerpiece reel ── */}
-        <ScrollReveal mode="fade-slide-clip" distance={48} delay={0.1}>
+        <ScrollReveal mode="fade-slide" distance={48} delay={0.1}>
           <div className="mt-12 flex flex-col items-center gap-10 lg:mt-16 lg:flex-row lg:items-center lg:justify-center lg:gap-14">
             {/* Vertical 9:16 promo frame */}
             <motion.div
