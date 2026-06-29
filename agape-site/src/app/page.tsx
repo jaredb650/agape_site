@@ -95,11 +95,12 @@ const EVENTS = [
   //   ticketUrl: "https://www.eventbrite.com/e/refuge-friday-agape-with-cleric-frederic-hyden-toni-ba-tickets-1990532982735",
   // },
   {
-    title: "Rooftop Sesh w/ Zwilling",
+    title: "Rooftop Sesh @ Superior Ingredients",
     date: "Jul 02, 2026",
     venue: "74 Wythe Ave, Brooklyn",
     image: asset("/images/events/zwilling.webp"),
-    ticketUrl: "https://posh.vip/e/rooftop-w-zwilling-agap-day-party",
+    ticketUrl: "https://posh.vip/e/agap-presents-rooftop-takeover-at-superior-ingredients",
+    ctaLabel: "Free RSVP",
   },
   {
     title: "Sara Landry",
@@ -603,7 +604,7 @@ function EventsSection() {
                     {event.ticketUrl && (
                       <div className="mt-4">
                         <FlickerButton href={event.ticketUrl} variant="ticket" className="text-[11px] px-6 py-2">
-                          Buy Tickets
+                          {event.ctaLabel ?? "Buy Tickets"}
                         </FlickerButton>
                       </div>
                     )}
@@ -651,7 +652,7 @@ function EventsSection() {
                     {event.ticketUrl && (
                       <div className="mt-4">
                         <FlickerButton href={event.ticketUrl} variant="ticket" className="text-[11px] px-6 py-2">
-                          Buy Tickets
+                          {event.ctaLabel ?? "Buy Tickets"}
                         </FlickerButton>
                       </div>
                     )}
@@ -671,6 +672,7 @@ function EventsSection() {
                 venue={event.venue}
                 image={event.image}
                 ticketUrl={event.ticketUrl}
+                ctaLabel={event.ctaLabel}
                 index={i}
                 isHovered={hoveredIndex === i}
                 anyHovered={hoveredIndex !== null}

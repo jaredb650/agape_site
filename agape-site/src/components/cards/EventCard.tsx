@@ -12,6 +12,7 @@ interface EventCardProps {
   venue: string;
   image: string;
   ticketUrl: string;
+  ctaLabel?: string;
   index: number;
   isHovered: boolean;
   onHover: () => void;
@@ -25,6 +26,7 @@ export default function EventCard({
   venue,
   image,
   ticketUrl,
+  ctaLabel,
   index,
   isHovered,
   onHover,
@@ -136,7 +138,7 @@ export default function EventCard({
                 }}
               >
                 <FlickerButton href={ticketUrl} variant="ticket" className="text-[11px] px-6 py-2 whitespace-nowrap">
-                  Buy Tickets
+                  {ctaLabel ?? "Buy Tickets"}
                 </FlickerButton>
               </motion.div>
             )}
