@@ -9,7 +9,8 @@ import GlitchText from "@/components/effects/GlitchText";
 import CornerBrackets from "@/components/effects/CornerBrackets";
 import ScrollReveal, { StaggerContainer } from "@/components/effects/ScrollReveal";
 import FlickerButton from "@/components/effects/FlickerButton";
-import EventCard from "@/components/cards/EventCard";
+import EventBoard from "@/components/sections/EventBoard";
+import { Countdown } from "@/components/sections/EventBoard";
 import InfiniteMarquee from "@/components/effects/InfiniteMarquee";
 import MetallicDivider from "@/components/effects/MetallicDivider";
 import ColorBreakSection from "@/components/sections/ColorBreakSection";
@@ -344,36 +345,34 @@ function HeroSection({ booted }: { booted: boolean }) {
         </CornerBrackets>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3"
+      {/* Bouncing arrow — clicks through to the events board */}
+      <motion.a
+        href="#events"
+        className="group absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2.5 px-6 py-2"
         initial={{ opacity: 0 }}
         animate={booted ? { opacity: 1 } : {}}
         transition={{ delay: 1.8, duration: 0.6 }}
+        aria-label="Scroll to upcoming events"
       >
-        <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#888888]">
-          Scroll
+        <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#888888] transition-colors duration-300 group-hover:text-[#f0f0f0]">
+          Events
         </span>
-        <motion.div
-          className="relative h-8 w-[1px] overflow-hidden"
+        <motion.svg
+          width="14"
+          height="9"
+          viewBox="0 0 14 9"
+          fill="none"
+          animate={{ y: [0, 7, 0] }}
+          transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+          aria-hidden="true"
         >
-          <motion.div
-            className="absolute left-0 top-0 h-4 w-[1px] bg-[#f0f0f0]"
-            animate={{ y: [0, 32] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+          <path
+            d="M1 1L7 7.5L13 1"
+            stroke="#ff2a2a"
+            strokeWidth="1.5"
           />
-        </motion.div>
-        {/* Glow dot */}
-        <motion.div
-          className="h-1 w-1 bg-[#ff2a2a]"
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
+        </motion.svg>
+      </motion.a>
     </section>
   );
 }
@@ -572,14 +571,18 @@ function FestivalBannerInline() {
               </h3>
             </motion.div>
             <motion.div
-              className="mt-2 flex gap-6"
+              className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1"
               animate={{ opacity: hovered ? 1 : 0.7, y: hovered ? -4 : 0 }}
               transition={{ duration: 0.4, ease: [0.455, 0.03, 0.515, 0.955] }}
             >
               <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
-                Summer 2026
+                Sep 5 + 6, 2026 — Industry City
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#888888]">
+              <Countdown
+                dateISO="2026-09-05"
+                className="text-[11px] uppercase tracking-[0.15em] text-[#ff2a2a]"
+              />
+              <span className="hidden font-mono text-[11px] uppercase tracking-[0.1em] text-[#888888] sm:inline">
                 agape-festival.com
               </span>
             </motion.div>
@@ -605,11 +608,6 @@ function FestivalBannerInline() {
    EVENTS CAROUSEL
    ────────────────────────────────────────────── */
 function EventsSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const isMobile = useMediaQuery("(max-width: 767px)");
-  const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
-  const layout = isMobile ? "mobile" : isTablet ? "tablet" : "desktop";
-
   // Resolve "today" only after mount so the prerendered HTML (built at an
   // arbitrary time) matches the first client render — then filter for real.
   const [todayNY, setTodayNY] = useState<string | null>(null);
@@ -623,7 +621,9 @@ function EventsSection() {
       id="events"
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
+        // Opaque — the ParallaxField this translucency served is retired,
+        // and the sticky CinematicMedia plate bleeds through otherwise.
+        backgroundColor: "#050505",
         paddingTop: "6rem",
         paddingBottom: "8rem",
       }}
@@ -639,7 +639,7 @@ function EventsSection() {
                 </span>
                 <div className="h-[1px] w-12 bg-[#363636]" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
-                  Upcoming
+                  Upcoming <span className="text-[#555555]">{"// get your tickets"}</span>
                 </span>
               </div>
             </ScrollReveal>
@@ -668,125 +668,11 @@ function EventsSection() {
         </ScrollReveal>
       </div>
 
-      {/* Cards — Desktop: horizontal row with hover expansion, Tablet: 2-col grid, Mobile: stacked */}
+      {/* Departures board — rows + sticky full-poster pane (mobile: poster cards) */}
       <ScrollReveal delay={0.15}>
-        {layout === "mobile" ? (
-          /* Mobile: stacked vertical */
-          <div className="flex flex-col gap-4 px-6">
-            {visibleEvents.map((event, i) => (
-              <CornerBrackets key={event.title} size={20} color="var(--color-tertiary-dark)">
-                <div className="relative h-[320px] overflow-hidden">
-                  <Image
-                    src={event.image}
-                    alt={event.title}
-                    fill
-                    sizes="100vw"
-                    className="object-cover"
-                    style={{ filter: "brightness(0.55)" }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(0deg, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.15) 100%)",
-                    }}
-                  />
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <span className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="font-display text-xl font-bold uppercase tracking-[0.05em] text-[#fafafa]">
-                      <GlitchText text={event.title} lines={2} />
-                    </h3>
-                    <div className="mt-2 flex flex-col gap-1">
-                      <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
-                        {event.date}
-                      </span>
-                      <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#888888]">
-                        {event.venue}
-                      </span>
-                    </div>
-                    {event.ticketUrl && (
-                      <div className="mt-4">
-                        <FlickerButton href={event.ticketUrl} variant="ticket" className="text-[11px] px-6 py-2">
-                          {event.ctaLabel ?? "Buy Tickets"}
-                        </FlickerButton>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </CornerBrackets>
-            ))}
-          </div>
-        ) : layout === "tablet" ? (
-          /* Tablet: 2-column grid */
-          <div className="grid grid-cols-2 gap-4 px-6">
-            {visibleEvents.map((event, i) => (
-              <CornerBrackets key={event.title} size={22} color="var(--color-tertiary-dark)">
-                <div className="relative h-[380px] overflow-hidden">
-                  <Image
-                    src={event.image}
-                    alt={event.title}
-                    fill
-                    sizes="50vw"
-                    className="object-cover"
-                    style={{ filter: "brightness(0.5)" }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(0deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.2) 100%)",
-                    }}
-                  />
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <span className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="font-display text-lg font-bold uppercase tracking-[0.05em] text-[#fafafa]">
-                      <GlitchText text={event.title} lines={2} />
-                    </h3>
-                    <div className="mt-2 flex flex-col gap-1">
-                      <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#888888]">
-                        {event.date}
-                      </span>
-                      <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#888888]">
-                        {event.venue}
-                      </span>
-                    </div>
-                    {event.ticketUrl && (
-                      <div className="mt-4">
-                        <FlickerButton href={event.ticketUrl} variant="ticket" className="text-[11px] px-6 py-2">
-                          {event.ctaLabel ?? "Buy Tickets"}
-                        </FlickerButton>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </CornerBrackets>
-            ))}
-          </div>
-        ) : (
-          /* Desktop: vertical stack with hover expansion */
-          <div className="mx-auto flex w-full max-w-[1200px] flex-col px-6 md:px-10 lg:px-16" style={{ height: 600 }}>
-            {visibleEvents.map((event, i) => (
-              <EventCard
-                key={event.title}
-                title={event.title}
-                date={event.date}
-                venue={event.venue}
-                image={event.image}
-                ticketUrl={event.ticketUrl}
-                ctaLabel={event.ctaLabel}
-                index={i}
-                isHovered={hoveredIndex === i}
-                anyHovered={hoveredIndex !== null}
-                onHover={() => setHoveredIndex(i)}
-                onLeave={() => setHoveredIndex(null)}
-              />
-            ))}
-          </div>
-        )}
+        <div className="mx-auto w-full max-w-[1200px] px-6 md:px-10 lg:px-16">
+          <EventBoard events={visibleEvents} />
+        </div>
       </ScrollReveal>
     </section>
   );

@@ -4,7 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 // import GrainOverlay from "@/components/effects/GrainOverlay"; // grain fx disabled for cinematic
-import { PageTransition } from "@/components/layout/PageTransition";
+// PageTransition preloader retired — BootIntro (homepage) is the single intro now
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -47,12 +47,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SmoothScroll>
-          <PageTransition>
-            {/* <GrainOverlay /> — grain fx disabled for cinematic */}
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-          </PageTransition>
+          {/* <GrainOverlay /> — grain fx disabled for cinematic */}
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
         </SmoothScroll>
       </body>
     </html>
