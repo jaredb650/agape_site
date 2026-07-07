@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { organizationSchema } from "@/lib/seo";
@@ -32,17 +32,41 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
    ────────────────────────────────────────────── */
 type EventItem = {
   title: string;
-  date: string;
+  date: string; // display string, e.g. "Jul 02, 2026"
+  dateISO: string; // machine-readable, e.g. "2026-07-02" — drives auto-hiding
+  hideAfterISO?: string; // optional override: last day the event stays visible (multi-day events)
   venue: string;
   image: string;
   ticketUrl: string;
   ctaLabel?: string;
 };
 
+/* Events auto-hide once the date in New York rolls past the day AFTER the
+   event date — parties run into the next morning, so tickets stay up through
+   the entire following day as dwell time. No manual removal needed. */
+function nyToday(): string {
+  // en-CA locale formats as YYYY-MM-DD, comparable lexicographically
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York",
+  }).format(new Date());
+}
+
+function addDays(iso: string, days: number): string {
+  const d = new Date(iso + "T00:00:00Z");
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+function isEventVisible(event: EventItem, todayNY: string): boolean {
+  const lastVisibleDay = event.hideAfterISO ?? addDays(event.dateISO, 1);
+  return todayNY <= lastVisibleDay;
+}
+
 const EVENTS: EventItem[] = [
   // {
   //   title: "Kloud + Aphotic",
   //   date: "Mar 14, 2026",
+  //   dateISO: "2026-03-14",
   //   venue: "255 Randolph St.",
   //   image: asset("/images/events/kloud-aphotic.png"),
   //   ticketUrl: "https://posh.vip/e/agap-presents-kloud-aphtic",
@@ -50,6 +74,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "David Löhlein",
   //   date: "Mar 27, 2026",
+  //   dateISO: "2026-03-27",
   //   venue: "70 Scott Ave",
   //   image: asset("/images/events/david-lohlein.png"),
   //   ticketUrl: "https://posh.vip/e/agap-presents-david-lhlein",
@@ -57,6 +82,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "Aiden — All Night Long",
   //   date: "Apr 03, 2026",
+  //   dateISO: "2026-04-03",
   //   venue: "70 Scott Ave",
   //   image: asset("/images/events/aiden.png"),
   //   ticketUrl: "https://posh.vip/e/agape-presents-aiden-all-night-long",
@@ -64,6 +90,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "Raw Showcase @ Refuge",
   //   date: "Apr 24, 2026",
+  //   dateISO: "2026-04-24",
   //   venue: "366 Ten Eyck, BKLYN",
   //   image: asset("/images/events/refuge.jpg"),
   //   ticketUrl: "https://www.eventbrite.com/e/refuge-fridays-w-bours-the-chronics-tigerhead-junkfile-and-more-tickets-1985490074260",
@@ -71,6 +98,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "LESSSS",
   //   date: "Apr 24, 2026",
+  //   dateISO: "2026-04-24",
   //   venue: "774 Myrtle Ave, Brooklyn",
   //   image: asset("/images/events/lessss.jpg"),
   //   ticketUrl: "https://posh.vip/e/agap-presents-lessss",
@@ -78,6 +106,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "Nikolina + Kander + Byorn",
   //   date: "May 15, 2026",
+  //   dateISO: "2026-05-15",
   //   venue: "255 Randolph St, Brooklyn",
   //   image: asset("/images/events/nikolina-kander-byorn.webp"),
   //   ticketUrl: "https://posh.vip/e/agap-presents-nikolina-kander-byorn",
@@ -85,6 +114,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "Intercell — NYC",
   //   date: "May 30, 2026",
+  //   dateISO: "2026-05-30",
   //   venue: "99 Scott Ave",
   //   image: asset("/images/events/intercell.webp"),
   //   ticketUrl: "https://posh.vip/e/intercell-nyc",
@@ -92,6 +122,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "Luke Slater + LPV",
   //   date: "Jun 13, 2026",
+  //   dateISO: "2026-06-13",
   //   venue: "70 Scott Ave, Brooklyn",
   //   image: asset("/images/events/luke-slater.webp"),
   //   ticketUrl: "https://posh.vip/e/agap-presents-luke-slater-lpv",
@@ -99,6 +130,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "Refuge: Adrian Hex b2b Michelle Kay, Cleric, Frederic., Juno, Hyden, TONI BA",
   //   date: "Jun 26, 2026",
+  //   dateISO: "2026-06-26",
   //   venue: "366 Ten Eyck, BKLYN NY",
   //   image: asset("/images/events/refuge-june-26.png"),
   //   ticketUrl: "https://www.eventbrite.com/e/refuge-friday-agape-with-cleric-frederic-hyden-toni-ba-tickets-1990532982735",
@@ -106,6 +138,7 @@ const EVENTS: EventItem[] = [
   // {
   //   title: "Rooftop Sesh @ Superior Ingredients",
   //   date: "Jul 02, 2026",
+  //   dateISO: "2026-07-02",
   //   venue: "74 Wythe Ave, Brooklyn",
   //   image: asset("/images/events/zwilling.webp"),
   //   ticketUrl: "https://posh.vip/e/agap-presents-rooftop-takeover-at-superior-ingredients",
@@ -114,6 +147,7 @@ const EVENTS: EventItem[] = [
   {
     title: "Sara Landry",
     date: "Aug 01, 2026",
+    dateISO: "2026-08-01",
     venue: "Under the K Bridge Park, BK",
     image: asset("/images/events/sara-landry.jpg"),
     ticketUrl: "https://www.axs.com/events/1322106/sara-landry-tickets",
@@ -121,6 +155,7 @@ const EVENTS: EventItem[] = [
   {
     title: "Serafina — All Night Long",
     date: "Dec 05, 2026",
+    dateISO: "2026-12-05",
     venue: "TBA — Brooklyn, NY",
     image: asset("/images/events/serafina.webp"),
     ticketUrl: "https://posh.vip/e/agap-presents-serafina-all-night-long",
@@ -522,6 +557,14 @@ function EventsSection() {
   const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)");
   const layout = isMobile ? "mobile" : isTablet ? "tablet" : "desktop";
 
+  // Resolve "today" only after mount so the prerendered HTML (built at an
+  // arbitrary time) matches the first client render — then filter for real.
+  const [todayNY, setTodayNY] = useState<string | null>(null);
+  useEffect(() => setTodayNY(nyToday()), []);
+  const visibleEvents = todayNY
+    ? EVENTS.filter((event) => isEventVisible(event, todayNY))
+    : EVENTS;
+
   return (
     <section
       id="events"
@@ -577,7 +620,7 @@ function EventsSection() {
         {layout === "mobile" ? (
           /* Mobile: stacked vertical */
           <div className="flex flex-col gap-4 px-6">
-            {EVENTS.map((event, i) => (
+            {visibleEvents.map((event, i) => (
               <CornerBrackets key={event.title} size={20} color="var(--color-tertiary-dark)">
                 <div className="relative h-[320px] overflow-hidden">
                   <Image
@@ -625,7 +668,7 @@ function EventsSection() {
         ) : layout === "tablet" ? (
           /* Tablet: 2-column grid */
           <div className="grid grid-cols-2 gap-4 px-6">
-            {EVENTS.map((event, i) => (
+            {visibleEvents.map((event, i) => (
               <CornerBrackets key={event.title} size={22} color="var(--color-tertiary-dark)">
                 <div className="relative h-[380px] overflow-hidden">
                   <Image
@@ -673,7 +716,7 @@ function EventsSection() {
         ) : (
           /* Desktop: vertical stack with hover expansion */
           <div className="mx-auto flex w-full max-w-[1200px] flex-col px-6 md:px-10 lg:px-16" style={{ height: 600 }}>
-            {EVENTS.map((event, i) => (
+            {visibleEvents.map((event, i) => (
               <EventCard
                 key={event.title}
                 title={event.title}
