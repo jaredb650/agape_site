@@ -30,7 +30,16 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
 /* ──────────────────────────────────────────────
    PLACEHOLDER DATA
    ────────────────────────────────────────────── */
-const EVENTS = [
+type EventItem = {
+  title: string;
+  date: string;
+  venue: string;
+  image: string;
+  ticketUrl: string;
+  ctaLabel?: string;
+};
+
+const EVENTS: EventItem[] = [
   // {
   //   title: "Kloud + Aphotic",
   //   date: "Mar 14, 2026",
@@ -94,14 +103,14 @@ const EVENTS = [
   //   image: asset("/images/events/refuge-june-26.png"),
   //   ticketUrl: "https://www.eventbrite.com/e/refuge-friday-agape-with-cleric-frederic-hyden-toni-ba-tickets-1990532982735",
   // },
-  {
-    title: "Rooftop Sesh @ Superior Ingredients",
-    date: "Jul 02, 2026",
-    venue: "74 Wythe Ave, Brooklyn",
-    image: asset("/images/events/zwilling.webp"),
-    ticketUrl: "https://posh.vip/e/agap-presents-rooftop-takeover-at-superior-ingredients",
-    ctaLabel: "Free RSVP",
-  },
+  // {
+  //   title: "Rooftop Sesh @ Superior Ingredients",
+  //   date: "Jul 02, 2026",
+  //   venue: "74 Wythe Ave, Brooklyn",
+  //   image: asset("/images/events/zwilling.webp"),
+  //   ticketUrl: "https://posh.vip/e/agap-presents-rooftop-takeover-at-superior-ingredients",
+  //   ctaLabel: "Free RSVP",
+  // },
   {
     title: "Sara Landry",
     date: "Aug 01, 2026",
