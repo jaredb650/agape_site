@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import GlitchText from "@/components/effects/GlitchText";
+import LiveClock from "@/components/effects/LiveClock";
 import { asset } from "@/lib/asset";
 
 const navLinks = [
@@ -148,48 +149,54 @@ export function Navbar() {
                 </motion.div>
               </a>
 
-              {/* Desktop Nav Links — numbered, uppercase, clip-path reveal */}
-              <div className="hidden items-center gap-10 lg:flex">
-                {navLinks.map((link, i) => (
+              {/* Desktop Nav — stacked pairs in hairline cells (index-column style) */}
+              <div className="hidden items-stretch lg:flex">
+                {[0, 2, 4].map((start, cellIdx) => (
                   <motion.div
-                    key={link.href}
+                    key={start}
+                    className="flex flex-col justify-center gap-[3px] border-l border-[#242424] px-7 py-1"
                     initial={{ clipPath: "inset(0 100% 0 0)" }}
                     animate={hasRevealed ? { clipPath: "inset(0 0% 0 0)" } : {}}
                     transition={{
                       duration: 0.5,
-                      delay: 0.3 + i * 0.12,
+                      delay: 0.3 + cellIdx * 0.15,
                       ease: EASE_EXPO,
                     }}
                   >
-                    <a
-                      href={link.href}
-                      onClick={(e) => handleNavClick(e, link.href)}
-                      className="group flex items-baseline gap-2"
-                    >
-                      <span
-                        className="font-mono text-[10px] text-[#888888] transition-colors duration-200 group-hover:text-[#ff2a2a]"
-                        style={{ letterSpacing: "0.05em" }}
+                    {navLinks.slice(start, start + 2).map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        onClick={(e) => handleNavClick(e, link.href)}
+                        className="group flex items-baseline gap-2"
                       >
-                        {link.num}
-                      </span>
-                      <span className="font-display text-[13px] uppercase tracking-[0.12em] text-[#f0f0f0]">
-                        <GlitchText text={link.label} />
-                      </span>
-                    </a>
+                        <span className="font-mono text-[8px] text-[#555555] transition-colors duration-200 group-hover:text-[#ff2a2a]">
+                          {link.num}
+                        </span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#a8a8a8] transition-colors duration-200 group-hover:text-[#f0f0f0]">
+                          <GlitchText text={link.label} />
+                        </span>
+                      </a>
+                    ))}
                   </motion.div>
                 ))}
               </div>
 
-              {/* Desktop — subtle time/status indicator for HUD feel */}
+              {/* Desktop — live status cell: location + NY time */}
               <motion.div
-                className="hidden items-center gap-3 lg:flex"
+                className="hidden flex-col items-end justify-center gap-[3px] border-l border-[#242424] pl-7 lg:flex"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 1.2 }}
               >
-                <span className="h-[6px] w-[6px] bg-[#ff2a2a] animate-pulse" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#888888]">
-                  NYC
+                <div className="flex items-center gap-2">
+                  <span className="h-[5px] w-[5px] bg-[#ff2a2a] animate-pulse" />
+                  <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#8a8a8a]">
+                    Brooklyn NY
+                  </span>
+                </div>
+                <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#555555]">
+                  EST <LiveClock />
                 </span>
               </motion.div>
 
@@ -315,10 +322,10 @@ export function Navbar() {
                     onClick={(e) => handleNavClick(e, link.href)}
                     className="group flex items-baseline gap-2"
                   >
-                    <span className="font-mono text-[9px] text-[#666666] transition-colors duration-200 group-hover:text-[#ff2a2a]">
+                    <span className="font-mono text-[8px] text-[#555555] transition-colors duration-200 group-hover:text-[#ff2a2a]">
                       {link.num}
                     </span>
-                    <span className="font-display text-[12px] uppercase tracking-[0.12em] text-[#999999] transition-colors duration-200 group-hover:text-[#f0f0f0]">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#a8a8a8] transition-colors duration-200 group-hover:text-[#f0f0f0]">
                       <GlitchText text={link.label} />
                     </span>
                   </a>
@@ -330,8 +337,8 @@ export function Navbar() {
                 {/* Live indicator (desktop only) */}
                 <div className="hidden items-center gap-2 lg:flex">
                   <span className="h-[5px] w-[5px] bg-[#ff2a2a] animate-pulse" />
-                  <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-[#666666]">
-                    NYC
+                  <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#666666]">
+                    NYC <LiveClock />
                   </span>
                 </div>
 

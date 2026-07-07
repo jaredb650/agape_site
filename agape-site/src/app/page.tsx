@@ -17,6 +17,9 @@ import EventGallerySection from "@/components/sections/EventGallerySection";
 import VideosSection from "@/components/sections/VideosSection";
 import CinematicMedia from "@/components/sections/CinematicMedia";
 import LazyVideo from "@/components/effects/LazyVideo";
+import BootIntro from "@/components/effects/BootIntro";
+import MoireRings from "@/components/effects/MoireRings";
+import LiveClock from "@/components/effects/LiveClock";
 import { asset } from "@/lib/asset";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
@@ -196,9 +199,10 @@ const RESIDENTS = [
 ];
 
 /* ──────────────────────────────────────────────
-   HERO
+   HERO — boot sequence hands off to a CRT power-on
+   wordmark over the festival's moiré-ring motif
    ────────────────────────────────────────────── */
-function HeroSection() {
+function HeroSection({ booted }: { booted: boolean }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -207,6 +211,8 @@ function HeroSection() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.8], [1, 1.05]);
   const textY = useTransform(scrollYProgress, [0, 0.6], [0, -60]);
+
+  const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
   return (
     <section
@@ -217,77 +223,123 @@ function HeroSection() {
       <motion.div
         className="absolute inset-0"
         style={{ opacity: heroOpacity, scale: heroScale }}
+        initial={{ opacity: 0 }}
+        animate={booted ? { opacity: 1 } : {}}
+        transition={{ duration: 1.4, ease: "easeOut" }}
       >
         <LazyVideo
           src={asset("/media/promo-hero.mp4")}
           poster={asset("/media/promo.jpg")}
           className="h-full w-full"
-          style={{ filter: "brightness(0.5) grayscale(1)" }}
+          style={{ filter: "brightness(0.45) grayscale(1)" }}
         />
         {/* Deep dark overlay for text legibility */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(5,5,5,0.35) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.9) 100%)",
+              "linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.55) 50%, rgba(5,5,5,0.92) 100%)",
           }}
         />
+        {/* Scanlines over the video plate */}
+        <div className="scanlines absolute inset-0 opacity-60" />
       </motion.div>
 
-      {/* Hero content — corner brackets frame */}
+      {/* Moiré interference rings — festival logo motif, breathing behind the wordmark */}
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={booted ? { opacity: 1 } : {}}
+        transition={{ duration: 2, delay: 0.5 }}
+      >
+        <MoireRings />
+      </motion.div>
+
+      {/* Hero content */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6">
         <CornerBrackets
-          className="flex flex-col items-center gap-6 p-10 md:p-16"
+          className="flex flex-col items-center gap-6 p-5 md:p-16"
           size={32}
           strokeWidth={1}
           color="#363636"
         >
           <motion.div style={{ y: textY }}>
-            <StaggerContainer className="flex flex-col items-center gap-5" stagger={0.12}>
-              {/* Logo mark removed per client — wordmark only */}
+            <div className="flex flex-col items-center gap-5">
+              {/* Location plate — echoes the festival hero's boxed label */}
+              <motion.span
+                className="border border-[#363636] px-4 py-1.5 font-mono text-[9px] uppercase tracking-[0.35em] text-[#8a8a8a]"
+                initial={{ opacity: 0 }}
+                animate={booted ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.15 }}
+              >
+                Brooklyn — New York
+              </motion.span>
 
-              {/* Main headline */}
-              <ScrollReveal delay={0.2} distance={30}>
-                <h1
-                  className="font-display font-bold uppercase text-[#fafafa] text-center leading-[0.9]"
-                  style={{
-                    fontSize: "clamp(2.75rem, 7vw, 7rem)",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  <GlitchText text="ÄGAPĒ" playOnMount duration={600} />
-                </h1>
-              </ScrollReveal>
+              {/* Wordmark — Orbitron 900, CRT power-on */}
+              <h1
+                className={`text-center uppercase text-[#fafafa] ${booted ? "crt-on" : "opacity-0"}`}
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 900,
+                  fontSize: "clamp(3rem, 9vw, 8rem)",
+                  letterSpacing: "0.1em",
+                  lineHeight: 0.95,
+                  textShadow: "0 0 60px rgba(255,42,42,0.12)",
+                }}
+              >
+                ÄGAPĒ
+              </h1>
 
               {/* Divider line */}
-              <ScrollReveal delay={0.35}>
-                <motion.div
-                  className="h-[1px] bg-[#363636]"
-                  initial={{ width: 0 }}
-                  animate={{ width: 120 }}
-                  transition={{ duration: 1, delay: 0.8, ease: [0.455, 0.03, 0.515, 0.955] }}
-                />
-              </ScrollReveal>
+              <motion.div
+                className="h-[1px] bg-[#363636]"
+                initial={{ width: 0 }}
+                animate={booted ? { width: 140 } : {}}
+                transition={{ duration: 1, delay: 0.7, ease: EASE }}
+              />
 
-              {/* Tagline */}
-              <ScrollReveal delay={0.5} distance={20}>
-                <p
-                  className="max-w-md text-center font-body text-sm tracking-[0.06em] text-[#888888] md:text-base"
-                  style={{ lineHeight: 1.6 }}
-                >
-                  Pushing the Limits of Electronic Music
-                  <br />
-                  in NYC&apos;s Dance Scene
-                </p>
-              </ScrollReveal>
+              {/* Tagline — festival pixel face (no diacritics needed here) */}
+              <motion.p
+                className="max-w-[75vw] text-center uppercase text-[#a8a8a8] md:max-w-2xl"
+                style={{
+                  fontFamily: "var(--font-pixel)",
+                  fontSize: "clamp(0.9rem, 1.8vw, 1.25rem)",
+                  letterSpacing: "clamp(0.1em, 0.9vw, 0.28em)",
+                  lineHeight: 2,
+                }}
+                initial={{ opacity: 0, y: 14 }}
+                animate={booted ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.85, ease: EASE }}
+              >
+                Pushing the limits of electronic music in NYC&apos;s dance
+                scene
+              </motion.p>
+
+              {/* Live status row */}
+              <motion.div
+                className="flex max-w-[85vw] flex-wrap items-center justify-center gap-x-4 gap-y-1 font-mono text-[9px] uppercase tracking-[0.25em] text-[#6d6d6d]"
+                initial={{ opacity: 0 }}
+                animate={booted ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 1.05 }}
+              >
+                <span>40.7128°N 73.9060°W</span>
+                <span className="h-[3px] w-[3px] bg-[#ff2a2a]" />
+                <span>
+                  EST <LiveClock />
+                </span>
+              </motion.div>
 
               {/* CTA */}
-              <ScrollReveal delay={0.65} distance={15}>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={booted ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 1.2, ease: EASE }}
+              >
                 <FlickerButton href="#events" variant="ticket" className="mt-2">
                   Explore Events
                 </FlickerButton>
-              </ScrollReveal>
-            </StaggerContainer>
+              </motion.div>
+            </div>
           </motion.div>
         </CornerBrackets>
       </div>
@@ -296,8 +348,8 @@ function HeroSection() {
       <motion.div
         className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
+        animate={booted ? { opacity: 1 } : {}}
+        transition={{ delay: 1.8, duration: 0.6 }}
       >
         <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#888888]">
           Scroll
@@ -431,7 +483,8 @@ function NarrativeSection() {
                   }}
                 >
                   <span
-                    className="font-display text-3xl font-bold text-[#fafafa] md:text-4xl"
+                    className="text-4xl text-[#fafafa] md:text-5xl"
+                    style={{ fontFamily: "var(--font-pixel)" }}
                   >
                     <GlitchText text={stat.number} />
                   </span>
@@ -1159,6 +1212,16 @@ function CTASection() {
             </FlickerButton>
           </div>
         </ScrollReveal>
+
+        {/* Chalk sign-off — festival lineup-wall handwriting */}
+        <ScrollReveal delay={0.45}>
+          <span
+            className="inline-block text-xl text-[#6d6d6d] md:text-2xl"
+            style={{ fontFamily: "var(--font-chalk)", transform: "rotate(-2deg)" }}
+          >
+            SEE YOU ON THE FLOOR
+          </span>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -1168,10 +1231,15 @@ function CTASection() {
    HOMEPAGE COMPOSITION
    ────────────────────────────────────────────── */
 export default function Home() {
+  const [booted, setBooted] = useState(false);
+
   return (
     <>
       {/* Fixed Three.js terrain — visible behind semi-transparent sections */}
       {/* <ParallaxField /> */}
+
+      {/* Boot sequence — plays once per session, then hands off to the hero */}
+      <BootIntro onDone={() => setBooted(true)} />
 
       <div className="relative" style={{ zIndex: 1 }}>
         <script
@@ -1181,7 +1249,7 @@ export default function Home() {
           }}
         />
 
-        <HeroSection />
+        <HeroSection booted={booted} />
 
         {/* Filled marquee ticker — attached to hero bottom edge */}
         <div className="overflow-hidden border-t border-b border-dashed border-[#363636] bg-black/60 py-5">
@@ -1189,7 +1257,7 @@ export default function Home() {
             text="UPCOMING"
             variant="filled"
             speed={20}
-            separator={<span className="mx-[0.6em] text-[#363636]">{"///"}</span>}
+            separator={<span className="mx-[0.6em] text-[#ff2a2a]">&middot;</span>}
           />
         </div>
 

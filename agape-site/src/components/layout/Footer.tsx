@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import GlitchText from "@/components/effects/GlitchText";
+import LiveClock from "@/components/effects/LiveClock";
 import { asset } from "@/lib/asset";
 
 const navLinks = [
@@ -41,10 +42,15 @@ export function Footer() {
               <br />
               in NYC&apos;s Dance Scene.
             </p>
-            <div className="flex items-center gap-2">
-              <span className="h-[5px] w-[5px] bg-[#ff2a2a] animate-pulse" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#888888]">
-                New York City
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2">
+                <span className="h-[5px] w-[5px] bg-[#ff2a2a] animate-pulse" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#888888]">
+                  Brooklyn — New York
+                </span>
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#555555]">
+                40.7128°N 73.9060°W · EST <LiveClock />
               </span>
             </div>
           </div>

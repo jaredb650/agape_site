@@ -74,6 +74,34 @@
   font-display: swap;
 }
 
+/* ===== Baselift faces — shared with agape-festival.com ===== */
+
+@font-face {
+  font-family: "Orbitron";
+  src: url("./fonts/Orbitron-Variable.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("./fonts/Outfit-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Festival wordmark pixel face — caps + numerals only, no diacritics.
+   Never set ÄGAPĒ in this; use Orbitron for the wordmark. */
+@font-face {
+  font-family: "Chonky Pixels";
+  src: url("./fonts/ChonkyPixels.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== Tailwind v4 Theme ===== */
 
 @theme {
@@ -89,13 +117,20 @@
   --color-alert: #f04400;
   --color-body: #151515;
 
-  /* Font families */
-  --font-display: "Anybody", sans-serif;
-  --font-body: "Bit Blast Sans", "DM Sans", sans-serif;
-  --font-heavy: "Montserrat", sans-serif;
-  --font-accent: "Alfarn", serif;
+  /* Font families — baselift system.
+     display/heading: Orbitron (festival techno face, full diacritics)
+     pixel: Chonky Pixels (festival wordmark face — caps/numerals, no diacritics)
+     body: Outfit (festival body face)
+     mono: Andale Mono (data/labels)
+     chalk: Vanilla Cream (rare handwritten annotations — festival chalk wall) */
+  --font-display: "Orbitron", sans-serif;
+  --font-heading: "Orbitron", sans-serif;
+  --font-pixel: "Chonky Pixels", "Bit Blast Sans", monospace;
+  --font-body: "Outfit", "DM Sans", sans-serif;
   --font-mono: "Andale Mono", monospace;
-  --font-heading: "Vanilla Cream", sans-serif;
+  --font-chalk: "Vanilla Cream", cursive;
+  --font-heavy: "Orbitron", sans-serif;
+  --font-accent: "Alfarn", serif;
   --font-body-textured: "Bit Blast Sans Textured", "Bit Blast Sans", sans-serif;
 
   /* Font sizes - mapped from Webflow responsive scale */
@@ -218,7 +253,7 @@ body {
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--accent-red-bright);
   outline-offset: 2px;
 }
 
@@ -355,6 +390,67 @@ a {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer 10s linear infinite;
+}
+
+/* ===== Baselift utilities ===== */
+
+/* CRT power-on — hero wordmark reveal */
+@keyframes crt-on {
+  0% {
+    transform: scaleY(0.004) scaleX(1.4);
+    filter: brightness(6);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  45% {
+    transform: scaleY(1.02) scaleX(0.99);
+    filter: brightness(2.2);
+  }
+  70% {
+    transform: scaleY(0.995) scaleX(1.002);
+    filter: brightness(0.9);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(1);
+  }
+}
+
+.crt-on {
+  animation: crt-on 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* Scanline texture — very subtle, layered over media */
+.scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.14) 2px,
+    rgba(0, 0, 0, 0.14) 4px
+  );
+}
+
+/* Blinking block cursor — boot sequence + data labels */
+@keyframes block-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.block-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: var(--accent-red-bright);
+  vertical-align: text-bottom;
+  animation: block-blink 0.9s steps(1) infinite;
+}
+
+/* Tabular numerals for live clocks / coordinates */
+.tabular {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===== Reduced motion ===== */

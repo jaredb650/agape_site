@@ -84,14 +84,25 @@ export default function EventCard({
 
         {/* Content — horizontal layout: info left, CTA right */}
         <div className="relative z-10 flex h-full items-end p-6 md:p-8">
-          {/* Index number — top left */}
+          {/* Index number — top left, festival pixel numerals */}
           <motion.span
-            className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.2em] text-[#888888] md:left-8 md:top-8"
-            animate={{ opacity: isHovered ? 1 : 0.6 }}
+            className="absolute left-6 top-6 text-lg md:left-8 md:top-8 md:text-xl"
+            style={{ fontFamily: "var(--font-pixel)" }}
+            animate={{
+              opacity: isHovered ? 1 : 0.45,
+              color: isHovered ? "#ff2a2a" : "#8a8a8a",
+            }}
             transition={{ duration: 0.3 }}
           >
             {String(index + 1).padStart(2, "0")}
           </motion.span>
+
+          {/* Scanline sweep on hover */}
+          <motion.div
+            className="scanlines pointer-events-none absolute inset-0"
+            animate={{ opacity: isHovered ? 0.5 : 0 }}
+            transition={{ duration: 0.4 }}
+          />
 
           {/* Event info */}
           <div className="flex w-full items-end justify-between gap-6">

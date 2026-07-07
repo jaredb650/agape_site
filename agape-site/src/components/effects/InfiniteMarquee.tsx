@@ -41,11 +41,12 @@ export default function InfiniteMarquee({
         opacity: 0.07,
       }
     : {
-        fontFamily: 'var(--font-display, "Oswald", sans-serif)',
+        // Filled ticker — festival pixel face, data-readout scale
+        fontFamily: 'var(--font-pixel, monospace)',
         textTransform: 'uppercase' as const,
-        fontSize: 'clamp(1.5rem, 4vw, 3rem)',
-        letterSpacing: '0.2em',
-        color: '#fafafa',
+        fontSize: 'clamp(1rem, 2.2vw, 1.5rem)',
+        letterSpacing: '0.35em',
+        color: '#f0f0f0',
       };
 
   return (
