@@ -153,6 +153,14 @@ const EVENTS: EventItem[] = [
     ticketUrl: "https://www.axs.com/events/1322106/sara-landry-tickets",
   },
   {
+    title: "Rikhter (Live) — 4HR Set",
+    date: "Aug 22, 2026",
+    dateISO: "2026-08-22",
+    venue: "70 Scott Ave, Brooklyn",
+    image: asset("/images/events/rikhter.jpg"),
+    ticketUrl: "https://posh.vip/e/agap-presents-rikhter-live-4hr-set",
+  },
+  {
     title: "Serafina — All Night Long",
     date: "Dec 05, 2026",
     dateISO: "2026-12-05",
