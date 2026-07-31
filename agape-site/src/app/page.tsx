@@ -153,6 +153,14 @@ const EVENTS: EventItem[] = [
     ticketUrl: "https://www.axs.com/events/1322106/sara-landry-tickets",
   },
   {
+    title: "Refuge: Chontane (Live), JKS, Benza, Diossa",
+    date: "Aug 21, 2026",
+    dateISO: "2026-08-21",
+    venue: "366 Ten Eyck, BKLYN NY",
+    image: asset("/images/events/refuge-aug-21.jpg"),
+    ticketUrl: "https://www.eventbrite.com/e/refuge-fridays-agape-with-chontane-live-jks-benza-diossa-tickets-1995246104810?aff=agape",
+  },
+  {
     title: "Rikhter (Live) — 4HR Set",
     date: "Aug 22, 2026",
     dateISO: "2026-08-22",
