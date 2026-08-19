@@ -173,6 +173,14 @@ const EVENTS: EventItem[] = [
     ticketUrl: "https://posh.vip/e/agap-presents-rikhter-live-4hr-set",
   },
   {
+    title: "Vladimir Dubyshkin (Live) + Peterblue",
+    date: "Oct 02, 2026",
+    dateISO: "2026-10-02",
+    venue: "99 Scott Ave, Brooklyn",
+    image: asset("/images/events/vladimir-dubyshkin.jpg"),
+    ticketUrl: "https://posh.vip/e/agap-presents-vladimir-dubyshkin-live-peterblue",
+  },
+  {
     title: "Serafina — All Night Long",
     date: "Dec 05, 2026",
     dateISO: "2026-12-05",
