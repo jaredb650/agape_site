@@ -177,6 +177,14 @@ const EVENTS: EventItem[] = [
     ticketUrl: "https://posh.vip/e/agap-presents-vladimir-dubyshkin-live-peterblue",
   },
   {
+    title: "Somewhen — Extended Set (4 Hours) + Support",
+    date: "Oct 17, 2026",
+    dateISO: "2026-10-17",
+    venue: "255 Randolph St, Brooklyn",
+    image: asset("/images/events/somewhen.jpg"),
+    ticketUrl: "https://posh.vip/e/gap-presents-somewhen-all-night-long",
+  },
+  {
     title: "Serafina — All Night Long",
     date: "Dec 05, 2026",
     dateISO: "2026-12-05",
