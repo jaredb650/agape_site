@@ -640,12 +640,12 @@ function EventsSection() {
         </StaggerContainer>
       </div>
 
-      {/* Featured event — Festival full-bleed banner */}
-      <div className="mb-12 md:mb-16">
+      {/* Featured event — Festival full-bleed banner (2026 fest has passed; re-enable for next edition) */}
+      {/* <div className="mb-12 md:mb-16">
         <ScrollReveal>
           <FestivalBannerInline />
         </ScrollReveal>
-      </div>
+      </div> */}
 
       {/* Cards — Desktop: horizontal row with hover expansion, Tablet: 2-col grid, Mobile: stacked */}
       <ScrollReveal delay={0.15}>
