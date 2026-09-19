@@ -693,12 +693,12 @@ function EventsSection() {
         </StaggerContainer>
       </div>
 
-      {/* Featured event — Festival full-bleed banner */}
-      <div className="mb-12 md:mb-16">
+      {/* Featured event — Festival full-bleed banner (2026 fest has passed; re-enable for next edition) */}
+      {/* <div className="mb-12 md:mb-16">
         <ScrollReveal>
           <FestivalBannerInline />
         </ScrollReveal>
-      </div>
+      </div> */}
 
       {/* Departures board — rows + sticky full-poster pane (mobile: poster cards) */}
       <ScrollReveal delay={0.15}>
