@@ -185,6 +185,14 @@ const EVENTS: EventItem[] = [
     ticketUrl: "https://posh.vip/e/gap-presents-somewhen-all-night-long",
   },
   {
+    title: "Halloween Night: Vendex — Extended Set (4 Hours) + Support",
+    date: "Oct 23, 2026",
+    dateISO: "2026-10-23",
+    venue: "255 Randolph St, Brooklyn",
+    image: asset("/images/events/vendex.jpg"),
+    ticketUrl: "https://posh.vip/e/halloween-night-vendex-extended-set",
+  },
+  {
     title: "Serafina — All Night Long",
     date: "Dec 05, 2026",
     dateISO: "2026-12-05",
