@@ -228,6 +228,12 @@ const RESIDENTS = [
     bio: "Johannes Schuster is a standout force in electronic music, a pioneer in the current hard dance wave, and a key part of Agape as an Agape resident. Also a resident at respected German brand Unreal, Johannes has built a reputation through high-impact sets that blend dark grooves, acid, and driving energy.\n\nWith releases on labels including Green Fetish, Soma, NineTimesNine, Varnox, RND Records, and Märked, he continues to push his sound while bringing his signature intensity to dancefloors worldwide.",
   },
   {
+    name: "Flash Gea",
+    role: "Resident DJ",
+    image: asset("/images/residents/flash-gea.jpg"),
+    bio: "Flash Gea (pronounced jēa) is NYC's favorite up-and-coming DJ and techno producer.\n\nBorn and raised in the Bronx, Flash is a fresh face who can be found spinning at raves all around America, or on TikTok and Instagram as @flash.gea, where his videos and music have received 100+ million views and been recognized and co-signed by the likes of Sara Landry, 240 KMH, MIJA, MCR-T, and many more.\n\nAs a music producer, Flash is known for his bouncy techno sound that combines elements of techno, acid, Latin percussion, and his staple “sassy” vocals.\n\nHis breakout year came in 2025, with two songs passing a million streams, a collaboration with renowned techno artist JSTJR, and his first international raves (ADE, F2F, and more). Now in 2026 he has a 2 million+ stream release on the major label Tomorrowland and is on his first domestic US tour, playing legendary venues like the Hollywood Palladium in Los Angeles, Ramova Theatre in Chicago, and The Ave Live in Philadelphia, plus direct support for the 240 KMH group at their NYC Face2Face show with Agape. Flash has his eyes set on taking the techno scene even more by storm through the rest of this year.",
+  },
+  {
     name: "Junkfile",
     role: "Founder / DJ",
     image: asset("/images/residents/junk-file-placeholder.jpg"),
