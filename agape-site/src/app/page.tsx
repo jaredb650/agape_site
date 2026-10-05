@@ -276,14 +276,14 @@ function HeroSection() {
           src={asset("/media/promo-hero.mp4")}
           poster={asset("/media/promo-hero.jpg")}
           className="h-full w-full"
-          style={{ filter: "brightness(0.5) grayscale(1)" }}
+          style={{ filter: "brightness(0.85)" }}
         />
         {/* Deep dark overlay for text legibility */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(5,5,5,0.35) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.9) 100%)",
+              "linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.25) 50%, rgba(5,5,5,0.85) 100%)",
           }}
         />
       </motion.div>
