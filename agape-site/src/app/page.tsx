@@ -274,7 +274,7 @@ function HeroSection() {
       >
         <LazyVideo
           src={asset("/media/promo-hero.mp4")}
-          poster={asset("/media/promo.jpg")}
+          poster={asset("/media/promo-hero.jpg")}
           className="h-full w-full"
           style={{ filter: "brightness(0.5) grayscale(1)" }}
         />
