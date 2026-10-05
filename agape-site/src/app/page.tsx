@@ -177,6 +177,14 @@ const EVENTS: EventItem[] = [
     ticketUrl: "https://posh.vip/e/agap-presents-vladimir-dubyshkin-live-peterblue",
   },
   {
+    title: "Refuge: Adam X, Cotton, Fran LF, Frankie Bones (60th Birthday), Perc",
+    date: "Oct 16, 2026",
+    dateISO: "2026-10-16",
+    venue: "366 Ten Eyck, BKLYN NY",
+    image: asset("/images/events/refuge-oct-16.jpg"),
+    ticketUrl: "https://www.eventbrite.com/e/refuge-friday-agape-w-adam-x-fran-lf-frankie-bones-perc-cotton-tickets-2001796504231",
+  },
+  {
     title: "Somewhen — Extended Set (4 Hours) + Support",
     date: "Oct 17, 2026",
     dateISO: "2026-10-17",
