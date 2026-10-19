@@ -13,7 +13,7 @@ const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "700"], display:
 const FEST_START = Date.parse("2027-02-19T00:00:00-05:00");
 // Banner removes itself once the second day is over (NY time).
 const FEST_END = Date.parse("2027-02-21T12:00:00-05:00");
-const NOTIFY_URL = "https://laylo.com/agapenyc/GHSBKw";
+const TICKETS_URL = "https://dice.fm/partner/tickets/event/6dyng3-gap-winter-festival-19th-feb-industry-city-new-york-city-tickets";
 const FESTIVAL_URL = "https://agape-festival.com/";
 
 function remainingTime(now: number) {
@@ -120,9 +120,9 @@ export default function WinterFestBanner() {
           <div className="wfest-divider" aria-hidden="true" />
           <Countdown />
           <div className="wfest-actions">
-            <a className="wfest-notify" href={NOTIFY_URL} target="_blank" rel="noopener noreferrer">
+            <a className="wfest-notify" href={TICKETS_URL} target="_blank" rel="noopener noreferrer">
               <span className="wfest-notify-glow" aria-hidden="true" />
-              Get notified
+              Get tickets
             </a>
             <a className="wfest-site" href={FESTIVAL_URL} target="_blank" rel="noopener noreferrer">
               agape-festival.com →
