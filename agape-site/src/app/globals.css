@@ -383,3 +383,82 @@ a {
     animation: none;
   }
 }
+
+/* ===== Winter festival banner (ported from agape-festival's Winter Edition hero) ===== */
+@font-face {
+  font-family: "Chonky Pixels";
+  src: url("./fonts/ChonkyPixels.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+.wfest { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: clamp(600px, 82vh, 780px); padding: 72px 24px; background: #000; color: #fff; font-family: var(--font-orbitron), sans-serif; border-top: 1px dashed var(--color-tertiary-dark); border-bottom: 1px dashed var(--color-tertiary-dark); }
+.wfest-background, .wfest-vignette, .wfest-scanlines { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.wfest-background { opacity: 0; transition: opacity 2s .9s; }
+.wfest.is-inview .wfest-background { opacity: .65; }
+.wfest-background video, .wfest-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.65) contrast(1.2); }
+.wfest-background video { opacity: 0; transition: opacity .6s ease; }
+.wfest-background video.is-playing { opacity: 1; }
+.wfest-vignette { background: radial-gradient(ellipse at 50% 45%, transparent 10%, #0008 65%, #000e 100%), linear-gradient(#0006, #0003 50%, #000b); }
+.wfest-scanlines { background: repeating-linear-gradient(0deg, transparent 0 3px, #0002 3px 4px); }
+.wfest-frame { position: absolute; inset: 22px; pointer-events: none; }
+.wfest-frame i { position: absolute; width: 13px; height: 13px; border-color: #ffffff35; border-style: solid; }
+.wfest-frame i:nth-child(1) { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.wfest-frame i:nth-child(2) { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.wfest-frame i:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.wfest-frame i:nth-child(4) { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+.wfest-label { position: absolute; top: 40px; left: 44px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #888; }
+.wfest-content { width: min(100%, 560px); text-align: center; }
+.wfest-logo { margin: 0 auto 28px; width: min(100%, 420px); }
+.wfest-logo img { display: block; width: 100%; height: auto; filter: drop-shadow(0 3px 22px #0009); }
+.wfest-details { display: grid; justify-items: center; gap: 12px; text-transform: uppercase; }
+.wfest-edition, .wfest-date { margin: 0; font-family: "Chonky Pixels", monospace; font-weight: 400; }
+.wfest-edition { font-size: clamp(20px, 4.4vw, 29px); letter-spacing: .055em; line-height: 1.5; }
+.wfest-date { font-size: clamp(16px, 3.3vw, 21px); letter-spacing: .04em; line-height: 1.9; color: #d5d5d5; }
+.wfest-edition span, .wfest-date span { display: block; white-space: nowrap; clip-path: inset(0 100% 0 0); }
+.wfest-divider { width: 30px; height: 1px; margin: 26px auto; background: #a42b2b; box-shadow: 0 0 14px #a42b2b66; }
+.wfest-countdown { display: grid; grid-template-columns: repeat(4, 1fr); width: min(100%, 360px); margin: 0 auto 32px; }
+.wfest-time { position: relative; display: grid; gap: 9px; }
+.wfest-time + .wfest-time::before { content: ":"; position: absolute; left: -3px; top: 3px; font-size: 23px; color: #ffffff40; }
+.wfest-number { font-size: clamp(28px, 6vw, 36px); font-variant-numeric: tabular-nums; font-weight: 700; letter-spacing: .04em; }
+.wfest-unit { font-size: 8px; text-transform: uppercase; letter-spacing: .18em; color: #a6a6a6; }
+.wfest-actions { display: grid; justify-items: center; gap: 18px; }
+/* Same ticket CTA as the festival site: Orbitron, deep red, corner frame and glow. */
+.wfest-notify { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 60px; max-width: 100%; padding: 20px 48px; background: #8b0000; color: #fff; text-decoration: none; text-transform: uppercase; font-family: var(--font-orbitron), sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .3em; transition: background .3s, transform .3s; box-shadow: 0 0 8px rgba(200,0,0,.3); }
+.wfest-notify-glow { position: absolute; inset: 0; pointer-events: none; box-shadow: 0 0 25px rgba(200,0,0,.5), 0 0 60px rgba(139,0,0,.2); opacity: 0; will-change: opacity; animation: wfestGlow 4s ease-in-out infinite; }
+.wfest-notify::before { content: ""; position: absolute; inset: -1px; pointer-events: none; background: linear-gradient(#ff2a2a99,#ff2a2a99) left top/16px 1px, linear-gradient(#ff2a2a99,#ff2a2a99) left top/1px 16px, linear-gradient(#ff2a2a99,#ff2a2a99) right top/16px 1px, linear-gradient(#ff2a2a99,#ff2a2a99) right top/1px 16px, linear-gradient(#ff2a2a99,#ff2a2a99) left bottom/16px 1px, linear-gradient(#ff2a2a99,#ff2a2a99) left bottom/1px 16px, linear-gradient(#ff2a2a99,#ff2a2a99) right bottom/16px 1px, linear-gradient(#ff2a2a99,#ff2a2a99) right bottom/1px 16px; background-repeat: no-repeat; }
+.wfest-notify::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,.08) 50%), linear-gradient(90deg, rgba(255,0,0,.02), rgba(0,255,0,.01), rgba(0,0,255,.02)); background-size: 100% 2px, 3px 100%; pointer-events: none; }
+.wfest-notify:hover { background: #a00000; transform: scale(1.05); }
+.wfest-site { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #9a9a9a; text-decoration: none; transition: color .2s; }
+.wfest-site:hover { color: #fff; }
+.wfest a:focus-visible, .wfest-motion:focus-visible { outline: 2px solid #fff; outline-offset: 6px; }
+.wfest-motion { position: absolute; right: 30px; bottom: 28px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; color: #aaa; cursor: pointer; }
+.wfest-motion:hover { color: #fff; }
+@keyframes wfestGlow { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+@keyframes wfestLogoIn {
+  0% { opacity: 0; transform: scale(1.13); clip-path: inset(48% 0 48% 0); }
+  20% { opacity: .85; transform: translateX(-8px) scale(1.04); clip-path: inset(0 0 60% 0); }
+  36% { opacity: .5; transform: translateX(6px); clip-path: inset(30% 0 10% 0); }
+  55% { opacity: 1; transform: translateX(-3px); clip-path: inset(0); }
+  70% { opacity: .65; transform: translateX(2px); }
+  100% { opacity: 1; transform: none; clip-path: inset(0); }
+}
+@keyframes wfestTypeIn { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes wfestQuietIn { from { opacity: 0; } to { opacity: 1; } }
+/* Entrance plays once the banner scrolls into view (class added by WinterFestBanner). */
+.wfest-logo, .wfest-reveal, .wfest-frame, .wfest-scanlines, .wfest-label { opacity: 0; }
+.wfest.is-inview .wfest-logo { animation: wfestLogoIn .8s .15s both; }
+.wfest.is-inview .wfest-edition span { animation: wfestTypeIn .85s steps(14, end) .9s both; }
+.wfest.is-inview .wfest-date span { animation: wfestTypeIn .6s steps(9, end) 1.75s both; }
+.wfest.is-inview .wfest-reveal { animation: wfestQuietIn 1s 2.3s both; }
+.wfest.is-inview .wfest-frame, .wfest.is-inview .wfest-scanlines, .wfest.is-inview .wfest-label { animation: wfestQuietIn 1.5s 1s both; }
+@media (max-width: 600px) {
+  .wfest { min-height: 0; padding: 88px 28px 80px; }
+  .wfest-frame { inset: 14px; }
+  .wfest-label { top: 30px; left: 32px; }
+  .wfest-logo { width: min(100%, 320px); }
+  .wfest-motion { right: 16px; bottom: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wfest-notify-glow { animation: none; }
+  .wfest-background { transition: none; }
+}
