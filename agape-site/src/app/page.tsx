@@ -210,6 +210,22 @@ const EVENTS: EventItem[] = [
     ticketUrl: "https://posh.vip/e/agap-presents-ueberrest-shoki287",
   },
   {
+    title: "Mija Invites: MRD + Flash Gea + Slowdancexo",
+    date: "Nov 27, 2026",
+    dateISO: "2026-11-27",
+    venue: "70 Scott Ave, Brooklyn",
+    image: asset("/images/events/mija-invites.jpg"),
+    ticketUrl: "https://posh.vip/e/agap-presents-mija-invites",
+  },
+  {
+    title: "Art Basel — Domicile x ägapē: Elli Acula + Marrøn ft. Elias Garcia, Junkfile",
+    date: "Dec 03, 2026",
+    dateISO: "2026-12-03",
+    venue: "2900 NW 7th Ave, Miami",
+    image: asset("/images/events/art-basel-domicile.jpg"),
+    ticketUrl: "https://posh.vip/e/domicile-x-gap-present-basel-week-opening-party-marrn-elli-acula-elias-garcia-junkfile",
+  },
+  {
     title: "Serafina — All Night Long",
     date: "Dec 05, 2026",
     dateISO: "2026-12-05",
